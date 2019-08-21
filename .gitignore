@@ -1,7 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-node_modules
+/functions/node_modules
+/node_modules
 /.pnp
 .pnp.js
 
@@ -17,12 +18,17 @@ node_modules
 .env.development.local
 .env.test.local
 .env.production.local
+.vscode
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# firebase
+firebase-debug.log*
+firestore-debug.log*
 serviceAccountKey.json
+
+# temp
 public/images
 public/bootstrap2
-.vscode
