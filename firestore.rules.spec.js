@@ -15,6 +15,6 @@ describe('Database rules', () => {
 
   test('fail when reading/writing to an unauthorized collection', async () => {
     await expect(ref.get()).toAllow()
-    await expect(ref.doc('something').set({ foo: 'bar' })).toDeny()
+    await expect(ref.doc('test').set({ foo: 'bar' })).toDeny()
   })
 })

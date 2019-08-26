@@ -29,6 +29,10 @@ firebase-debug.log*
 firestore-debug.log*
 serviceAccountKey.json
 
+# google sheets
+credentials.json
+token.json
+
 # temp
 public/images
 public/bootstrap2
