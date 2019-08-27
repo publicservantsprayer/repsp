@@ -1,5 +1,6 @@
 import React from 'react'
+import { statesObj } from './utilities/states'
 
-const PageTitle = () => <h1 className="page-header">Indiana</h1>
+const PageTitle = props => <h1>{statesObj[props.stateCode]}</h1>
 
 export default PageTitle

@@ -1,37 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PageTitle from '../PageTitle'
-import ColumnLeft from '../ColumnLeft'
-import ColumnRight from '../ColumnRight'
 import Leader from '../Leader'
+import { withFirebase } from '../Firebase'
+import moment from 'moment'
 
-const today = () => {
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
-  const date = new Date()
-  return date.toLocaleDateString("en-US", options)
+
+const StateHome = ({ match, db }) => {
+  const stateCode = match.params.stateCode.toUpperCase()
+  const [post, setPost] = useState({})
+
+  useEffect(() => {
+    (async () => {
+      const snap = await db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(1).get()
+      console.log(snap)
+      setPost(snap.docs[0].data())
+    })()
+  }, [db, stateCode])
+
+  return (
+    <div>
+      <PageTitle stateCode={stateCode} />
+      {post.dateID &&
+        <div>
+          <h3>{moment(post.dateID).format('dddd, MMMM Do, YYYY')}</h3>
+          <h2>Today we are praying for</h2>
+          <Leader leader={post.leader1} />
+          <Leader leader={post.leader2} />
+          <Leader leader={post.leader3} />
+        </div>
+      }
+    </div>
+  )
 }
 
-const StateHome = ({ match }) =>
-
-  <div className="row">
-    <div className="span9">
-      <PageTitle />
-      <div className="row">
-        <div className="span3">
-          <ColumnLeft />
-        </div>
-        <div className="span6">
-          <h2 className="state-header">Leaders Being Prayed For Today</h2>
-          <h3 className="date">{today()}</h3>
-          <Leader />
-          <Leader />
-          <Leader />
-        </div>
-      </div>
-    </div>
-
-    <div className="span3" style={{ padding: 0.25 }}>
-      <ColumnRight />
-    </div>
-  </div>
-
-export default StateHome
+export default withFirebase(StateHome)
