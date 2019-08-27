@@ -22,7 +22,7 @@
     console.log('deleted: ', path)
     return null
   })
-  await Promise.all(deletions)
+  return Promise.all(deletions)
 })().catch(error => {
   console.log(error)
 })

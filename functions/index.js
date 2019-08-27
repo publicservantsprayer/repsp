@@ -12,10 +12,10 @@ const { createDailyPost } = require('./createDailyPost')
 
 exports.createPostPhoto = functions.firestore
   .document('states/{stateCode}/posts/{date}')
-  .onWrite((change, context) => {
+  .onCreate((snap, context) => {
     const stateCode = context.params.stateCode
     const date = context.params.date
-    const post = change.after.data()
+    const post = snap.data()
 
     return createPostPhoto(date, stateCode, post)
   })

@@ -23,7 +23,7 @@
     return null
   })
 
-  await Promise.all(posts)
+  return Promise.all(posts)
 })().catch(error => {
   console.log(error)
 })

@@ -23,6 +23,8 @@ const dayOfTheWeekColor = [
 const nameAndTitle = leader => `${leader.Title} ${leader.FirstName} ${leader.LastName}`
 
 module.exports.createPostPhoto = async (dateID, stateCode, post) => {
+  if (!post) throw Error(`No post for ${dateID} of ${stateCode}`)
+
   const postImageName = `${dateID}_psp_${stateCode}.png`
   const logoName = 'public-servants-prayer-scaled.png'
   const postPath = path.join(os.tmpdir(), postImageName)

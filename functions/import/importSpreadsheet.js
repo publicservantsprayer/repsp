@@ -49,6 +49,7 @@ module.exports.importSpreadsheet = async (db, url, auth) => {
 
       const doc = db.collection('states').doc(leader.StateCode).collection('leaders').doc(leader.permaLink)
       try {
+        // eslint-disable-next-line no-await-in-loop
         await doc.set(leader)
         console.log('Added: ', leader.permaLink)
       } catch (error) {
@@ -59,10 +60,11 @@ module.exports.importSpreadsheet = async (db, url, auth) => {
 }
 
 module.exports.addStateNameAndRegion = async db => {
-  for (let stateCode of stateCodes) {
-    await db.collection('states').doc(stateCode).set({
+  const writes = stateCodes.map(stateCode => {
+    return db.collection('states').doc(stateCode).set({
       name: statesObj[stateCode],
       region: regionForStateCode(stateCode)
     })
-  }
+  })
+  return Promise.all(writes)
 }

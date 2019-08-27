@@ -12,7 +12,7 @@ const StateHome = ({ match, db }) => {
   useEffect(() => {
     (async () => {
       const snap = await db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(1).get()
-      console.log(snap)
+      console.log('getting leader data')
       setPost(snap.docs[0].data())
     })()
   }, [db, stateCode])
