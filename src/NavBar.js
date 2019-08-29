@@ -1,32 +1,55 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+})); 
 
 const NavBar = () => (
-  <div className="navbar navbar-fixed-top">
-    <div className="navbar-inner">
-      <div className="container-fluid">
-        <a className="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span className="icon-bar"></span>
-          <span className="icon-bar"></span>
-          <span className="icon-bar"></span>
-        </a>
-
-        <Link to="/" className="brand">Public Servants' Prayer</Link>
-
-        <div className="nav-collapse">
-          <ul className="nav pull-right">
-            <li><Link to="/">Find Your State</Link></li>
-
-            <li><Link to="https://thepsp.org/blog">Blog</Link></li>
-
-            <li><Link to="http://thepsp.org/about">About</Link></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <AppBar color="primary" position="static">
+    <Toolbar>
+      <Typography variant="title"
+        color="inherit"
+      >
+        My header
+           </Typography>
+    </Toolbar>
+  </AppBar>
 )
+export default function ButtonAppBar() {
+  const classes = useStyles();
 
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            News
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+}
 
-export default NavBar
+//export default NavBar

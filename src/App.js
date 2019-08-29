@@ -10,6 +10,7 @@ import StateLeaders from './screens/StateLeaders'
 function App () {
   return (
     <Router>
+    
       <Route component={NavBar} />
 
       <div className="container">
