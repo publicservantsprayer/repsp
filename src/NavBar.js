@@ -39,6 +39,7 @@ const NavBar = ({ location }) => {
             News
           </Typography>
           <Button color="inherit" component={routerLink} to="/">Find Your State</Button>
+          <Button color="inherit" component={routerLink} to="/news">News</Button>
           {stateCode &&
             <>
               <Button color="inherit" component={routerLink} to={`/states/${stateCode}`}>Daily Leaders</Button>
