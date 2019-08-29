@@ -25,7 +25,7 @@ const StateLeaders = ({ match, db }) => {
       setstateHouse(stateHouseSnap.docs)
     }
     getLeaders()
-  })
+  }, [db, stateCode])
 
   if (!fedSenate) return null
   if (!fedHouse) return null
@@ -40,7 +40,6 @@ const StateLeaders = ({ match, db }) => {
       <Chamber title="Federal House" leaders={fedHouse} />
       <Chamber title="State House" leaders={stateSenate} />
       <Chamber title="State Senate" leaders={stateHouse} />
-
     </div>
   )
 }

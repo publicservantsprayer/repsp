@@ -19,20 +19,13 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
-})); 
+}))
 
-const NavBar = () => (
-  <AppBar color="primary" position="static">
-    <Toolbar>
-      <Typography variant="title"
-        color="inherit"
-      >
-        My header
-           </Typography>
-    </Toolbar>
-  </AppBar>
-)
-export default function ButtonAppBar() {
+const NavBar = ({ location }) => {
+  const stateCode = location.pathname.split('/')[2]
+
+  const routerLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props}></Link>)
+
   const classes = useStyles();
 
   return (
@@ -45,6 +38,13 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             News
           </Typography>
+          <Button color="inherit" component={routerLink} to="/">Find Your State</Button>
+          {stateCode &&
+            <>
+              <Button color="inherit" component={routerLink} to={`/states/${stateCode}`}>Daily Leaders</Button>
+              <Button color="inherit" component={routerLink} to={`/states/${stateCode}/leaders`}>State Leaders</Button>
+            </>
+          }
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
@@ -52,4 +52,4 @@ export default function ButtonAppBar() {
   );
 }
 
-//export default NavBar
+export default NavBar

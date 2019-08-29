@@ -1,11 +1,13 @@
 import React from 'react'
 
-import Map from '../Map'
+import Map from '../SVGMap'
 
-const USMap = () =>
-  <div>
-    <h1 className="page-header">Find Your State</h1>
-    <Map />
-  </div >
-
+const USMap = () => {
+  return (
+    < div >
+      <h1>Find Your State</h1>
+      <Map />
+    </div >
+  )
+}
 export default USMap

@@ -1,4 +1,5 @@
 import React from 'react'
+import Leader from './Leader'
 
 const Chamber = ({ title, leaders }) => {
   leaders = leaders.map(doc => doc.data())
@@ -9,9 +10,7 @@ const Chamber = ({ title, leaders }) => {
         {leaders.map(leader =>
           <li key={leader.PID}>
 
-            <img src={`https://firebasestorage.googleapis.com/v0/b/repsp123-leaders/o/${leader.PhotoFile}?alt=media`} alt={leader.PhotoFile} />
-            <br />
-            {leader.FirstName} {leader.LastName}
+            <Leader leader={leader} />
           </li>
         )}
       </ul>

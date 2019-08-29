@@ -6,6 +6,7 @@ import NavBar from './NavBar'
 import USMap from './screens/USMap'
 import StateHome from './screens/StateHome'
 import StateLeaders from './screens/StateLeaders'
+import StateLeader from './screens/StateLeader'
 
 function App () {
   return (
@@ -13,11 +14,10 @@ function App () {
     
       <Route component={NavBar} />
 
-      <div className="container">
-        <Route exact path="/" component={USMap} />
-        <Route exact path="/states/:stateCode" component={StateHome} />
-        <Route path="/states/:stateCode/leaders" component={StateLeaders} />
-      </div>
+      <Route exact path="/" component={USMap} />
+      <Route exact path="/states/:stateCode" component={StateHome} />
+      <Route exact path="/states/:stateCode/leader/:id" component={StateLeader} />
+      <Route path="/states/:stateCode/leaders" component={StateLeaders} />
     </Router>
   )
 }
