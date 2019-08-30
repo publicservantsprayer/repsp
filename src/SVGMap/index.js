@@ -3,9 +3,12 @@ import { Redirect } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
 import { stateCodes } from '../utilities/states'
 import statePaths from './statePaths'
+import theme from '../utilities/theme'
 
-const stateColor = '#88a4bc'
-const stateHighlight = '#223E56'
+console.log(theme)
+
+const stateColor = theme.palette.secondary.dark
+const stateHighlight = theme.palette.primary.main
 
 const addAllEvents = (stateCode, setTo, setStyle) => {
   const addEvents = (element, target, to, setStyle) => {
