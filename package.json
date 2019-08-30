@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
-    "@firebase/testing": "^0.12.0"
+    "@firebase/testing": "^0.12.0",
+    "eslint-plugin-react-hooks": "^2.0.1"
   }
 }
