@@ -22,6 +22,8 @@ lines.map(line => {
   if (!splited) return null
   stateCode = splited.split('"></path')[0]
   obj[stateCode] = { d: d }
+  // default to no label
+  obj[stateCode].hasLabel = false
   d = null
   stateCode = null
   return null
@@ -43,6 +45,8 @@ lines.map(line => {
     obj[stateCode].rectX = splited[0]
     splited = splited[1].split('" width="')
     obj[stateCode].rectY = splited[0]
+    // overwrite states with label
+    obj[stateCode].hasLabel = true
     return null
   }
 
@@ -94,6 +98,12 @@ lines.map(line => {
   return null
 })
 
+// order by keys
+const orderedObj = {}
+Object.keys(obj).sort().forEach(function (key) {
+  orderedObj[key] = obj[key]
+})
+
 // convert js object to a string and write to the file system
-let data = 'const statePaths = ' + JSON.stringify(obj, null, 2) + '\nexport default statePaths';
-fs.writeFileSync('src/SVGMap/statePaths.js', data)
+let data = 'const statePaths = ' + JSON.stringify(orderedObj, null, 2) + '\nexport default statePaths';
+fs.writeFileSync('statePaths.js', data)

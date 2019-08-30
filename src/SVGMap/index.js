@@ -1,55 +1,106 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
-import SVGMapPaths from './SVGMapPaths'
 import { stateCodes } from '../utilities/states'
+import statePaths from './statePaths'
 
-const SVGMap = () => {
-  const [to, setTo] = useState()
-  const stateColor = '#88a4bc'
-  const stateHighlight = '#223E56'
-  const [highlight, set] = useSpring(() => ({ color: stateColor }))
+const stateColor = '#88a4bc'
+const stateHighlight = '#223E56'
 
-  const addEvents = (element, target, to) => {
+const addAllEvents = (stateCode, setTo, setStyle) => {
+  const addEvents = (element, target, to, setStyle) => {
     element.addEventListener('click', event => {
       setTo(to)
     })
     element.addEventListener('mouseover', event => {
-      target.style.fill = stateHighlight
+      if (setStyle) setStyle({ fill: stateHighlight })
     })
     element.addEventListener('mouseout', event => {
-      target.style.fill = stateColor
+      if (setStyle) setStyle({ fill: stateColor })
     })
   }
+
+  const to = `/states/${stateCode}`
+  const mapPath = document.querySelector(`.map-path-${stateCode}`)
+  const mapText = document.querySelector(`.map-text-${stateCode}`)
+  const mapRect = document.querySelector(`.map-rect-${stateCode}`)
+  addEvents(mapPath, mapPath, to, setStyle)
+  addEvents(mapText, mapPath, to, setStyle)
+  if (mapRect) {
+    addEvents(mapRect, mapRect, to, setStyle)
+    addEvents(mapRect, mapPath, to, setStyle)
+    addEvents(mapText, mapRect, to, setStyle)
+    addEvents(mapPath, mapRect, to, setStyle)
+  }
+}
+
+const SVGMapPath = ({ stateCode, spring }) => {
+  const [to, setTo] = useState()
+  const [style, setStyle] = useSpring(() => ({ fill: stateColor }))
+  const className = `map-path map-path-${stateCode}`
+  const d = statePaths[stateCode].d
 
   useEffect(() => {
-    stateCodes.forEach(stateCode => {
-      const to = `/states/${stateCode}`
-      const mapState = document.querySelector(`.map-state-${stateCode}`)
-      const mapText = document.querySelector(`.map-label-${stateCode}`)
-      const mapLabel = document.querySelector(`.map-rect-${stateCode}`)
-      addEvents(mapState, mapState, to)
-      addEvents(mapText, mapState, to)
-      if (mapLabel) {
-        addEvents(mapLabel, mapLabel, to)
-        addEvents(mapLabel, mapState, to)
-        addEvents(mapText, mapState, to)
-        addEvents(mapText, mapLabel, to)
-        addEvents(mapState, mapLabel, to)
-      }
-    })
-  }, [])
-  if (to) {
-    return <Redirect to={to} push="true" />
-  }
+    addAllEvents(stateCode, setTo, setStyle)
+  }, [setStyle, stateCode])
+
+  if (to) return <Redirect to={to} push="true" />
 
   return (
-    <div>
-      <svg height="431.2" version="1.1" width="700" xmlns="http://www.w3.org/2000/svg"
-        style={{ overflow: 'hidden', position: 'relative' }} viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin">
-        <SVGMapPaths />
-      </svg>
-    </div >
+    <animated.path
+      d={d}
+      style={style}
+      className={className}></animated.path>
+  )
+}
+
+const SVGMapRect = ({ stateCode }) => {
+  const [to, setTo] = useState()
+  const [style, setStyle] = useSpring(() => ({ fill: stateColor }))
+
+  const className = `map-rect map-rect-${stateCode}`
+  const x = statePaths[stateCode].rectX
+  const y = statePaths[stateCode].rectY
+  const transform = statePaths[stateCode].rectTransform
+
+  useEffect(() => addAllEvents(stateCode, setTo, setStyle), [setStyle, stateCode])
+
+  if (to) return <Redirect to={to} push="true" />
+  if (!statePaths[stateCode].hasLabel) return null
+
+  return (
+    <animated.rect className={className} x={x} y={y} style={style} width="45" height="28" r="6"
+      rx="6" transform={transform} ry="6" ></animated.rect>
+  )
+}
+
+const SVGMapText = ({ stateCode }) => {
+  const [to, setTo] = useState()
+
+  useEffect(() => addAllEvents(stateCode, setTo), [stateCode])
+
+  const className = `map-text map-text-${stateCode}`
+  const x = statePaths[stateCode].textX
+  const y = statePaths[stateCode].textY
+  const transform = statePaths[stateCode].textTransform
+
+  if (to) return <Redirect to={to} push="true" />
+
+  return (
+    <text className={className} x={x} y={y} transform={transform}>
+      <tspan dy="7.75">{stateCode}</tspan>
+    </text>
+  )
+}
+
+const SVGMap = () => {
+  return (
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="auto" width="auto"
+      style={{ overflowx: 'hidden', positionx: 'relative' }} viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin">
+      {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} />)}
+      {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} />)}
+      {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} />)}
+    </svg>
   )
 }
 
