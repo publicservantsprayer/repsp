@@ -27,19 +27,19 @@ export default function MediaCard(props) {
         <CardMedia
           className={classes.media}
           image={props.image}
-          title="fall trees">
+          title="photo">
         </CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h6" >
             {props.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="subtitle2" color="textSecondary" component="p">
             {props.blurb}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" backgroundColor="secondary">
           Share
         </Button>
         <Button size="small" color="primary">
