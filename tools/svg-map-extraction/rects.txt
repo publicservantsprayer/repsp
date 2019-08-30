@@ -1,0 +1,55 @@
+
+
+    <rect className="map-rect map-rect-NH" x="629.9" y="114.00351562499999" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,195.72,38.43)"></rect>
+    <text x="652.4" y="128.1" transform="matrix(0.7,0,0,0.7,195.72,38.43)" className="map-label map-label-NH">
+      <tspan dy="7.748437499999994">NH</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-VT" x="595.5999999999999" y="156.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,185.43,51.03)"></rect>
+    <text x="618.0999999999999" y="170.1" transform="matrix(0.7,0,0,0.7,185.43,51.03)" className="map-label map-label-VT">
+      <tspan dy="7.748437499999994">VT</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-RI" x="629.9" y="177.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,195.72,57.33)"></rect>
+    <text x="652.4" y="191.1" transform="matrix(0.7,0,0,0.7,195.72,57.33)" className="map-label map-label-RI">
+      <tspan dy="7.748437499999994">RI</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-NJ" x="595.5999999999999" y="177.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,185.43,57.33)"></rect>
+    <text x="618.0999999999999" y="191.1" transform="matrix(0.7,0,0,0.7,185.43,57.33)" className="map-label map-label-NJ">
+      <tspan dy="7.748437499999994">NJ</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-DE" x="595.5999999999999" y="198.003515625" width="45" height="28.19296875" ="5.63859375"
+    rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,185.43,63.63)"></rect>
+    <text x="618.0999999999999" y="212.1" transform="matrix(0.7,0,0,0.7,185.43,63.63)" className="map-label map-label-DE">
+      <tspan dy="7.748437499999994">DE</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-MD" x="629.9" y="198.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,195.72,63.63)"></rect>
+    <text x="652.4" y="212.1" transform="matrix(0.7,0,0,0.7,195.72,63.63)" className="map-label map-label-MD">
+      <tspan dy="7.748437499999994">MD</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-MA" x="629.9" y="135.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,195.72,44.73)"></rect>
+    <text x="652.4" y="149.1" transform="matrix(0.7,0,0,0.7,195.72,44.73)" className="map-label map-label-MA">
+      <tspan dy="7.748437499999994">MA</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-CT" x="629.9" y="156.003515625" width="45" height="28.19296875" r="5.63859375"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,195.72,51.03)"></rect>
+    <text x="652.4" y="170.1" transform="matrix(0.7,0,0,0.7,195.72,51.03)" className="map-label map-label-CT">
+      <tspan dy="7.748437499999994">CT</tspan>
+    </text>
+
+    <rect className="map-rect map-rect-HI" x="197.55" y="381.4125" width="31.9" height="28.174999999999997" r="5.635"
+      rx="5.63859375" ry="5.63859375" transform="matrix(0.7,0,0,0.7,64.05,118.65)"></rect>
+    <text x="213.5" y="395.5" transform="matrix(0.7,0,0,0.7,64.05,118.65)" className="map-label map-label-HI">
+      <tspan dy="7.75">HI</tspan>
+    </text>

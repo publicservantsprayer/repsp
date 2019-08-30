@@ -1,0 +1,123 @@
+    <text x="79.1" y="346.5" transform="matrix(0.7,0,0,0.7,23.73,103.95)" className="map-label map-label-AK">
+      <tspan dy="7.75">AK</tspan>
+    </text>
+    <text x="541.1" y="357" transform="matrix(0.7,0,0,0.7,162.33,107.1)" className="map-label map-label-FL">
+      <tspan dy="7.75">FL</tspan>
+    </text>
+    <text x="625.1" y="59.5" transform="matrix(0.7,0,0,0.7,187.53,17.85)" className="map-label map-label-ME">
+      <tspan dy="7.75">ME</tspan>
+    </text>
+    <text x="570.5" y="110.6" transform="matrix(0.7,0,0,0.7,171.15,33.18)" className="map-label map-label-NY">
+      <tspan dy="7.75">NY</tspan>
+    </text>
+    <text x="550.2" y="147" transform="matrix(0.7,0,0,0.7,165.06,44.1)" className="map-label map-label-PA">
+      <tspan dy="7.75">PA</tspan>
+    </text>
+    <text x="553" y="197.4" transform="matrix(0.7,0,0,0.7,165.9,59.22)" className="map-label map-label-VA">
+      <tspan dy="7.75">VA</tspan>
+    </text>
+    <text x="520.8" y="189" transform="matrix(0.7,0,0,0.7,156.24,56.7)" className="map-label map-label-WV">
+      <tspan dy="7.75">WV</tspan>
+    </text>
+    <text x="490" y="168" transform="matrix(0.7,0,0,0.7,147,50.4)" className="map-label map-label-OH">
+      <tspan dy="7.75">OH</tspan>
+    </text>
+    <text x="455" y="175" transform="matrix(0.7,0,0,0.7,136.5,52.5)" className="map-label map-label-IN">
+      <tspan dy="7.75">IN</tspan>
+    </text>
+    <text x="420" y="175" transform="matrix(0.7,0,0,0.7,126,52.5)" className="map-label map-label-IL">
+      <tspan dy="7.75">IL</tspan>
+    </text>
+    <text x="402.5" y="108.5" transform="matrix(0.7,0,0,0.7,120.75,32.55)" className="map-label map-label-WI">
+      <tspan dy="7.75">WI</tspan>
+    </text>
+    <text x="548.8" y="228.2" transform="matrix(0.7,0,0,0.7,164.64,68.46)" className="map-label map-label-NC">
+      <tspan dy="7.75">NC</tspan>
+    </text>
+    <text x="458.5" y="238" transform="matrix(0.7,0,0,0.7,137.55,71.4)" className="map-label map-label-TN">
+      <tspan dy="7.75">TN</tspan>
+    </text>
+    <text x="383.6" y="257.6" transform="matrix(0.7,0,0,0.7,115.08,77.28)" className="map-label map-label-AR">
+      <tspan dy="7.75">AR</tspan>
+    </text>
+    <text x="383.6" y="205.1" transform="matrix(0.7,0,0,0.7,115.08,61.53)" className="map-label map-label-MO">
+      <tspan dy="7.75">MO</tspan>
+    </text>
+    <text x="502.6" y="283.5" transform="matrix(0.7,0,0,0.7,150.78,85.05)" className="map-label map-label-GA">
+      <tspan dy="7.75">GA</tspan>
+    </text>
+    <text x="532" y="259.7" transform="matrix(0.7,0,0,0.7,159.6,77.91)" className="map-label map-label-SC">
+      <tspan dy="7.75">SC</tspan>
+    </text>
+    <text x="476" y="210" transform="matrix(0.7,0,0,0.7,142.8,63)" className="map-label map-label-KY">
+      <tspan dy="7.75">KY</tspan>
+    </text>
+    <text x="458.5" y="283.5" transform="matrix(0.7,0,0,0.7,137.55,85.05)" className="map-label map-label-AL">
+      <tspan dy="7.75">AL</tspan>
+    </text>
+    <text x="385" y="304.5" transform="matrix(0.7,0,0,0.7,115.5,91.35)" className="map-label map-label-LA">
+      <tspan dy="7.75">LA</tspan>
+    </text>
+    <text x="420" y="283.5" transform="matrix(0.7,0,0,0.7,126,85.05)" className="map-label map-label-MS">
+      <tspan dy="7.75">MS</tspan>
+    </text>
+    <text x="367.5" y="147" transform="matrix(0.7,0,0,0.7,110.25,44.1)" className="map-label map-label-IA">
+      <tspan dy="7.75">IA</tspan>
+    </text>
+    <text x="354.2" y="86.8" transform="matrix(0.7,0,0,0.7,106.26,26.04)" className="map-label map-label-MN">
+      <tspan dy="7.76">MN</tspan>
+    </text>
+    <text x="322" y="252" transform="matrix(0.7,0,0,0.7,96.6,75.6)" className="map-label map-label-OK">
+      <tspan dy="7.75">OK</tspan>
+    </text>
+    <text x="297.5" y="304.5" transform="matrix(0.7,0,0,0.7,89.25,91.35)" className="map-label map-label-TX">
+      <tspan dy="7.75">TX</tspan>
+    </text>
+    <text x="213.5" y="255.5" transform="matrix(0.7,0,0,0.7,64.05,76.65)" className="map-label map-label-NM">
+      <tspan dy="7.75">NM</tspan>
+    </text>
+    <text x="311.5" y="203" transform="matrix(0.7,0,0,0.7,93.45,60.9)" className="map-label map-label-KS">
+      <tspan dy="7.75">KS</tspan>
+    </text>
+    <text x="294" y="157.5" transform="matrix(0.7,0,0,0.7,88.2,47.25)" className="map-label map-label-NE">
+      <tspan dy="7.75">NE</tspan>
+    </text>
+    <text x="289.1" y="112" transform="matrix(0.7,0,0,0.7,86.73,33.6)" className="map-label map-label-SD">
+      <tspan dy="7.75">SD</tspan>
+    </text>
+    <text x="291.2" y="67.2" transform="matrix(0.7,0,0,0.7,87.36,20.16)" className="map-label map-label-ND">
+      <tspan dy="7.754687499999989">ND</tspan>
+    </text>
+    <text x="210" y="126" transform="matrix(0.7,0,0,0.7,63,37.8)" className="map-label map-label-WY">
+      <tspan dy="7.75">WY</tspan>
+    </text>
+    <text x="196" y="66.5" transform="matrix(0.7,0,0,0.7,58.8,19.95)" className="map-label map-label-MT">
+      <tspan dy="7.75">MT</tspan>
+    </text>
+    <text x="224" y="192.5" transform="matrix(0.7,0,0,0.7,67.2,57.75)" className="map-label map-label-CO">
+      <tspan dy="7.75">CO</tspan>
+    </text>
+    <text x="156.1" y="182" transform="matrix(0.7,0,0,0.7,46.83,54.6)" className="map-label map-label-UT">
+      <tspan dy="7.75">UT</tspan>
+    </text>
+    <text x="143.5" y="252" transform="matrix(0.7,0,0,0.7,43.05,75.6)" className="map-label map-label-AZ">
+      <tspan dy="7.75">AZ</tspan>
+    </text>
+    <text x="98" y="164.5" transform="matrix(0.7,0,0,0.7,29.4,49.35)" className="map-label map-label-NV">
+      <tspan dy="7.75">NV</tspan>
+    </text>
+    <text x="70" y="84" transform="matrix(0.7,0,0,0.7,21,25.2)" className="map-label map-label-OR">
+      <tspan dy="7.75">OR</tspan>
+    </text>
+    <text x="91" y="38.5" transform="matrix(0.7,0,0,0.7,27.3,11.55)" className="map-label map-label-WA">
+      <tspan dy="7.75">WA</tspan>
+    </text>
+    <text x="140" y="105" transform="matrix(0.7,0,0,0.7,42,31.5)" className="map-label map-label-ID">
+      <tspan dy="7.75">ID</tspan>
+    </text>
+    <text x="55.3" y="199.5" transform="matrix(0.7,0,0,0.7,16.59,59.85)" className="map-label map-label-CA">
+      <tspan dy="7.75">CA</tspan>
+    </text>
+    <text x="464.1" y="129.5" transform="matrix(0.7,0,0,0.7,139.23,38.85)" className="map-label map-label-MI">
+      <tspan dy="7.75">MI</tspan>
+    </text>
