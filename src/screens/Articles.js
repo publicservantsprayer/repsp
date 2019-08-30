@@ -70,7 +70,7 @@ const Articles = () =>
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="lg">
-          <Grid container direction = "row" justify = "space-evenly" alignItems = "center" spacing = {10}>
+        <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={10}>
             <Grid item sm={4}>
               <MediaCard title={db[0].title} image={db[0].image} blurb={db[0].blurb} />
             </Grid>
@@ -107,6 +107,6 @@ const Articles = () =>
               </Grid>
       </Container>
     </React.Fragment>
-  </div >
+  </div>
 
 export default Articles
