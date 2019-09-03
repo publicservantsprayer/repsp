@@ -1,13 +1,18 @@
 import React from 'react'
 
+import Container from '@material-ui/core/Container'
 import Map from '../SVGMap'
+import Articles from './Articles'
 
 const USMap = () => {
   return (
-    < div >
-      <h1>Find Your State</h1>
+    <>
+      <Container>
+        <h1>Find Your State</h1>
+      </Container>
       <Map />
-    </div >
+      <Articles />
+    </>
   )
 }
 export default USMap

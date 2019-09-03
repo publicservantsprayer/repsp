@@ -1,8 +1,6 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import CssBaseline from '@material-ui/core/CssBaseline'
-
 
 import MediaCard from '../MediaCard'
 
@@ -65,48 +63,42 @@ const db = [
 ]
 
 const Articles = () =>
-  <div>
-    <h1>Articles</h1>
-    <React.Fragment>
-      <CssBaseline />
-      <Container maxWidth="lg">
-        <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={10}>
-            <Grid item sm={4}>
-              <MediaCard title={db[0].title} image={db[0].image} blurb={db[0].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[1].title} image={db[1].image} blurb={db[1].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[2].title} image={db[2].image} blurb={db[2].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[3].title} image={db[3].image} blurb={db[3].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[4].title} image={db[4].image} blurb={db[4].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[5].title} image={db[5].image} blurb={db[5].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[6].title} image={db[6].image} blurb={db[6].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[7].title} image={db[7].image} blurb={db[7].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[8].title} image={db[8].image} blurb={db[8].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[9].title} image={db[9].image} blurb={db[9].blurb} />
-            </Grid>
-            <Grid item sm={4}>
-              <MediaCard title={db[10].title} image={db[10].image} blurb={db[10].blurb} />
-            </Grid>
-              </Grid>
-      </Container>
-    </React.Fragment>
-  </div>
+  <Container maxWidth="lg">
+    <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={10}>
+      <Grid item sm={4}>
+        <MediaCard title={db[0].title} image={db[0].image} blurb={db[0].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[1].title} image={db[1].image} blurb={db[1].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[2].title} image={db[2].image} blurb={db[2].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[3].title} image={db[3].image} blurb={db[3].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[4].title} image={db[4].image} blurb={db[4].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[5].title} image={db[5].image} blurb={db[5].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[6].title} image={db[6].image} blurb={db[6].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[7].title} image={db[7].image} blurb={db[7].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[8].title} image={db[8].image} blurb={db[8].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[9].title} image={db[9].image} blurb={db[9].blurb} />
+      </Grid>
+      <Grid item sm={4}>
+        <MediaCard title={db[10].title} image={db[10].image} blurb={db[10].blurb} />
+      </Grid>
+    </Grid>
+  </Container>
 
 export default Articles

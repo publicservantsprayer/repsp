@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
+import { makeStyles } from '@material-ui/styles'
+import Container from '@material-ui/core/Container'
 import { useSpring, animated } from 'react-spring'
 import { stateCodes } from '../utilities/states'
 import statePaths from './statePaths'
@@ -8,7 +10,20 @@ import theme from '../utilities/theme'
 console.log(theme)
 
 const stateColor = theme.palette.secondary.dark
-const stateHighlight = theme.palette.primary.main
+const stateColorOver = theme.palette.primary.main
+const stateLine = theme.palette.secondary.light
+
+const useStyles = makeStyles({
+  path: {
+    fill: stateColor,
+    stroke: stateLine,
+    opacity: 1,
+    cursor: 'pointer',
+    strokeWidth: 2,
+    transform: 'matrix(0.7, 0, 0, 0.7, 0, 0)',
+  }
+})
+
 
 const addAllEvents = (stateCode, setTo, setStyle) => {
   const addEvents = (element, target, to, setStyle) => {
@@ -16,7 +31,7 @@ const addAllEvents = (stateCode, setTo, setStyle) => {
       setTo(to)
     })
     element.addEventListener('mouseover', event => {
-      if (setStyle) setStyle({ fill: stateHighlight })
+      if (setStyle) setStyle({ fill: stateColorOver })
     })
     element.addEventListener('mouseout', event => {
       if (setStyle) setStyle({ fill: stateColor })
@@ -39,10 +54,13 @@ const addAllEvents = (stateCode, setTo, setStyle) => {
   }
 }
 
+const springConfig = { mass: 1, tension: 170, friction: 26 }
+
 const SVGMapPath = ({ stateCode }) => {
+  const classes = useStyles()
   const [to, setTo] = useState()
-  const [style, setStyle] = useSpring(() => ({ fill: stateColor }))
-  const className = `map-path map-path-${stateCode}`
+  const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
+  const className = `${classes.path} map-path-${stateCode}`
   const d = statePaths[stateCode].d
 
   useEffect(() => addAllEvents(stateCode, setTo, setStyle), [setStyle, stateCode])
@@ -58,7 +76,7 @@ const SVGMapRect = ({ stateCode }) => {
   const y = statePaths[stateCode].rectY
   const transform = statePaths[stateCode].rectTransform
   const [to, setTo] = useState()
-  const [style, setStyle] = useSpring(() => ({ fill: stateColor }))
+  const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
 
   useEffect(() => addAllEvents(stateCode, setTo, setStyle), [setStyle, stateCode])
 
@@ -89,12 +107,14 @@ const SVGMapText = ({ stateCode }) => {
 }
 
 const SVGMap = () =>
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
-    viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin"
-    style={{ overflowx: 'hidden', positionx: 'relative' }}>
-    {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} />)}
-    {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} />)}
-    {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} />)}
-  </svg>
+  <Container maxWidth="md">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
+      viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin"
+      style={{ overflowx: 'hidden', positionx: 'relative' }}>
+      {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} />)}
+      {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} />)}
+      {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} />)}
+    </svg>
+  </Container>
 
 export default SVGMap
