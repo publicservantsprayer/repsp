@@ -4,6 +4,18 @@ const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
+      main: '#212121',
+    },
+    secondary: {
+      main: '#82b1ff',
+    },
+  },
+})
+
+export const theme2 = createMuiTheme({
+  palette: {
+    type: 'dark',
+    primary: {
       light: '#708690',
       main: '#445963',
       dark: '#1b3039',
