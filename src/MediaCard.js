@@ -8,15 +8,16 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 400,
-    height: 400
+    height: 400,
+    backgroundColor: theme.palette.secondary.dark
   },
   media: {
     height: 250,
   }, 
-})
+}))
 
 export default function MediaCard(props) {
   const classes = useStyles()
@@ -28,9 +29,10 @@ export default function MediaCard(props) {
           className={classes.media}
           image={props.image}
           title="photo">
+          
         </CardMedia>
         <CardContent backgroundcolor="secondary">
-          <Typography gutterBottom variant="h6" >
+          <Typography gutterBottom variant="h6" color='black'>
             {props.title}
           </Typography>
           <Typography variant="subtitle2" color="textSecondary" component="p">
@@ -39,10 +41,10 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color='primary'>
           Share
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small">
           Learn More
         </Button>
       </CardActions>
