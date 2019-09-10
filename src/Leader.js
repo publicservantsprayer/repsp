@@ -6,7 +6,9 @@ const Leader = ({ leader }) => {
   return (
     <div>
       <h3>{leader.Title} {leader.FirstName} {leader.LastName}</h3>
-      <a href={`/states/${leader.StateCode.toLowerCase()}/leader/${leader.permaLink}`}><img src={src} alt={leader.PhotoFile} /></a>
+      {leader.StateCode &&
+        <a href={`/states/${leader.StateCode.toLowerCase()}/leader/${leader.permaLink}`}><img src={src} alt={leader.PhotoFile} /></a>
+      }
     </div>
   )
 }
