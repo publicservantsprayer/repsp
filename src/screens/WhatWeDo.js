@@ -1,9 +1,8 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 
+import { H1, H2, P } from '../utilities/formating'
 import PostBrowser from '../PostBrowser'
 
 const WhatWeDo = () => {
@@ -11,13 +10,22 @@ const WhatWeDo = () => {
     <Grid container>
       <Grid item xs></Grid>
       <Grid item xs={10} sm={8}>
-        <p>Every day, we focus on three legislators in each state, committing thoughts and prayers to them throughout the day.  Our country's political leaders, from the 532 members of the US Congress to the thousands at the state level, are faced with difficult decisions every day in addition to balancing their personal lives with family and friends. Too often, it’s easy to forget about the person behind the political decisions they make. But if we take a moment to remember their humanity, it allows us to see each one as a child of God who needs prayer just like you and I.</p>
-        <p>At 6:00am each morning, thepsp.org selects three legislators from each state in alphabetical order and creates a social media post reminding us of who to pray for.  This goes out via Email, Facebook, Twitter and Instagram.</p>
-        <p>Here are the posts from this past week</p>
+        <H1>what we do</H1>
 
-        <PostBrowser />
+        <P>Every day, we focus on three legislators in each state, committing thoughts and prayers to them throughout the day.</P>
+
+        <P>At 6:00am each morning, this website selects three legislators from each state in alphabetical order and creates a social media post reminding us of who to pray for.  This goes out via Email, Facebook, Twitter and Instagram.</P>
+
+        <P>More soon...</P>
+
+        <H2>Here are the posts from the past two weeks</H2>
+
+        <Box p={2} mt={3}>
+          <PostBrowser />
+        </Box>
       </Grid>
       <Grid item xs></Grid>
+
     </Grid >
   )
 }

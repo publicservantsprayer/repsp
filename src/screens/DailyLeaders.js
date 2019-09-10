@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
+import { useCookies } from 'react-cookie'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
@@ -55,12 +56,14 @@ const src = leader => {
 }
 
 const DailyLeaders = ({ match, db }) => {
-  const stateCode = match.params.stateCode.toUpperCase()
+  const [cookies] = useCookies(['stateCode'])
+  const stateCode = cookies.stateCode || 'IN'
+  //const stateCode = match.params.stateCode.toUpperCase()
   const [post, setPost] = useState()
   const classes = useStyles()
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       const snap = await db
         .collection(`/states/${stateCode}/posts/`)
         .orderBy('dateID', 'desc')

@@ -67,10 +67,11 @@ const ArticleGrid = ({ article }) =>
     <MediaCard title={article.title} image={article.image} blurb={article.blurb} />
   </Grid>
 
-const Articles = () => 
+const Articles = () =>
   <Container maxWidth="lg">
+    <p></p>
     <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={10} >
-        {db.map((article, i) => <ArticleGrid article={article} key={i} />)}
+      {db.map((article, i) => <ArticleGrid article={article} key={i} />)}
     </Grid>
   </Container>
 

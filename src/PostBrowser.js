@@ -8,22 +8,16 @@ import Box from '@material-ui/core/Box'
 import { useCookies } from 'react-cookie'
 import { withFirebase } from './Firebase'
 
-function TabPanel (props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-}
+const TabPanel = ({ children, value, index, ...other }) =>
+  <Typography
+    component="div"
+    role="tabpanel"
+    hidden={value !== index}
+    id={`vertical-tabpanel-${index}`}
+    aria-labelledby={`vertical-tab-${index}`}
+    {...other}>
+    <Box p={3}>{children}</Box>
+  </Typography>
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -48,12 +42,15 @@ const useStyles = makeStyles(theme => ({
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
+  postImage: {
+    width: '100%',
+  }
 }))
 
 const PostBrowser = ({ db }) => {
   const [posts, setPosts] = useState()
   const [cookies] = useCookies(['stateCode'])
-  const stateCode = cookies.stateCode || 'TX'
+  const stateCode = cookies.stateCode
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -63,14 +60,22 @@ const PostBrowser = ({ db }) => {
   }
 
   useEffect(() => {
-    (async () => {
-      const snap = await db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(7).get()
-      console.log('getting leader data')
-      setPosts(snap.docs.map(post => post.data()))
-    })()
+    if (stateCode) {
+      (async () => {
+        const snap = await db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(14).get()
+        console.log('getting leader data')
+        setPosts(snap.docs.map(post => post.data()))
+      })()
+    }
   }, [db, stateCode])
 
   if (!posts) return null
+
+  const src = post => {
+    const [year, month, day] = post.dateID.split('-')
+    return `https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/` +
+      `${year}%2F${month}%2F${day}%2F${post.dateID}_psp_${stateCode}.png?alt=media`
+  }
 
   return (
     <div className={classes.root}>
@@ -85,10 +90,9 @@ const PostBrowser = ({ db }) => {
         {posts.map((post, i) => <Tab label={post.dateID} {...a11yProps(i)} />)}
       </Tabs>
       {posts.map((post, i) => {
-        const [year, month, day] = post.dateID.split('-')
         return (
           <TabPanel value={value} index={i}>
-            <img src={`https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/${year}%2F${month}%2F${day}%2F${post.dateID}_psp_${stateCode}.png?alt=media`} alt="whatever" />
+            <img className={classes.postImage} src={src(post)} alt="whatever" />
           </TabPanel>
         )
       })}

@@ -61,7 +61,7 @@ function HideOnScroll (props) {
   const { children } = props
   const trigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 310,
+    threshold: 220,
   })
 
   return (
@@ -72,7 +72,7 @@ function HideOnScroll (props) {
 }
 
 const NavBar = (props) => {
-  const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '300px' }))
+  const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
   const stateCode = props.location.pathname.split('/')[2]
   const classes = useStyles()
@@ -103,12 +103,8 @@ const NavBar = (props) => {
               <img className={classes.smallLogo} src="/images/public-servants-prayer-scaled.png" alt="public servants' prayer" />
             </Typography>
             <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-            {stateCode &&
-              <>
-                <Button color="inherit" component={RouterLink} to={`/states/${stateCode}`}>Daily Leaders</Button>
-                <Button color="inherit" component={RouterLink} to={`/states/${stateCode}/leaders`}>State Leaders</Button>
-              </>
-            }
+            <Button color="inherit" component={RouterLink} to={`/states/${stateCode}`}>Daily Leaders</Button>
+            <Button color="inherit" component={RouterLink} to={`/states/${stateCode}/leaders`}>State Leaders</Button>
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>

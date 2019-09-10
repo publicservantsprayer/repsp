@@ -51,6 +51,8 @@ const statesObj = {
   WY: 'Wyoming'
 }
 
+const stateCodes = Object.keys(statesObj)
+
 const regionForStateCode = stateCode => {
   if (['ME', 'NH', 'VT', 'MA', 'RI', 'CT', 'NY', 'PA', 'NJ'].includes(stateCode)) {
     return "NE"
@@ -64,7 +66,4 @@ const regionForStateCode = stateCode => {
   return null
 }
 
-
-module.exports.statesObj = statesObj
-module.exports.stateCodes = Object.keys(statesObj)
-module.exports.regionForStateCode = regionForStateCode
+export { statesObj, stateCodes, regionForStateCode }
