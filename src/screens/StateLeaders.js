@@ -1,23 +1,41 @@
-import React, { useState, useEffect } from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Tabs from "@material-ui/core/Tabs"
-import Tab from "@material-ui/core/Tab"
-import AppBar from "@material-ui/core/AppBar"
-import SwipeableViews from "react-swipeable-views"
-import Typography from "@material-ui/core/Typography"
-import Box from "@material-ui/core/Box"
+import React, { useState, useEffect } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import AppBar from '@material-ui/core/AppBar'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import Avatar from '@material-ui/core/Avatar'
+import Grid from '@material-ui/core/Grid'
 
-import Leader from "../Leader"
-import theme from "../utilities/theme"
-
-import { withFirebase } from "../Firebase"
-import PageTitle from "../PageTitle"
+import { leaderPhoto, leaderUrl } from '../utilities/leader'
+import { withFirebase } from '../Firebase'
+import PageTitle from '../PageTitle'
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+    textAlign: 'center',
+  },
+  contents: {
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundColor: 'theme.palette.background.paper',
+  },
+  gridList: {
+    width: 600,
+    height: 500,
+    cols: 5,
+  },
+  title: {
+    backgroundColor: 'theme.palette.common.black',
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 100,
+    height: 100,
+  },
 })
 
 const StateLeaders = ({ match, db }) => {
@@ -28,28 +46,39 @@ const StateLeaders = ({ match, db }) => {
   const [stateHouse, setstateHouse] = useState()
 
   const classes = useStyles()
-  const [value, setValue] = React.useState(0)
+  const [currentTab, setCurrentTab] = React.useState(0)
 
-  function handleChange(event, newValue) {
-    setValue(newValue)
+  function handleChange(event, tabIndex) {
+    setCurrentTab(tabIndex)
   }
   function TabPanel(props) {
-    const { children, value, index, ...other } = props
+    const { leaders, currentTab, index } = props
     return (
       <Typography
-        component='div'
-        role='tabpanel'
-        hidden={value !== index}
+        component="div"
+        role="tabpanel"
+        hidden={currentTab !== index}
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
-        {...other}>
-        <Box p={3}>{children}</Box>
+      >
+        <Box p={3} display="flex" className={classes.contents}>
+          {leaders.map(leader => (
+            <Box key={leader.PID}>
+              {leader.FirstName} {leader.LastName}
+              <Grid container justify="center" alignItems="center">
+                <a href={leaderUrl(leader)}>
+                  <Avatar
+                    alt={leader.PhotoFile}
+                    src={leaderPhoto(leader)}
+                    className={classes.bigAvatar}
+                  />
+                </a>
+              </Grid>
+            </Box>
+          ))}
+        </Box>
       </Typography>
     )
-  }
-
-  function handleChangeIndex(index) {
-    setValue(index)
   }
 
   useEffect(() => {
@@ -58,36 +87,36 @@ const StateLeaders = ({ match, db }) => {
         fedSenateSnap,
         fedHouseSnap,
         stateSenateSnap,
-        stateHouseSnap
+        stateHouseSnap,
       ] = await Promise.all([
         db
-          .collection("states")
+          .collection('states')
           .doc(stateCode)
-          .collection("leaders")
-          .where("LegType", "==", "FL")
-          .where("Chamber", "==", "S")
+          .collection('leaders')
+          .where('LegType', '==', 'FL')
+          .where('Chamber', '==', 'S')
           .get(),
         db
-          .collection("states")
+          .collection('states')
           .doc(stateCode)
-          .collection("leaders")
-          .where("LegType", "==", "FL")
-          .where("Chamber", "==", "H")
+          .collection('leaders')
+          .where('LegType', '==', 'FL')
+          .where('Chamber', '==', 'H')
           .get(),
         db
-          .collection("states")
+          .collection('states')
           .doc(stateCode)
-          .collection("leaders")
-          .where("LegType", "==", "SL")
-          .where("Chamber", "==", "S")
+          .collection('leaders')
+          .where('LegType', '==', 'SL')
+          .where('Chamber', '==', 'S')
           .get(),
         db
-          .collection("states")
+          .collection('states')
           .doc(stateCode)
-          .collection("leaders")
-          .where("LegType", "==", "SL")
-          .where("Chamber", "==", "H")
-          .get()
+          .collection('leaders')
+          .where('LegType', '==', 'SL')
+          .where('Chamber', '==', 'H')
+          .get(),
       ])
 
       setfedSenate(fedSenateSnap.docs.map(doc => doc.data()))
@@ -104,56 +133,32 @@ const StateLeaders = ({ match, db }) => {
   if (!stateHouse) return null
 
   return (
-    <div>
-      <PageTitle stateCode={stateCode} />
-      <Paper className={classes.root}>
-        <AppBar position='static'>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor='primary'
-            textColor='primary'
-            centered>
-            <Tab label='Federal Senate' />
-            <Tab label='Federal House' />
-            <Tab label='State Senate' />
-            <Tab label='State House' />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}>
-          <TabPanel value={value} index={0}>
-            {fedSenate.map(leader => (
-              <p key={leader.PID}>
-                <Leader leader={leader} />
-              </p>
-            ))}
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            {fedHouse.map(leader => (
-              <p key={leader.PID}>
-                <Leader leader={leader} />
-              </p>
-            ))}
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            {stateSenate.map(leader => (
-              <p key={leader.PID}>
-                <Leader leader={leader} />
-              </p>
-            ))}
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            {stateHouse.map(leader => (
-              <p key={leader.PID}>
-                <Leader leader={leader} />
-              </p>
-            ))}
-          </TabPanel>
-        </SwipeableViews>
-      </Paper>
+    <div className={classes.root}>
+      <PageTitle
+        stateCode={stateCode}
+        className={classes.title}
+        color="secondary"
+      ></PageTitle>
+      <AppBar position="static">
+        <Tabs
+          value={currentTab}
+          onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="secondary"
+          centered
+        >
+          <Tab label="Federal Senate" />
+          <Tab label="Federal House" />
+          <Tab label="State Senate" />
+          <Tab label="State House" />
+        </Tabs>
+      </AppBar>
+      <div>
+        <TabPanel currentTab={currentTab} index={0} leaders={fedSenate} />
+        <TabPanel currentTab={currentTab} index={1} leaders={fedHouse} />
+        <TabPanel currentTab={currentTab} index={2} leaders={stateSenate} />
+        <TabPanel currentTab={currentTab} index={3} leaders={stateHouse} />
+      </div>
     </div>
   )
 }
