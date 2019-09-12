@@ -14,7 +14,7 @@ export default withRouter((props) => {
       const cookieStateCode = cookies.updateStateCode
       const newPathname = [param0, param1, cookieStateCode.toLowerCase()].concat(restOfParams).join('/')
 
-      setCookie('stateCode', cookieStateCode)
+      setCookie('stateCode', cookieStateCode.toUpperCase())
       removeCookie('updateStateCode')
       history.push(newPathname)
     }
@@ -23,13 +23,13 @@ export default withRouter((props) => {
       const urlStateCode = param2
 
       if (cookies.stateCode !== urlStateCode) {
-        setCookie('stateCode', urlStateCode)
+        setCookie('stateCode', urlStateCode.toUpperCase())
       }
     }
 
     if (param1 !== 'states' && cookies.updateStateCode) {
       if (cookies.stateCode !== cookies.updateStateCode) {
-        setCookie('stateCode', cookies.updateStateCode)
+        setCookie('stateCode', cookies.updateStateCode.toUpperCase())
         removeCookie('updateStateCode')
       }
     }
