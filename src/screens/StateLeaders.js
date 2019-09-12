@@ -13,7 +13,7 @@ import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
-import StateSumDrawer from '../StateSumDrawer'
+import StateBlurb from '../StateBlurb'
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +39,12 @@ const useStyles = makeStyles({
     width: 100,
     height: 100,
   },
+  scroll: {
+    overflowY: 'scroll',
+    width: '500px',
+    height: '200px',
+    position: 'right',
+  },
 })
 
 const StateLeaders = ({ match, db }) => {
@@ -52,10 +58,10 @@ const StateLeaders = ({ match, db }) => {
   const classes = useStyles()
   const [currentTab, setCurrentTab] = React.useState(0)
 
-  function handleChange (event, tabIndex) {
+  function handleChange(event, tabIndex) {
     setCurrentTab(tabIndex)
   }
-  function TabPanel (props) {
+  function TabPanel(props) {
     const { leaders, currentTab, index } = props
     return (
       <>
@@ -140,17 +146,39 @@ const StateLeaders = ({ match, db }) => {
 
   return (
     <div className={classes.root}>
-      <Box mx={10} display="flex">
-        <Box order={1} bgcolor="common.black" px={4} my={2}>
+      <Box display="flex" justifyContent="center">
+        <Box flexGrow={1} order={1} bgcolor="common.black" px={4} my={6}>
           <PageTitle
             stateCode={stateCode}
             className={classes.title}
             color="secondary"
           ></PageTitle>
-          <StateFlag />
+          <StateFlag stateCode={stateCode} />
           <p>State Flag</p>
         </Box>
-        <Box order={2} mx={3}></Box>
+        <Box flexGrow={1} order={2} bgcolor="common.black" px={8} my={6}>
+          <ul>
+            <li>State Capital: Indianapolis</li>
+            <li>Government:</li>
+            <li>Area:</li>
+            <li>Population:</li>
+            <li>Legislature:</li>
+          </ul>
+        </Box>
+        <Box
+          flexGrow={1}
+          order={3}
+          my={6}
+          px={4}
+          py={2}
+          boxShadow={1}
+          bgcolor="common.black"
+        >
+          <div className={classes.scroll}>
+            <h3>State Summary</h3>
+            <StateBlurb />
+          </div>
+        </Box>
       </Box>
       <AppBar position="static">
         <Tabs

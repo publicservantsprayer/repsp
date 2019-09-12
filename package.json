@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@firebase/testing": "^0.12.0",
-    "eslint-plugin-react-hooks": "^2.0.1"
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "node-wget-promise": "^0.1.6"
   }
 }
