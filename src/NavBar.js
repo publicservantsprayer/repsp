@@ -13,8 +13,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Hidden from '@material-ui/core/Hidden'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import { stateName } from './utilities/states'
-import { useCookies } from 'react-cookie'
+import { stateName, useStateCode } from './utilities/states'
 
 import Map from './SVGMap'
 
@@ -58,12 +57,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const NavBar = (props) => {
+const NavBar = ({ location }) => {
   const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
   const classes = useStyles()
-  const [cookies] = useCookies(['stateCode'])
-  const { stateCode } = cookies
+  const stateCode = useStateCode(location)
 
   let headerOpen = false
   const openFindState = () => {

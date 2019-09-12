@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useCookies } from 'react-cookie'
 import { makeStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -10,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
+import { useStateCode } from '../utilities/states'
 import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
@@ -48,9 +48,8 @@ const useStyles = makeStyles({
   },
 })
 
-const StateLeaders = ({ match, db }) => {
-  const [cookies] = useCookies(['stateCode'])
-  const stateCode = cookies.stateCode.toUpperCase()
+const StateLeaders = ({ location, db }) => {
+  const stateCode = useStateCode(location)
   const [fedSenate, setfedSenate] = useState()
   const [fedHouse, setfedHouse] = useState()
   const [stateSenate, setstateSenate] = useState()

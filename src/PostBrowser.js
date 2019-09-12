@@ -5,8 +5,9 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import { useCookies } from 'react-cookie'
+
 import { withFirebase } from './Firebase'
+import { useStateCode } from './utilities/states'
 
 const TabPanel = ({ children, value, index, ...other }) =>
   <Typography
@@ -49,8 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 const PostBrowser = ({ db }) => {
   const [posts, setPosts] = useState()
-  const [cookies] = useCookies(['stateCode'])
-  const stateCode = cookies.stateCode
+  const stateCode = useStateCode()
 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import { useCookies } from 'react-cookie'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
@@ -9,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import DailyExpansionLeader from '../DailyExpansionLeader'
+import { useStateCode } from '../utilities/states'
 
 const dayOfTheWeekColor = [
   'white', // Sun white
@@ -57,9 +57,8 @@ const src = leader => {
 
 
 
-const DailyLeaders = ({ db }) => {
-  const [cookies] = useCookies(['stateCode'])
-  const stateCode = cookies.stateCode.toUpperCase()
+const DailyLeaders = ({ db, location }) => {
+  const stateCode = useStateCode(location)
   const [post, setPost] = useState()
   const classes = useStyles()
 

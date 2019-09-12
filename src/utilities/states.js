@@ -1,3 +1,5 @@
+import { useCookies } from 'react-cookie'
+
 const statesObj = {
   AL: 'Alabama',
   AK: 'Alaska',
@@ -53,72 +55,24 @@ const statesObj = {
 
 const stateCodes = Object.keys(statesObj)
 
-const regionForStateCode = stateCode => {
-  if (
-    ['ME', 'NH', 'VT', 'MA', 'RI', 'CT', 'NY', 'PA', 'NJ'].includes(stateCode)
-  ) {
-    return 'NE'
-  } else if (
-    [
-      'WI',
-      'MI',
-      'IL',
-      'IN',
-      'OH',
-      'MO',
-      'ND',
-      'SD',
-      'NE',
-      'KS',
-      'MN',
-      'IA',
-    ].includes(stateCode)
-  ) {
-    return 'MW'
-  } else if (
-    [
-      'DE',
-      'MD',
-      'DC',
-      'VA',
-      'WV',
-      'NC',
-      'SC',
-      'GA',
-      'FL',
-      'KY',
-      'TN',
-      'MS',
-      'AL',
-      'OK',
-      'TX',
-      'AR',
-      'LA',
-    ].includes(stateCode)
-  ) {
-    return 'S'
-  } else if (
-    [
-      'ID',
-      'MT',
-      'WY',
-      'NV',
-      'UT',
-      'CO',
-      'OR',
-      'AZ',
-      'NM',
-      'AK',
-      'WA',
-      'CA',
-      'HI',
-    ].includes(stateCode)
-  ) {
-    return 'W'
-  }
-  return null
-}
-
 const stateName = stateCode => statesObj[stateCode.toUpperCase()]
 
-export { statesObj, stateName, stateCodes, regionForStateCode }
+
+const useStateCode = (location) => {
+  const [cookies] = useCookies(['stateCode'])
+  if (location && location.pathname) {
+    /* eslint-disable-next-line no-unused-vars */
+    const [_, states, stateCode] = location.pathname.split('/')
+    if (states === 'states') {
+      return stateCode.toUpperCase()
+    }
+  }
+  if (cookies.stateCode) {
+    return cookies.stateCode
+  } else {
+    console.log('Got default stateCode TX')
+    return 'TX'
+  }
+}
+
+export { statesObj, stateName, stateCodes, useStateCode }

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 export default withRouter(props => {
   const { location, history } = props
@@ -34,6 +35,20 @@ export default withRouter(props => {
         setCookie('stateCode', cookies.updateStateCode.toUpperCase())
         removeCookie('updateStateCode')
       }
+    }
+
+    if (!cookies.stateCode) {
+      (async () => {
+        try {
+          const response = await axios.get('http://ip-api.com/json/?fields=region')
+          setCookie('stateCode', response.data.region.toUpperCase())
+          console.log('Got State from IP: ', response)
+        }
+        catch (error) {
+          console.error('Error getting State from IP: ', error)
+          setCookie('stateCode', 'IN')
+        }
+      })()
     }
   })
 
