@@ -48,20 +48,73 @@ const statesObj = {
   WA: 'Washington',
   WV: 'West Virginia',
   WI: 'Wisconsin',
-  WY: 'Wyoming'
+  WY: 'Wyoming',
 }
 
 const stateCodes = Object.keys(statesObj)
 
 const regionForStateCode = stateCode => {
-  if (['ME', 'NH', 'VT', 'MA', 'RI', 'CT', 'NY', 'PA', 'NJ'].includes(stateCode)) {
-    return "NE"
-  } else if (['WI', 'MI', 'IL', 'IN', 'OH', 'MO', 'ND', 'SD', 'NE', 'KS', 'MN', 'IA'].includes(stateCode)) {
-    return "MW"
-  } else if (['DE', 'MD', 'DC', 'VA', 'WV', 'NC', 'SC', 'GA', 'FL', 'KY', 'TN', 'MS', 'AL', 'OK', 'TX', 'AR', 'LA'].includes(stateCode)) {
-    return "S"
-  } else if (['ID', 'MT', 'WY', 'NV', 'UT', 'CO', 'OR', 'AZ', 'NM', 'AK', 'WA', 'CA', 'HI'].includes(stateCode)) {
-    return "W"
+  if (
+    ['ME', 'NH', 'VT', 'MA', 'RI', 'CT', 'NY', 'PA', 'NJ'].includes(stateCode)
+  ) {
+    return 'NE'
+  } else if (
+    [
+      'WI',
+      'MI',
+      'IL',
+      'IN',
+      'OH',
+      'MO',
+      'ND',
+      'SD',
+      'NE',
+      'KS',
+      'MN',
+      'IA',
+    ].includes(stateCode)
+  ) {
+    return 'MW'
+  } else if (
+    [
+      'DE',
+      'MD',
+      'DC',
+      'VA',
+      'WV',
+      'NC',
+      'SC',
+      'GA',
+      'FL',
+      'KY',
+      'TN',
+      'MS',
+      'AL',
+      'OK',
+      'TX',
+      'AR',
+      'LA',
+    ].includes(stateCode)
+  ) {
+    return 'S'
+  } else if (
+    [
+      'ID',
+      'MT',
+      'WY',
+      'NV',
+      'UT',
+      'CO',
+      'OR',
+      'AZ',
+      'NM',
+      'AK',
+      'WA',
+      'CA',
+      'HI',
+    ].includes(stateCode)
+  ) {
+    return 'W'
   }
   return null
 }

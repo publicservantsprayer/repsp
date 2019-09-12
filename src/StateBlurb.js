@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 
 import wiki from 'wikijs'
-import { statesObj } from './utilities/states'
+import { stateName } from './utilities/states'
 
-const StateBlurb = () => {
+const StateBlurb = ({ stateCode }) => {
   const [blurb, setBlurb] = useState()
   useEffect(() => {
     wiki()
-      .page(statesObj['IN'])
+      .page(stateName(stateCode))
       .then(page => page.summary())
       .then(summary => {
         setBlurb(summary)

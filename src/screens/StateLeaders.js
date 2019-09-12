@@ -178,7 +178,7 @@ const StateLeaders = ({ match, db }) => {
         >
           <div className={classes.scroll}>
             <h3>State Summary</h3>
-            <StateBlurb />
+            <StateBlurb stateCode={stateCode} />
           </div>
         </Box>
         <Box
