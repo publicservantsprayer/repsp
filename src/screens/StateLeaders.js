@@ -8,11 +8,11 @@ import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 
-import StateBlurb from '../StateBlurb'
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
+import StateSumDrawer from '../StateSumDrawer'
 
 const useStyles = makeStyles({
   root: {
@@ -148,9 +148,7 @@ const StateLeaders = ({ match, db }) => {
           <StateFlag />
           <p>State Flag</p>
         </Box>
-        <Box order={2} mx={3}>
-          <StateBlurb />
-        </Box>
+        <Box order={2} mx={3}></Box>
       </Box>
       <AppBar position="static">
         <Tabs
