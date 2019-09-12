@@ -8,9 +8,11 @@ import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 
+import StateBlurb from '../StateBlurb'
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
+import StateFlag from '../StateFlag'
 
 const useStyles = makeStyles({
   root: {
@@ -54,30 +56,32 @@ const StateLeaders = ({ match, db }) => {
   function TabPanel(props) {
     const { leaders, currentTab, index } = props
     return (
-      <Typography
-        component="div"
-        role="tabpanel"
-        hidden={currentTab !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-      >
-        <Box p={3} display="flex" className={classes.contents}>
-          {leaders.map(leader => (
-            <Box key={leader.PID}>
-              {leader.FirstName} {leader.LastName}
-              <Grid container justify="center" alignItems="center">
-                <a href={leaderUrl(leader)}>
-                  <Avatar
-                    alt={leader.PhotoFile}
-                    src={leaderPhoto(leader)}
-                    className={classes.bigAvatar}
-                  />
-                </a>
-              </Grid>
-            </Box>
-          ))}
-        </Box>
-      </Typography>
+      <>
+        <Typography
+          component="div"
+          role="tabpanel"
+          hidden={currentTab !== index}
+          id={`simple-tabpanel-${index}`}
+          aria-labelledby={`simple-tab-${index}`}
+        >
+          <Box px={20} display="flex" className={classes.contents}>
+            {leaders.map(leader => (
+              <Box key={leader.PID} m={2}>
+                {leader.FirstName} {leader.LastName}
+                <Grid container justify="center" alignItems="center">
+                  <a href={leaderUrl(leader)}>
+                    <Avatar
+                      alt={leader.PhotoFile}
+                      src={leaderPhoto(leader)}
+                      className={classes.bigAvatar}
+                    />
+                  </a>
+                </Grid>
+              </Box>
+            ))}
+          </Box>
+        </Typography>
+      </>
     )
   }
 
@@ -134,11 +138,20 @@ const StateLeaders = ({ match, db }) => {
 
   return (
     <div className={classes.root}>
-      <PageTitle
-        stateCode={stateCode}
-        className={classes.title}
-        color="secondary"
-      ></PageTitle>
+      <Box mx={10} display="flex">
+        <Box order={1} bgcolor="common.black" px={4} my={2}>
+          <PageTitle
+            stateCode={stateCode}
+            className={classes.title}
+            color="secondary"
+          ></PageTitle>
+          <StateFlag />
+          <p>State Flag</p>
+        </Box>
+        <Box order={2} mx={3}>
+          <StateBlurb />
+        </Box>
+      </Box>
       <AppBar position="static">
         <Tabs
           value={currentTab}
