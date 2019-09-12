@@ -66,4 +66,6 @@ const regionForStateCode = stateCode => {
   return null
 }
 
-export { statesObj, stateCodes, regionForStateCode }
+const stateName = stateCode => statesObj[stateCode.toUpperCase()]
+
+export { statesObj, stateName, stateCodes, regionForStateCode }

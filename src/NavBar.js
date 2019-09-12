@@ -12,8 +12,9 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Hidden from '@material-ui/core/Hidden'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import Slide from '@material-ui/core/Slide'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import { stateName } from './utilities/states'
+import { useCookies } from 'react-cookie'
 
 import Map from './SVGMap'
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     background: 'url("/images/capitol-color-night.jpg") top left no-repeat',
     backgroundAttachment: 'fixed',
     xheight: '250px',
-    backgroundPositionY: '-450px',
+    backgroundPositionY: '-400px',
     xmarginBottom: theme.spacing(3),
     padding: '20px',
     overflow: 'hidden',
@@ -57,58 +58,49 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function HideOnScroll (props) {
-  const { children } = props
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 220,
-  })
-
-  return (
-    <Slide appear={false} direction="down" in={trigger}>
-      {children}
-    </Slide>
-  )
-}
-
 const NavBar = (props) => {
   const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
-  const stateCode = props.location.pathname.split('/')[2]
   const classes = useStyles()
+  const [cookies] = useCookies(['stateCode'])
+  const { stateCode } = cookies
+
   let headerOpen = false
+  const openFindState = () => {
+    headerOpen = true
+    setHeaderStyle({ height: '1350px' })
+    setSvgStyle({ transform: 'scale(1)' })
+  }
+  const closeFindState = () => {
+    headerOpen = false
+    setHeaderStyle({ height: '350px' })
+    setSvgStyle({ transform: 'scale(0.1)' })
+  }
   const toggleFindState = () => {
     if (headerOpen) {
-      headerOpen = false
-      setHeaderStyle({ height: '350px' })
-      setSvgStyle({ transform: 'scale(0.1)' })
+      closeFindState()
     } else {
-      headerOpen = true
-      setHeaderStyle({ height: '1350px' })
-      setSvgStyle({
-        transform: 'scale(1)'
-      })
+      openFindState()
     }
   }
 
   return (
     <div className={classes.root}>
-      <HideOnScroll {...props}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              <img className={classes.smallLogo} src="/images/public-servants-prayer-scaled.png" alt="public servants' prayer" />
-            </Typography>
-            <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-            <Button color="inherit" component={RouterLink} to={`/states/${stateCode}`}>Daily Leaders</Button>
-            <Button color="inherit" component={RouterLink} to={`/states/${stateCode}/leaders`}>State Leaders</Button>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
+      <AppBar position="fixed">
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            {stateName(stateCode)}
+          </Typography>
+          <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
+          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}`}>Daily Leaders</Button>
+          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
 
       <animated.div className={classes.header} style={headerStyle}>
         <Grid container spacing={2} justify="center" alignItems="center" style={{ height: 300 }}>
@@ -135,7 +127,9 @@ const NavBar = (props) => {
             </Grid>
             <Grid item xs={10} sm={3}>
               <Paper className={classes.nav}>
-                <Button color="inherit" size="large" onClick={() => toggleFindState()}>Find your State</Button>
+                <ClickAwayListener onClickAway={closeFindState}>
+                  <Button color="inherit" size="large" onClick={() => toggleFindState()}>Find your State</Button>
+                </ClickAwayListener>
               </Paper>
             </Grid>
             <Grid item xs={10} sm={3}>
@@ -148,7 +142,7 @@ const NavBar = (props) => {
             </Hidden>
           </Grid>
         </Grid>
-        <Map svgStyle={svgStyle} toggleFindState={toggleFindState} />
+        <Map svgStyle={svgStyle} closeFindState={closeFindState} />
       </animated.div>
     </div >
   )

@@ -87,11 +87,11 @@ const PostBrowser = ({ db }) => {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        {posts.map((post, i) => <Tab label={post.dateID} {...a11yProps(i)} />)}
+        {posts.map((post, i) => <Tab key={i} label={post.dateID} {...a11yProps(i)} />)}
       </Tabs>
       {posts.map((post, i) => {
         return (
-          <TabPanel value={value} index={i}>
+          <TabPanel value={value} index={i} key={i}>
             <img className={classes.postImage} src={src(post)} alt="whatever" />
           </TabPanel>
         )

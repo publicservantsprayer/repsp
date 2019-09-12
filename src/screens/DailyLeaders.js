@@ -55,10 +55,11 @@ const src = leader => {
   return `https://firebasestorage.googleapis.com/v0/b/repsp123-leaders/o/${leader.PhotoFile}?alt=media`
 }
 
-const DailyLeaders = ({ match, db }) => {
+
+
+const DailyLeaders = ({ db }) => {
   const [cookies] = useCookies(['stateCode'])
-  const stateCode = cookies.stateCode || 'IN'
-  //const stateCode = match.params.stateCode.toUpperCase()
+  const stateCode = cookies.stateCode.toUpperCase()
   const [post, setPost] = useState()
   const classes = useStyles()
 
