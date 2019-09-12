@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
 import { makeStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -41,7 +42,8 @@ const useStyles = makeStyles({
 })
 
 const StateLeaders = ({ match, db }) => {
-  const stateCode = match.params.stateCode.toUpperCase()
+  const [cookies] = useCookies(['stateCode'])
+  const stateCode = cookies.stateCode.toUpperCase()
   const [fedSenate, setfedSenate] = useState()
   const [fedHouse, setfedHouse] = useState()
   const [stateSenate, setstateSenate] = useState()
@@ -50,10 +52,10 @@ const StateLeaders = ({ match, db }) => {
   const classes = useStyles()
   const [currentTab, setCurrentTab] = React.useState(0)
 
-  function handleChange(event, tabIndex) {
+  function handleChange (event, tabIndex) {
     setCurrentTab(tabIndex)
   }
-  function TabPanel(props) {
+  function TabPanel (props) {
     const { leaders, currentTab, index } = props
     return (
       <>
