@@ -14,6 +14,7 @@ import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
 import StateBlurb from '../StateBlurb'
+import StateCapital from '../StateCapital'
 
 const useStyles = makeStyles({
   root: {
@@ -147,7 +148,7 @@ const StateLeaders = ({ match, db }) => {
   return (
     <div className={classes.root}>
       <Box display="flex" justifyContent="center">
-        <Box flexGrow={1} order={1} bgcolor="common.black" px={4} my={6}>
+        <Box flexGrow={1} order={1} bgcolor="common.black" px={4} ml={4} my={6}>
           <PageTitle
             stateCode={stateCode}
             className={classes.title}
@@ -156,7 +157,8 @@ const StateLeaders = ({ match, db }) => {
           <StateFlag stateCode={stateCode} />
           <p>State Flag</p>
         </Box>
-        <Box flexGrow={1} order={2} bgcolor="common.black" px={8} my={6}>
+        <Box flexGrow={1} order={2} bgcolor="common.black" px={3} my={6}>
+          <h3>State Facts</h3>
           <ul>
             <li>State Capital: Indianapolis</li>
             <li>Government:</li>
@@ -169,7 +171,7 @@ const StateLeaders = ({ match, db }) => {
           flexGrow={1}
           order={3}
           my={6}
-          px={4}
+          px={3}
           py={2}
           boxShadow={1}
           bgcolor="common.black"
@@ -178,6 +180,18 @@ const StateLeaders = ({ match, db }) => {
             <h3>State Summary</h3>
             <StateBlurb />
           </div>
+        </Box>
+        <Box
+          flexGrow={1}
+          order={4}
+          bgcolor="common.black"
+          pt={3}
+          pr={4}
+          my={6}
+          mr={4}
+        >
+          <StateCapital stateCode={stateCode} />
+          <p>State Capital</p>
         </Box>
       </Box>
       <AppBar position="static">
