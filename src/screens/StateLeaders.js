@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@material-ui/core/Link'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { useStateCode } from '../utilities/states'
@@ -78,13 +80,13 @@ const StateLeaders = ({ location, db }) => {
               <Box key={leader.PID} m={2}>
                 {leader.FirstName} {leader.LastName}
                 <Grid container justify="center" alignItems="center">
-                  <a href={leaderUrl(leader)}>
+                  <Link component={RouterLink} to={leaderUrl(leader)}>
                     <Avatar
                       alt={leader.PhotoFile}
                       src={leaderPhoto(leader)}
                       className={classes.bigAvatar}
                     />
-                  </a>
+                  </Link>
                 </Grid>
               </Box>
             ))}

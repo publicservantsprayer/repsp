@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import PageTitle from '../PageTitle'
 import Leader from '../Leader'
 import { withFirebase } from '../Firebase'
+import LeaderInfo from '../LeaderInfo'
 
 const useStyles = makeStyles({
   root: {
@@ -38,9 +39,10 @@ const StateLeader = ({ match, db }) => {
         <PageTitle stateCode={stateCode} />
       </Box>
       {leader && (
-        <div>
+        <Box>
           <Leader leader={leader} />
-        </div>
+          <LeaderInfo leader={leader} />
+        </Box>
       )}
     </div>
   )
