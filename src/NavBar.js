@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React, { useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useSpring, animated } from 'react-spring'
 import { makeStyles } from '@material-ui/core/styles'
@@ -12,6 +12,18 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Hidden from '@material-ui/core/Hidden'
+
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import HomeIcon from '@material-ui/icons/Home'
+import PeopleIcon from '@material-ui/icons/People'
+import MapIcon from '@material-ui/icons/Map'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import ListItemText from '@material-ui/core/ListItemText'
+
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import { stateName, useStateCode } from './utilities/states'
 
@@ -20,6 +32,9 @@ import Map from './SVGMap'
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1000,
   },
   header: {
     background: 'url("/images/capitol-color-night.jpg") top left no-repeat',
@@ -58,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const NavBar = ({ location }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
   const classes = useStyles()
@@ -66,12 +82,12 @@ const NavBar = ({ location }) => {
   let headerOpen = false
   const openFindState = () => {
     headerOpen = true
-    setHeaderStyle({ height: '1350px' })
+    setHeaderStyle({ height: '1250px' })
     setSvgStyle({ transform: 'scale(1)' })
   }
   const closeFindState = () => {
     headerOpen = false
-    setHeaderStyle({ height: '350px' })
+    setHeaderStyle({ height: '250px' })
     setSvgStyle({ transform: 'scale(0.1)' })
   }
   const toggleFindState = () => {
@@ -81,63 +97,69 @@ const NavBar = ({ location }) => {
       openFindState()
     }
   }
+  const toggleDrawer = open => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return
+
+    setDrawerOpen(open)
+  }
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton onClick={toggleDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {stateName(stateCode)}
           </Typography>
-          <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}`}>Daily Leaders</Button>
-          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}`}>Home</Button>
+          <Hidden smDown>
+            <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
+            <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
+            <ClickAwayListener onClickAway={closeFindState}>
+              <Button color="inherit" onClick={toggleFindState}>Find your State</Button>
+            </ClickAwayListener>
+            <Button color="inherit" component={RouterLink} to="/what-we-do">What we do</Button>
+            <Button color="inherit" component={RouterLink} to="/why-we-pray">Why we pray</Button>
+          </Hidden>
         </Toolbar>
       </AppBar>
       <Toolbar />
-
+      <Hidden mdUp>
+        <Drawer open={drawerOpen} anchor="left" onClose={toggleDrawer(false)} onClick={toggleDrawer(false)} variant="temporary">
+          <Toolbar />
+          <List>
+            <ListItem button component={RouterLink} to="/">
+              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button component={RouterLink} to="/what-we-do">
+              <ListItemIcon><PeopleIcon /></ListItemIcon>
+              <ListItemText primary="What We Do" />
+            </ListItem>
+            <ListItem button onClick={toggleFindState}>
+              <ListItemIcon><MapIcon /></ListItemIcon>
+              <ListItemText primary="Find Your State" />
+            </ListItem>
+            <ListItem button component={RouterLink} to="/why-we-pray" selected>
+              <ListItemIcon><FavoriteIcon /></ListItemIcon>
+              <ListItemText primary="Why We Pray" />
+            </ListItem>
+            <ListItem button component={RouterLink} to="/articles">
+              <ListItemIcon><DashboardIcon /></ListItemIcon>
+              <ListItemText primary="Articles" />
+            </ListItem>
+          </List>
+        </Drawer>
+      </Hidden>
+      <Button className={classes.mapButton} />
       <animated.div className={classes.header} style={headerStyle}>
         <Grid container spacing={2} justify="center" alignItems="center" style={{ height: 300 }}>
-          <Hidden smDown>
-            <Grid item></Grid>
-          </Hidden>
           <Grid item xs={10} md={6} lg={6} xl={4}>
             <Paper className={classes.logoPaper} square>
               <img className={classes.logo} src="/images/public-servants-prayer.png" alt="public servants' prayer" />
             </Paper>
-          </Grid>
-          <Hidden smDown>
-            <Grid item></Grid>
-          </Hidden>
-
-          <Grid container spacing={2} justify="center" alignItems="center" >
-            <Hidden xsDown>
-              <Grid item sm={1}></Grid>
-            </Hidden>
-            <Grid item xs={10} sm={3}>
-              <Paper className={classes.nav}>
-                <Button color="inherit" size="large" component={RouterLink} to="/what-we-do">What we do</Button>
-              </Paper>
-            </Grid>
-            <Grid item xs={10} sm={3}>
-              <Paper className={classes.nav}>
-                <ClickAwayListener onClickAway={closeFindState}>
-                  <Button color="inherit" size="large" onClick={() => toggleFindState()}>Find your State</Button>
-                </ClickAwayListener>
-              </Paper>
-            </Grid>
-            <Grid item xs={10} sm={3}>
-              <Paper className={classes.nav}>
-                <Button color="inherit" size="large" component={RouterLink} to="/why-we-pray">Why we pray</Button>
-              </Paper>
-            </Grid>
-            <Hidden xsDown>
-              <Grid item sm={1}></Grid>
-            </Hidden>
           </Grid>
         </Grid>
         <Map svgStyle={svgStyle} closeFindState={closeFindState} />
