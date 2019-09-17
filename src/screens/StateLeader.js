@@ -39,7 +39,7 @@ const StateLeader = ({ match, db }) => {
         <PageTitle stateCode={stateCode} />
       </Box>
       {leader && (
-        <Box>
+        <Box mx={50} px={5} py={2} bgcolor="primary.dark">
           <Leader leader={leader} />
           <LeaderInfo leader={leader} />
         </Box>
