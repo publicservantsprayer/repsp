@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 
-const StateCapital = ({ stateCode }) => {
+const StateCapitalPic = ({ stateCode }) => {
   return (
     <Box>
       <p>
@@ -15,4 +15,4 @@ const StateCapital = ({ stateCode }) => {
   )
 }
 
-export default StateCapital
+export default StateCapitalPic

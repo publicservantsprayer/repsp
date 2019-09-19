@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@material-ui/core/Link'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { useStateCode } from '../utilities/states'
@@ -14,7 +16,8 @@ import { withFirebase } from '../Firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
 import StateBlurb from '../StateBlurb'
-import StateCapital from '../StateCapital'
+import StateCapitalPic from '../StateCapitalPic'
+import StateFacts from '../StateFacts'
 
 const useStyles = makeStyles({
   root: {
@@ -77,13 +80,13 @@ const StateLeaders = ({ location, db }) => {
               <Box key={leader.PID} m={2}>
                 {leader.FirstName} {leader.LastName}
                 <Grid container justify="center" alignItems="center">
-                  <a href={leaderUrl(leader)}>
+                  <Link component={RouterLink} to={leaderUrl(leader)}>
                     <Avatar
                       alt={leader.PhotoFile}
                       src={leaderPhoto(leader)}
                       className={classes.bigAvatar}
                     />
-                  </a>
+                  </Link>
                 </Grid>
               </Box>
             ))}
@@ -156,15 +159,11 @@ const StateLeaders = ({ location, db }) => {
           <StateFlag stateCode={stateCode} />
           <p>State Flag</p>
         </Box>
-        <Box flexGrow={1} order={2} bgcolor="common.black" px={3} my={6}>
-          <h3>State Facts</h3>
-          <ul>
-            <li>State Capital: Indianapolis</li>
-            <li>Government:</li>
-            <li>Area:</li>
-            <li>Population:</li>
-            <li>Legislature:</li>
-          </ul>
+        <Box flexGrow={1} order={2} bgcolor="common.black" px={3} pt={2} my={6}>
+          <div className={classes.scroll}>
+            <h3>State Facts</h3>
+            <StateFacts stateCode={stateCode} />
+          </div>
         </Box>
         <Box
           flexGrow={1}
@@ -189,7 +188,7 @@ const StateLeaders = ({ location, db }) => {
           my={6}
           mr={4}
         >
-          <StateCapital stateCode={stateCode} />
+          <StateCapitalPic stateCode={stateCode} />
           <p>State Capital</p>
         </Box>
       </Box>
