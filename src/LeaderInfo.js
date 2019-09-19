@@ -13,7 +13,6 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 
-import { useStateCode } from './utilities/states'
 import theme from './utilities/theme'
 
 const useStyles = makeStyles({
@@ -41,7 +40,6 @@ const useStyles = makeStyles({
 const LeaderInfo = ({ location, leader }) => {
   const [blurb, setBlurb] = useState()
   const classes = useStyles()
-  const stateCode = useStateCode(location)
 
   useEffect(() => {
     wiki()

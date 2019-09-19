@@ -17,14 +17,14 @@ const dayOfTheWeekColor = [
   '#ffff99', // Wed yellow
   'darkorange', // Thu orange
   '#009933', // Fri green
-  'skyblue' // Sat blue
+  'skyblue', // Sat blue
 ]
 
 const color = dayOfTheWeekColor[new Date().getDay()]
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
@@ -34,36 +34,34 @@ const useStyles = makeStyles(theme => ({
     width: 500,
     borderWidth: '10px',
     borderStyle: 'solid',
-    borderColor: color
+    borderColor: color,
   },
   imgBox: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   container: {
-    margin: 'auto'
+    margin: 'auto',
   },
   today: {
-    color: color
+    color: color,
   },
   leaderNames: {
     textAlign: 'center',
-    alignContent: 'center'
-  }
+    alignContent: 'center',
+  },
 }))
 
 const src = leader => {
   return `https://firebasestorage.googleapis.com/v0/b/repsp123-leaders/o/${leader.PhotoFile}?alt=media`
 }
 
-
-
-const DailyLeaders = ({ db, location }) => {
+const Home = ({ db, location }) => {
   const stateCode = useStateCode(location)
   const [post, setPost] = useState()
   const classes = useStyles()
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const snap = await db
         .collection(`/states/${stateCode}/posts/`)
         .orderBy('dateID', 'desc')
@@ -115,4 +113,4 @@ const DailyLeaders = ({ db, location }) => {
     </div>
   )
 }
-export default withFirebase(DailyLeaders)
+export default withFirebase(Home)

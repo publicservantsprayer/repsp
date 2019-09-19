@@ -13,8 +13,8 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Hidden from '@material-ui/core/Hidden'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import { stateName, useStateCode } from './utilities/states'
 
+import { stateName, useStateCode } from './utilities/states'
 import Map from './SVGMap'
 
 const useStyles = makeStyles(theme => ({
@@ -86,53 +86,105 @@ const NavBar = ({ location }) => {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {stateName(stateCode)}
           </Typography>
-          <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}`}>Daily Leaders</Button>
-          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
+          <Button color="inherit" component={RouterLink} to="/news">
+            News
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/events">
+            Events
+          </Button>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={`/states/${stateCode.toLowerCase()}`}
+          >
+            Daily Leaders
+          </Button>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={`/states/${stateCode.toLowerCase()}/leaders`}
+          >
+            State Leaders
+          </Button>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Toolbar />
 
       <animated.div className={classes.header} style={headerStyle}>
-        <Grid container spacing={2} justify="center" alignItems="center" style={{ height: 300 }}>
+        <Grid
+          container
+          spacing={2}
+          justify="center"
+          alignItems="center"
+          style={{ height: 300 }}
+        >
           <Hidden smDown>
             <Grid item></Grid>
           </Hidden>
           <Grid item xs={10} md={6} lg={6} xl={4}>
             <Paper className={classes.logoPaper} square>
-              <img className={classes.logo} src="/images/public-servants-prayer.png" alt="public servants' prayer" />
+              <img
+                className={classes.logo}
+                src="/images/public-servants-prayer.png"
+                alt="public servants' prayer"
+              />
             </Paper>
           </Grid>
           <Hidden smDown>
             <Grid item></Grid>
           </Hidden>
 
-          <Grid container spacing={2} justify="center" alignItems="center" >
+          <Grid container spacing={2} justify="center" alignItems="center">
             <Hidden xsDown>
               <Grid item sm={1}></Grid>
             </Hidden>
             <Grid item xs={10} sm={3}>
               <Paper className={classes.nav}>
-                <Button color="inherit" size="large" component={RouterLink} to="/what-we-do">What we do</Button>
+                <Button
+                  color="inherit"
+                  size="large"
+                  component={RouterLink}
+                  to="/what-we-do"
+                >
+                  What we do
+                </Button>
               </Paper>
             </Grid>
             <Grid item xs={10} sm={3}>
               <Paper className={classes.nav}>
                 <ClickAwayListener onClickAway={closeFindState}>
-                  <Button color="inherit" size="large" onClick={() => toggleFindState()}>Find your State</Button>
+                  <Button
+                    color="inherit"
+                    size="large"
+                    onClick={() => toggleFindState()}
+                  >
+                    Find your State
+                  </Button>
                 </ClickAwayListener>
               </Paper>
             </Grid>
             <Grid item xs={10} sm={3}>
               <Paper className={classes.nav}>
-                <Button color="inherit" size="large" component={RouterLink} to="/why-we-pray">Why we pray</Button>
+                <Button
+                  color="inherit"
+                  size="large"
+                  component={RouterLink}
+                  to="/why-we-pray"
+                >
+                  Why we pray
+                </Button>
               </Paper>
             </Grid>
             <Hidden xsDown>
@@ -142,7 +194,7 @@ const NavBar = ({ location }) => {
         </Grid>
         <Map svgStyle={svgStyle} closeFindState={closeFindState} />
       </animated.div>
-    </div >
+    </div>
   )
 }
 

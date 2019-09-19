@@ -17,9 +17,6 @@ const FactLI = ({ fact, children }) => {
 }
 
 const StateFacts = () => {
-  const stateCode = useStateCode()
-  const info = stateFacts(stateCode)
-
   return (
     <Box>
       <FactLI fact="capitol">State Capitol: </FactLI>
