@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import CookieSetter from './CookieSetter'
 import NavBar from './NavBar'
-import DailyLeaders from './screens/DailyLeaders'
+import Home from './screens/Home'
 import StateLeaders from './screens/StateLeaders'
 import StateLeader from './screens/StateLeader'
 import Articles from './screens/Articles'
@@ -13,11 +13,11 @@ import WhatWeDo from './screens/WhatWeDo'
 import WhyWePray from './screens/WhyWePray'
 import Footer from './Footer'
 
-function App() {
+function App () {
   const [cookies, setCookie] = useCookies([])
 
   if (!cookies.stateCode) {
-    ;(async () => {
+    (async () => {
       try {
         const response = await axios.get(
           'http://ip-api.com/json/?fields=region'
@@ -39,7 +39,7 @@ function App() {
       <Route exact path="/articles" component={Articles} />
       <Route exact path="/what-we-do" component={WhatWeDo} />
       <Route exact path="/why-we-pray" component={WhyWePray} />
-      <Route exact path="/states/:stateCode" component={DailyLeaders} />
+      <Route exact path="/states/:stateCode" component={Home} />
       <Route
         exact
         path="/states/:stateCode/leader/:id"
