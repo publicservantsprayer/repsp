@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
-import Container from '@material-ui/core/Container'
 import { useSpring, animated } from 'react-spring'
 import { useCookies } from 'react-cookie'
+import Container from '@material-ui/core/Container'
+import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import svgPanZoom from 'svg-pan-zoom'
 
 import { stateCodes } from '../utilities/states'
 import statePaths from './statePaths'
 import theme from '../utilities/theme'
+import panZoomEventsHandler from './panZoomEventsHandler'
 
 const stateColor = theme.palette.secondary.main
 const stateColorOver = theme.palette.primary.main
@@ -123,19 +130,44 @@ const SVGMapText = withRouter(({ stateCode, history, closeFindState, setCookie }
 })
 
 const SVGMap = ({ svgStyle, closeFindState }) => {
-  /* eslint-disable-next-line no-unused-vars */
-  const [_cookies, setCookie] = useCookies([])
+  const [, setCookie] = useCookies([])
+
+  useEffect(() => {
+    svgPanZoom('#map', {
+      zoomEnabled: false,
+      controlIconsEnabled: true,
+      fit: 1,
+      center: 1,
+      customEventsHandler: panZoomEventsHandler,
+      viewportSelector: '#pan-zoom-viewport',
+    })
+  })
+
+  const moveMap = () => { }
 
   return (
     <Container maxWidth="md">
-      <animated.svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
-        viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin"
-        style={svgStyle}>
-        {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
-        {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
-        {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
-      </animated.svg>
-    </Container>
+      <Box display="none" width="100%" m={1} mt={9}>
+        <ButtonGroup fullWidth>
+          <Button variant="contained" color="secondary" onClick={moveMap}>
+            <ArrowBackIosIcon />
+          </Button>
+          <Button variant="contained" color="secondary" onClick={moveMap}>
+            <ArrowForwardIosIcon />
+          </Button>
+        </ButtonGroup>
+      </Box>
+      <div style={{ height: '500px' }}>
+        <animated.svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
+          viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin" id="map"
+          style={svgStyle}>
+          {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
+          {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
+          {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
+        </animated.svg>
+      </div>
+    </Container >
   )
 }
+
 export default SVGMap
