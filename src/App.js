@@ -14,6 +14,7 @@ import WhatWeDo from './screens/WhatWeDo'
 import WhyWePray from './screens/WhyWePray'
 import WomensMinistry from './screens/WomensMinistry'
 import Footer from './Footer'
+import UpdatesFromMatt from './screens/UpdatesFromMatt'
 
 function App() {
   const [cookies, setCookie] = useCookies([])
@@ -42,6 +43,7 @@ function App() {
       <Route exact path="/what-we-do" component={WhatWeDo} />
       <Route exact path="/why-we-pray" component={WhyWePray} />
       <Route exact path="/womens-ministry" component={WomensMinistry} />
+      <Route exact path="/updatesfrommatt" component={UpdatesFromMatt} />
       <Route exact path="/states/:stateCode" component={Home} />
       <Route
         exact
