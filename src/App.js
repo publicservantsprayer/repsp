@@ -13,13 +13,14 @@ import Events from './screens/Events'
 import WhatWeDo from './screens/WhatWeDo'
 import WhyWePray from './screens/WhyWePray'
 import WomensMinistry from './screens/WomensMinistry'
+import Content from './Content'
 import Footer from './Footer'
 
-function App() {
+function App () {
   const [cookies, setCookie] = useCookies([])
 
   if (!cookies.stateCode) {
-    ;(async () => {
+    ; (async () => {
       try {
         const response = await axios.get(
           'http://ip-api.com/json/?fields=region'
@@ -43,6 +44,7 @@ function App() {
       <Route exact path="/why-we-pray" component={WhyWePray} />
       <Route exact path="/womens-ministry" component={WomensMinistry} />
       <Route exact path="/states/:stateCode" component={Home} />
+      <Route exact path="/content" component={Content} />
       <Route
         exact
         path="/states/:stateCode/leader/:id"

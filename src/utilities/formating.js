@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 
 export const H1 = ({ children }) =>
   <Box p={2} mt={3}>
-    <Typography variant="h1" component="h1">{children}</Typography>
+    <Typography variant="h2" component="h1">{children}</Typography>
   </Box>
 
 export const H2 = ({ children }) =>
