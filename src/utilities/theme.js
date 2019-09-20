@@ -12,7 +12,7 @@ const theme = createMuiTheme({
   },
 })
 
-export const theme2 = createMuiTheme({
+export const theme1 = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
