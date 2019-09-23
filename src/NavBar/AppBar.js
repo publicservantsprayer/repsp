@@ -66,7 +66,7 @@ const AppBar = ({ stateCode, toggleDrawer }) => {
       <Toolbar>
         <Box flexGrow={1}>
           <Typography variant="h6">
-            {stateName(stateCode)}
+            PSP {stateName(stateCode)}
           </Typography>
         </Box>
         <IconButton onClick={toggleDrawer()} edge="start" color="inherit">
