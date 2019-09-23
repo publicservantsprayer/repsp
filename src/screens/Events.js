@@ -38,6 +38,20 @@ const db = [
     blurb:
       'Are you a pastor? Do you know your state representative and senator? These elected men and women are eager to meet the spiritual leaders in their communities.',
   },
+  {
+    title: 'Books and Bagels',
+    image:
+      'https://lakecitysmallgroups.files.wordpress.com/2017/11/prayer-e1510943911313.jpg',
+    blurb:
+      'Are you a pastor? Do you know your state representative and senator? These elected men and women are eager to meet the spiritual leaders in their communities.',
+  },
+  {
+    title: 'Governors Prayer Breakfast',
+    image:
+      'https://lakecitysmallgroups.files.wordpress.com/2017/11/prayer-e1510943911313.jpg',
+    blurb:
+      'Are you a pastor? Do you know your state representative and senator? These elected men and women are eager to meet the spiritual leaders in their communities.',
+  },
 ]
 
 const ArticleGrid = ({ article }) => (
