@@ -13,30 +13,79 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import ListItemText from '@material-ui/core/ListItemText'
 
-const DrawerMenu = ({ drawerOpen, toggleDrawer, toggleFindState, stateCode }) => {
+const DrawerMenu = ({
+  drawerOpen,
+  toggleDrawer,
+  toggleFindState,
+  stateCode,
+}) => {
   return (
-    <Drawer open={drawerOpen} anchor="right" onClose={toggleDrawer(false)} onClick={toggleDrawer(false)} variant="temporary">
+    <Drawer
+      open={drawerOpen}
+      anchor="right"
+      onClose={toggleDrawer(false)}
+      onClick={toggleDrawer(false)}
+      variant="temporary"
+    >
       <Toolbar />
       <List>
-        <ListItem button component={RouterLink} to={`/states/${stateCode.toLowerCase()}`}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
+        <ListItem
+          button
+          component={RouterLink}
+          to={`/states/${stateCode.toLowerCase()}`}
+        >
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItem>
         <ListItem button component={RouterLink} to="/what-we-do">
-          <ListItemIcon><PeopleIcon /></ListItemIcon>
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
           <ListItemText primary="What We Do" />
         </ListItem>
         <ListItem button onClick={toggleFindState}>
-          <ListItemIcon><MapIcon /></ListItemIcon>
+          <ListItemIcon>
+            <MapIcon />
+          </ListItemIcon>
           <ListItemText primary="Find Your State" />
         </ListItem>
         <ListItem button component={RouterLink} to="/why-we-pray" selected>
-          <ListItemIcon><FavoriteIcon /></ListItemIcon>
+          <ListItemIcon>
+            <FavoriteIcon />
+          </ListItemIcon>
           <ListItemText primary="Why We Pray" />
         </ListItem>
         <ListItem button component={RouterLink} to="/articles">
-          <ListItemIcon><DashboardIcon /></ListItemIcon>
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
           <ListItemText primary="Articles" />
+        </ListItem>
+        <ListItem button component={RouterLink} to="/news">
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="News" />
+        </ListItem>
+        <ListItem button component={RouterLink} to="/events">
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Events" />
+        </ListItem>
+        <ListItem button component={RouterLink} to="/updates">
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="Updates" />
+        </ListItem>
+        <ListItem button component={RouterLink} to="/about">
+          <ListItemIcon>
+            <DashboardIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
         </ListItem>
       </List>
     </Drawer>

@@ -1,8 +1,10 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 import MediaCard from '../MediaCard'
+import { withFirebase } from '../Firebase'
 
 const db = [
   {
@@ -48,22 +50,29 @@ const ArticleGrid = ({ article }) => (
     />
   </Grid>
 )
+export default withFirebase(({ db }) => {
+  const [docs, loading, error] = useCollectionData(
+    db.collection('content').where('category', '==', 'news'),
+    {
+      idField: 'docId',
+    }
+  )
+  if (error) console.log('Error getting docs: ', error)
 
-const News = () => (
-  <Container maxWidth="lg">
-    <p></p>
-    <Grid
-      container
-      direction="row"
-      justify="space-evenly"
-      alignItems="center"
-      spacing={10}
-    >
-      {db.map((article, i) => (
-        <ArticleGrid article={article} key={i} />
-      ))}
-    </Grid>
-  </Container>
-)
-
-export default News
+  return (
+    <Container maxWidth="lg">
+      <p></p>
+      <Grid
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="center"
+        spacing={10}
+      >
+        {loading && '... loading'}
+        {docs &&
+          docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
+      </Grid>
+    </Container>
+  )
+})

@@ -10,18 +10,21 @@ import StateLeaders from './screens/StateLeaders'
 import StateLeader from './screens/StateLeader'
 import News from './screens/News'
 import Events from './screens/Events'
+import Event from './screens/Event'
 import WhatWeDo from './screens/WhatWeDo'
 import WhyWePray from './screens/WhyWePray'
 import WomensMinistry from './screens/WomensMinistry'
 import Content from './Content'
 import Footer from './Footer'
-import UpdatesFromMatt from './screens/UpdatesFromMatt'
+import Updates from './screens/Updates'
+import Articles from './screens/Articles'
+import About from './About'
 
-function App () {
+function App() {
   const [cookies, setCookie] = useCookies([])
 
   if (!cookies.stateCode) {
-    ; (async () => {
+    ;(async () => {
       try {
         const response = await axios.get(
           'http://ip-api.com/json/?fields=region'
@@ -40,11 +43,15 @@ function App () {
       <Route component={CookieSetter} />
       <Route component={NavBar} />
       <Route exact path="/news" component={News} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/articles" component={Articles} />
+      <Route exact path="/updates" component={Updates} />
       <Route exact path="/events" component={Events} />
+      <Route exact path="/event" component={Event} />
       <Route exact path="/what-we-do" component={WhatWeDo} />
       <Route exact path="/why-we-pray" component={WhyWePray} />
       <Route exact path="/womens-ministry" component={WomensMinistry} />
-      <Route exact path="/updatesfrommatt" component={UpdatesFromMatt} />
+      <Route exact path="/updates" component={Updates} />
       <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/content" component={Content} />
       <Route
