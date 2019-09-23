@@ -5,7 +5,9 @@ import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
-import { withFirebase } from '../Firebase';
+
+import { withFirebase } from '../Firebase'
+import DeleteButton from './DeleteButton'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -32,7 +34,7 @@ const TextField = ({ field, values, handleChange, ...rest }) => {
   )
 }
 
-export default withFirebase(({ db, docValues, handleCancel, showList }) => {
+export default withFirebase(({ db, docValues, handleCancel, showList, showDelete }) => {
   const classes = useStyles()
   const [values, setValues] = React.useState(docValues)
 
@@ -96,6 +98,7 @@ export default withFirebase(({ db, docValues, handleCancel, showList }) => {
               <Button variant="contained" color="secondary" className={classes.button} onClick={handleSave}>
                 Save
               </Button>
+              {showDelete && <DeleteButton showList={showList} docValues={docValues} />}
             </Box>
           </form>
         </Container>
