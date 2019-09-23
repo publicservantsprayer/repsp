@@ -1,23 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Link as RouterLink } from 'react-router-dom'
-import { useSpring, animated } from 'react-spring'
+import { useSpring } from 'react-spring'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 
-import { stateName, useStateCode } from '../utilities/states'
+import { stateName } from '../utilities/states'
 
 const useStyles = makeStyles(theme => ({
   AppBar: {
@@ -41,8 +38,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const AppBar = ({ stateCode, toggleDrawer }) => {
-  const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
-  const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
+  const [, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
+  const [, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const classes = useStyles()
 
   let headerOpen = false

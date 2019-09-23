@@ -3,7 +3,7 @@ import stateFactsData from './stateFactsData'
 const stateFacts = stateCode => {
   const stateFactsObj = stateFactsData[stateCode]
   const obj = {}
-  let facts = Object.keys(stateFactsObj).forEach(key => {
+  Object.keys(stateFactsObj).forEach(key => {
     let fact = stateFactsObj[key]
     if (fact === 'nowrap') return
     if (Array.isArray(fact)) fact = fact[0]

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import Link from '@material-ui/core/Link'
 
 import { withFirebase } from '../Firebase'
@@ -9,7 +8,7 @@ const WomensMinistry = ({ db }) => {
   const [article, setArticle] = useState()
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const doc = await db
         .collection('/states/AK/articles')
         .doc('why-we-pray-in-depth-part-1')

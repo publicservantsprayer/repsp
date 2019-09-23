@@ -4,8 +4,6 @@ import Container from '@material-ui/core/Container'
 
 import MediaCard from '../MediaCard'
 
-import Markdown from '../Markdown'
-
 const db = [
   {
     title: 'About Us',
