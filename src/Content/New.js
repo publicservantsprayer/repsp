@@ -7,6 +7,7 @@ export default ({ handleCancelNew, showList }) => {
     title: '',
     blurb: '',
     content: '',
+    category: '',
   }
 
   return (
