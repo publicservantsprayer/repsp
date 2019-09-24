@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
@@ -18,6 +18,25 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const ImageCode = withFirebase(({ image, storageRef }) => {
+  const [src, setSrc] = useState()
+  useEffect(() => {
+    (async () => {
+      const url = await storageRef.child('content/' + image).getDownloadURL()
+      setSrc(url)
+    })()
+  })
+
+  return (
+    <Box p={2}>
+      <img src={src} alt='content' width="50%" />
+      <Box p={1} bgcolor="primary.dark" border={1}>
+
+        <code>![Alt text]({src} "Optional Title")</code>
+      </Box>
+    </Box>
+  )
+})
 
 export default withFirebase(({ db, docValues, handleCancel, showList, showDelete }) => {
   const classes = useStyles()
@@ -59,6 +78,8 @@ export default withFirebase(({ db, docValues, handleCancel, showList, showDelete
             <TextField field="title" label="Title" {...commonFieldProps} />
             <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
             <TextField field="content" label="Content" multiline rows={8} {...commonFieldProps} />
+
+            {values.images.map(image => <ImageCode image={image} key={image} />)}
 
             <Box py={2}>
               <Button variant="contained" color="primary" className={classes.button} onClick={handleCancel}>

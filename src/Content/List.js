@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import Box from '@material-ui/core/Box'
@@ -7,6 +7,7 @@ import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button'
 
 import { withFirebase } from '../Firebase'
+import ImageUpload from './ImageUpload'
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,8 +26,37 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default withFirebase(({ db, handleEdit }) => {
+const UpdateButtons = ({ content, handleEdit }) => {
   const classes = useStyles()
+  const [showUpdateImages, setShowUpdateImages] = useState(false)
+
+  const handleUpdateImages = () => {
+    setShowUpdateImages(true)
+  }
+
+  const handleDoneUpdatingImages = () => {
+    setShowUpdateImages(false)
+  }
+
+  return (
+    <>
+      {showUpdateImages && <ImageUpload content={content} />}
+
+      {!showUpdateImages &&
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleEdit(content.docId)}>
+          <EditIcon className={classes.leftIcon} />Edit
+        </Button>}
+
+      {!showUpdateImages &&
+        <Button variant="contained" color="primary" onClick={handleUpdateImages}>Update Images</Button>}
+
+      {showUpdateImages &&
+        <Button variant="contained" color="secondary" onClick={handleDoneUpdatingImages}>Done</Button>}
+    </>
+  )
+}
+
+export default withFirebase(({ db, handleEdit }) => {
   const [docs, loading, error] = useCollectionData(
     db.collection('content'),
     { idField: 'docId' }
@@ -38,16 +68,13 @@ export default withFirebase(({ db, handleEdit }) => {
       {loading && <span>Collection: Loading...</span>}
       {docs && (
         <span>
-          {docs.map(value => (
-            <Box m={2} key={value.docId}>
+          {docs.map(content => (
+            <Box m={2} key={content.docId}>
               <Paper>
-                <Box p={2} key={value.docId}>
-                  <h2>{value.title}</h2>
-                  <p>{value.blurb}</p>
-                  <Button variant="contained" color="primary" className={classes.button} onClick={handleEdit(value.docId)}>
-                    <EditIcon className={classes.leftIcon} />
-                    Edit
-                    </Button>
+                <Box p={2} key={content.docId}>
+                  <h2>{content.title}</h2>
+                  <p>{content.blurb}</p>
+                  <UpdateButtons content={content} handleEdit={handleEdit} />
                 </Box>
               </Paper>
             </Box>
