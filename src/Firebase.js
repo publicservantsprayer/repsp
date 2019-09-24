@@ -4,7 +4,13 @@ const Firebase = React.createContext(null)
 
 export const withFirebase = Component => props => (
   <Firebase.Consumer>
-    {db => <Component {...props} db={db} />}
+    {firebase =>
+      <Component
+        {...props}
+        firebase={firebase}
+        db={firebase.firestore()}
+        storage={firebase.storage()}
+        storageRef={firebase.storage().ref()} />}
   </Firebase.Consumer>
 )
 

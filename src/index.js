@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import app from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/storage'
 import { CssBaseline } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/styles'
 import { CookiesProvider } from 'react-cookie'
@@ -20,11 +21,11 @@ const firebaseConfig = {
   appId: "1:1081890506539:web:61606bc159584f95"
 }
 
-app.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
 ReactDOM.render(
   <CookiesProvider>
-    <Firebase.Provider value={app.firestore()}>
+    <Firebase.Provider value={firebase}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <App />
