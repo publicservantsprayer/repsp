@@ -3,6 +3,7 @@ import ReactMarkdown from 'markdown-to-jsx'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Link from '@material-ui/core/Link'
+import Image from 'material-ui-image'
 
 const styles = theme => ({
   listItem: {
@@ -30,6 +31,7 @@ const options = {
     },
     p: { component: Typography, props: { paragraph: true } },
     a: { component: Link },
+    img: { component: Image },
     li: {
       component: withStyles(styles)(({ classes, ...props }) => (
         <li className={classes.listItem}>
@@ -40,6 +42,6 @@ const options = {
   },
 }
 
-export default function Markdown(props) {
+export default function Markdown (props) {
   return <ReactMarkdown options={options} {...props} />
 }
