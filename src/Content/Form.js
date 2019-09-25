@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
+import Image from 'material-ui-image'
 
 import { withFirebase } from '../Firebase'
 import TextField from './TextField'
@@ -20,6 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 const ImageCode = withFirebase(({ image, storageRef }) => {
   const [src, setSrc] = useState()
+  const [copyText, setCopyText] = useState('Copy Snippet')
+
   useEffect(() => {
     (async () => {
       const url = await storageRef.child('content/' + image).getDownloadURL()
@@ -27,12 +30,17 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
     })()
   })
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText('![Alt text](' + src + ' "Optional Title")')
+    setCopyText('Snippet Copied')
+  }
+
   return (
     <Box p={2}>
-      <img src={src} alt='content' width="50%" />
-      <Box p={1} bgcolor="primary.dark" border={1}>
-
-        <code>![Alt text]({src} "Optional Title")</code>
+      <Image src={src} />
+      <Box p={1} bgcolor="primary.dark" border={1} fontSize={10} fontFamily="Monospace" overflow="hidden" >
+        <code><pre>{'![Alt text](' + src + ' "Optional Title")'}</pre></code>
+        <Button variant="outlined" size="small" onClick={handleCopy}>{copyText}</Button>
       </Box>
     </Box>
   )
@@ -77,7 +85,7 @@ export default withFirebase(({ db, docValues, handleCancel, showList, showDelete
             <TextField field="docId" label="Unique ID" {...commonFieldProps} />
             <TextField field="title" label="Title" {...commonFieldProps} />
             <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
-            <TextField field="content" label="Content" multiline rows={8} {...commonFieldProps} />
+            <TextField field="content" label="Content" multiline rows={16} {...commonFieldProps} />
 
             {values.images.map(image => <ImageCode image={image} key={image} />)}
 
