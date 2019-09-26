@@ -5,6 +5,7 @@ export default ({ handleCancelNew, showList }) => {
   const defaultValues = {
     docId: '',
     title: '',
+    cardImage: '',
     blurb: '',
     content: '',
     category: '',
@@ -12,6 +13,10 @@ export default ({ handleCancelNew, showList }) => {
   }
 
   return (
-    <Form handleCancel={handleCancelNew} docValues={defaultValues} showList={showList} />
+    <Form
+      handleCancel={handleCancelNew}
+      docValues={defaultValues}
+      showList={showList}
+    />
   )
 }
