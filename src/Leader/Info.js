@@ -12,8 +12,9 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
+import moment from 'moment'
 
-import theme from './utilities/theme'
+import theme from '../utilities/theme'
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +38,26 @@ const useStyles = makeStyles({
   },
 })
 
-const LeaderInfo = ({ location, leader }) => {
+const birthday = leader => {
+  const month = leader.BirthDate
+  const day = leader.BirthMonth
+  if (!month || !day) return null
+
+  return moment(`2020-${month}-${day}`).format('MMMM Do')
+}
+
+const Row = ({ field, value }) => {
+  if (!value) return null
+
+  return (
+    <TableRow>
+      <TableCell>{field}</TableCell>
+      <TableCell>{value}</TableCell>
+    </TableRow>
+  )
+}
+
+const LeaderInfo = ({ leader }) => {
   const [blurb, setBlurb] = useState()
   const classes = useStyles()
 
@@ -60,6 +80,7 @@ const LeaderInfo = ({ location, leader }) => {
           <Paper className={classes.paper}>
             <Table className={classes.table} size="small">
               <TableBody>
+                <Row field="District:" value={leader.District} />
                 <TableRow>
                   <TableCell>District:</TableCell>
                   <TableCell>{leader.District}</TableCell>
@@ -80,12 +101,7 @@ const LeaderInfo = ({ location, leader }) => {
                   <TableCell>Family:</TableCell>
                   <TableCell>{leader.Family}</TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell>Birthday:</TableCell>
-                  <TableCell>
-                    {`${leader.BirthDate} / ${leader.BirthMonth}`}
-                  </TableCell>
-                </TableRow>
+                <Row field="Birthday" value={birthday(leader)} />
               </TableBody>
             </Table>
           </Paper>
