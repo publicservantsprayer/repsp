@@ -18,6 +18,12 @@ const db = [
     blurb:
       'How can I help? Here are three ways you can give to encourage our leaders.',
   },
+  {
+    title: 'International Prayer with Leaders',
+    image:
+      'https://images.squarespace-cdn.com/content/v1/55a52fd4e4b037b6dd04e384/1516730122882-86O0JM8Q0PAKCQIUXHNN/ke17ZwdGBToddI8pDm48kBa9hJZBs0vhP4TILrFPdIZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmEczKEiHaQrO44vfJ0kKvIA2J-j_lQ9JnVm2y0-n2FU57cWDZC5qU3cZuU_QHivgV/21318833_10214446028892697_6197402969921247544_o.jpg?format=2500w',
+    blurb: 'Getting a chance to pray with leaders around the world',
+  },
 ]
 
 const ArticleGrid = ({ article }) => (

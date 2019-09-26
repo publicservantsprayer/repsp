@@ -17,7 +17,7 @@ export default withFirebase(({ db, match }) => {
     db.collection('content').doc(match.params.docId)
   )
   const classes = useStyles()
-  if (error) console.log('Error getting event: ', error)
+  if (error) console.log('Error getting newsItem: ', error)
   return (
     <box className={classes.root}>
       {doc && (

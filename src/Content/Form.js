@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import Image from 'material-ui-image'
 
+import { H1 } from '../utilities/formating'
+import Markdown from '../Markdown'
 import { withFirebase } from '../Firebase'
 import TextField from './TextField'
 import SelectField from './SelectField'
@@ -24,7 +26,7 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   const [copyText, setCopyText] = useState('Copy Snippet')
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const url = await storageRef.child('content/' + image).getDownloadURL()
       setSrc(url)
     })()
@@ -38,69 +40,137 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   return (
     <Box p={2}>
       <Image src={src} />
-      <Box p={1} bgcolor="primary.dark" border={1} fontSize={10} fontFamily="Monospace" overflow="hidden" >
-        <code><pre>{'![Alt text](' + src + ' "Optional Title")'}</pre></code>
-        <Button variant="outlined" size="small" onClick={handleCopy}>{copyText}</Button>
+      <Box
+        p={1}
+        bgcolor="primary.dark"
+        border={1}
+        fontSize={10}
+        fontFamily="Monospace"
+        overflow="hidden"
+      >
+        <code>
+          <pre>{'![Alt text](' + src + ' "Optional Title")'}</pre>
+        </code>
+        <Button variant="outlined" size="small" onClick={handleCopy}>
+          {copyText}
+        </Button>
       </Box>
     </Box>
   )
 })
 
-export default withFirebase(({ db, docValues, handleCancel, showList, showDelete }) => {
-  const classes = useStyles()
-  const [values, setValues] = React.useState(docValues)
+export default withFirebase(
+  ({ db, docValues, handleCancel, showList, showDelete }) => {
+    const classes = useStyles()
+    const [values, setValues] = React.useState(docValues)
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value })
-  }
-
-  const handleSave = async () => {
-    try {
-      await db.collection('content').doc(values.docId).set(values)
-      showList()
+    const handleChange = name => event => {
+      setValues({ ...values, [name]: event.target.value })
     }
-    catch (error) {
-      console.log('Error writing to db: ', error)
+
+    const handleSave = async () => {
+      try {
+        await db
+          .collection('content')
+          .doc(values.docId)
+          .set(values)
+        showList()
+      } catch (error) {
+        console.log('Error writing to db: ', error)
+      }
     }
+
+    const commonFieldProps = {
+      values: values,
+      handleChange: handleChange,
+    }
+
+    return (
+      <>
+        <Box m={2}>
+          <Paper>
+            <Container>
+              <form noValidate autoComplete="off">
+                <SelectField
+                  field="category"
+                  label="Category"
+                  {...commonFieldProps}
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="news">News</MenuItem>
+                  <MenuItem value="events">Events</MenuItem>
+                  <MenuItem value="updates">Updates</MenuItem>
+                  <MenuItem value="articles">Articles</MenuItem>
+                </SelectField>
+
+                <TextField
+                  field="docId"
+                  label="Unique ID"
+                  {...commonFieldProps}
+                />
+                <TextField field="title" label="Title" {...commonFieldProps} />
+                <TextField
+                  field="cardImage"
+                  label="CardImage"
+                  {...commonFieldProps}
+                />
+                <TextField
+                  field="blurb"
+                  label="Blurb"
+                  multiline
+                  rows={2}
+                  {...commonFieldProps}
+                />
+                <TextField
+                  field="content"
+                  label="Content"
+                  multiline
+                  rows={16}
+                  {...commonFieldProps}
+                />
+
+                {values.images &&
+                  values.images.map(image => (
+                    <ImageCode image={image} key={image} />
+                  ))}
+
+                <Box py={2}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={handleCancel}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    onClick={handleSave}
+                  >
+                    Save
+                  </Button>
+                  {showDelete && (
+                    <DeleteButton showList={showList} docValues={docValues} />
+                  )}
+                </Box>
+              </form>
+            </Container>
+          </Paper>
+        </Box>
+
+        <Box m={2}>
+          <Paper>
+            <Container>
+              <H1>{values.title}</H1>
+              <Markdown>{values.content}</Markdown>
+            </Container>
+          </Paper>
+        </Box>
+      </>
+    )
   }
-
-  const commonFieldProps = {
-    values: values,
-    handleChange: handleChange,
-  }
-
-  return (
-    <Box m={2}>
-      <Paper>
-        <Container>
-          <form noValidate autoComplete="off">
-            <SelectField field="category" label="Category" {...commonFieldProps}>
-              <MenuItem value=""><em>None</em></MenuItem>
-              <MenuItem value="news">News</MenuItem>
-              <MenuItem value="events">Events</MenuItem>
-              <MenuItem value="updates">Updates</MenuItem>
-              <MenuItem value="articles">Articles</MenuItem>
-            </SelectField>
-
-            <TextField field="docId" label="Unique ID" {...commonFieldProps} />
-            <TextField field="title" label="Title" {...commonFieldProps} />
-            <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
-            <TextField field="content" label="Content" multiline rows={16} {...commonFieldProps} />
-
-            {values.images.map(image => <ImageCode image={image} key={image} />)}
-
-            <Box py={2}>
-              <Button variant="contained" color="primary" className={classes.button} onClick={handleCancel}>
-                Cancel
-              </Button>
-              <Button variant="contained" color="secondary" className={classes.button} onClick={handleSave}>
-                Save
-              </Button>
-              {showDelete && <DeleteButton showList={showList} docValues={docValues} />}
-            </Box>
-          </form>
-        </Container>
-      </Paper>
-    </Box >
-  )
-})
+)

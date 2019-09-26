@@ -2,33 +2,21 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
 import { withFirebase } from '../Firebase'
 
-const db = [
-  {
-    title: 'Live Prayer Requests From Leaders',
-    image: 'https://saintmike.com/wp-content/uploads/MilitaryPrayerList1.jpg',
-    blurb:
-      'Want to pray more specifically? Here are live prayer requests from our leaders.',
-  },
-  {
-    title: 'Pray, Give, Volunteer',
-    image:
-      'https://d3d86zle58b9ct.cloudfront.net/wp-content/uploads/sites/2/2018/06/Praying-hands.jpg',
-    blurb:
-      'How can I help? Here are three ways you can give to encourage our leaders.',
-  },
-]
-
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>
-    <MediaCard
-      title={article.title}
-      image={article.image}
-      blurb={article.blurb}
-    />
+    <Link component={RouterLink} to={`/news-item/${article.docId}`}>
+      <MediaCard
+        title={article.title}
+        image={article.image}
+        blurb={article.blurb}
+      />
+    </Link>
   </Grid>
 )
 export default withFirebase(({ db }) => {

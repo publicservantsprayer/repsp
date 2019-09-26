@@ -1,3 +1,0 @@
-### Fall Banquet
-
-The vision and associated activities described above will require financial support. For this reason, we held our first annual Fall Banquet fundraising event. The generosity and outpouring of goodwill literally overwhelmed us. God graciously blessed our ministry with many kind gifts from His people. Currently, we are still seeking monthly donors in order to meet our regular commitments. We also need sponsors for the many events described in this newsletter. Is the Lord prompting your heart to meet some of these needs? If so, please make note of the electronic giving link in this newsletter.

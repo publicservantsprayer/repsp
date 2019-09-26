@@ -2,7 +2,7 @@ import React from 'react'
 
 import TextField from '@material-ui/core/TextField'
 
-export default ({ field, values, handleChange, ...rest }) =>
+export default ({ field, values, handleChange, ...rest }) => (
   <TextField
     id={field}
     onChange={handleChange(field)}
@@ -11,5 +11,6 @@ export default ({ field, values, handleChange, ...rest }) =>
     variant="outlined"
     fullWidth
     InputLabelProps={{ disableAnimation: false }}
-    {...rest} />
-
+    {...rest}
+  />
+)

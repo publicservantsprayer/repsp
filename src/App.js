@@ -9,6 +9,7 @@ import Home from './screens/Home'
 import StateLeaders from './screens/StateLeaders'
 import StateLeader from './screens/StateLeader'
 import News from './screens/News'
+import NewsItem from './screens/NewsItem'
 import Events from './screens/Events'
 import Event from './screens/Event'
 import WhatWeDo from './screens/WhatWeDo'
@@ -47,7 +48,8 @@ function App() {
       <Route exact path="/articles" component={Articles} />
       <Route exact path="/updates" component={Updates} />
       <Route exact path="/events" component={Events} />
-      <Route exact path="/event" component={Event} />
+      <Route exact path="/event/:docId" component={Event} />
+      <Route exact path="/news-item/:docId" component={NewsItem} />
       <Route exact path="/what-we-do" component={WhatWeDo} />
       <Route exact path="/why-we-pray" component={WhyWePray} />
       <Route exact path="/womens-ministry" component={WomensMinistry} />

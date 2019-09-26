@@ -1,3 +1,0 @@
-### Pastors’ Statehouse Day
-
-Pastors and political leaders are two of the busiest professions in the world. The goal of this day is to provide a platform for pastors to get to know their elected officials. Are you a pastor? Do you know your state representative and senator? These elected men and women are eager to meet the spiritual leaders in their communities. Public Servants’ Prayer rejoices in seeing ministers who give pastoral care to community leaders. Also, if you (or your church) would like to sponsor the Bibles we provide for the freshmen legislators at this event, please contact me at tim.overton@thepsp.org. Join us for this special day on February 20, 2018! Further information can be found at blogpublicservantsprayer/psd/.
