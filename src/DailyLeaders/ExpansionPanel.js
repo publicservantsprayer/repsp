@@ -21,7 +21,7 @@ function TableRow ({ name, data }) {
   )
 }
 
-const DailyExpansionLeader = ({ leader }) => {
+export default ({ leader }) => {
   const [expanded, setExpanded] = useState(false)
 
   const handleChange = panel => (event, isExpanded) => {
@@ -50,5 +50,3 @@ const DailyExpansionLeader = ({ leader }) => {
     </ExpansionPanel>
   )
 }
-
-export default DailyExpansionLeader
