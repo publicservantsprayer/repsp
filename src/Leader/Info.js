@@ -72,71 +72,55 @@ const LeaderInfo = ({ leader }) => {
 
   return (
     <Box justifyContent="center">
-      <Box>
-        <p>{blurb}</p>
-      </Box>
-      <Box px={8}>
-        <div className={classes.root}>
+      <div className={classes.root}>
+        <Box px={2}>
+          <p>{blurb}</p>
+        </Box>
+        <Box px={5}>
           <Paper className={classes.paper}>
             <Table className={classes.table} size="small">
               <TableBody>
                 <Row field="District:" value={leader.District} />
-                <TableRow>
-                  <TableCell>District:</TableCell>
-                  <TableCell>{leader.District}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>In Office Since:</TableCell>
-                  <TableCell>{leader.DistrictID}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Religon:</TableCell>
-                  <TableCell>{leader.Religon}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Spouse:</TableCell>
-                  <TableCell>{leader.Spouse}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Family:</TableCell>
-                  <TableCell>{leader.Family}</TableCell>
-                </TableRow>
+                <Row field="In Office Since:" value={leader.DistrictID} />
+                <Row field="Religon:" value={leader.Religon} />
+                <Row field="Spouse:" value={leader.Spouse} />
+                <Row field="Family:" value={leader.Family} />
                 <Row field="Birthday" value={birthday(leader)} />
               </TableBody>
             </Table>
           </Paper>
-        </div>
-      </Box>
-      <Box>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          Website <WebIcon className={classes.rightIcon} />
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          Facebook <FacebookIcon className={classes.rightIcon} />
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          Twitter <TwitterIcon className={classes.rightIcon} />
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-        >
-          Contact <ContactMailIcon className={classes.rightIcon} />
-        </Button>
-      </Box>
+        </Box>
+        <Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Website <WebIcon className={classes.rightIcon} />
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Facebook <FacebookIcon className={classes.rightIcon} />
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Twitter <TwitterIcon className={classes.rightIcon} />
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+          >
+            Contact <ContactMailIcon className={classes.rightIcon} />
+          </Button>
+        </Box>
+      </div>
     </Box>
   )
 }
