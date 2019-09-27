@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 export default withFirebase(({ db, match }) => {
-  const [doc, loading, error] = useDocumentData(
+  const [doc, , error] = useDocumentData(
     db.collection('content').doc(match.params.docId)
   )
   const classes = useStyles()

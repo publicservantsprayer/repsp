@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Link as RouterLink } from 'react-router-dom'
-import { useSpring } from 'react-spring'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
