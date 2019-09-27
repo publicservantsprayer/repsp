@@ -4,36 +4,20 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 
 export default withRouter(props => {
-  const { location, history } = props
-  const [cookies, setCookie, removeCookie] = useCookies(['updateStateCode'])
+  const { location } = props
+  const [cookies, setCookie] = useCookies(['updateStateCode'])
   const params = location.pathname.split('/')
-  const [param0, param1, param2, ...restOfParams] = params
+  const [, param1, param2] = params
 
   useEffect(() => {
-    console.log('cookie', cookies.stateCode)
-    if (param1 === 'states' && cookies.updateStateCode) {
-      const cookieStateCode = cookies.updateStateCode
-      const newPathname = [param0, param1, cookieStateCode.toLowerCase()]
-        .concat(restOfParams)
-        .join('/')
+    console.log('Running CookieSetter.  stateCode cookie is: ', cookies.stateCode)
 
-      setCookie('stateCode', cookieStateCode.toUpperCase())
-      removeCookie('updateStateCode')
-      history.push(newPathname)
-    }
-
-    if (param1 === 'states' && !cookies.updateStateCode) {
+    if (param1 === 'states') {
       const urlStateCode = param2
 
-      if (cookies.stateCode !== urlStateCode) {
-        setCookie('stateCode', urlStateCode.toUpperCase())
-      }
-    }
-
-    if (param1 !== 'states' && cookies.updateStateCode) {
-      if (cookies.stateCode !== cookies.updateStateCode) {
-        setCookie('stateCode', cookies.updateStateCode.toUpperCase())
-        removeCookie('updateStateCode')
+      if (cookies.stateCode !== urlStateCode.toUpperCase()) {
+        console.log('Setting stateCode from URL')
+        setCookie('stateCode', urlStateCode.toUpperCase(), { path: '/' })
       }
     }
 
@@ -41,12 +25,12 @@ export default withRouter(props => {
       (async () => {
         try {
           const response = await axios.get('http://ip-api.com/json/?fields=region')
-          setCookie('stateCode', response.data.region.toUpperCase())
-          console.log('Got State from IP: ', response)
+          setCookie('stateCode', response.data.region.toUpperCase(), { path: '/' })
+          console.log('Setting stateCode from IP: ', response)
         }
         catch (error) {
           console.error('Error getting State from IP: ', error)
-          setCookie('stateCode', 'IN')
+          setCookie('stateCode', 'IN', { path: '/' })
         }
       })()
     }

@@ -11,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 
 import { stateName } from '../utilities/states'
@@ -38,28 +37,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const AppBar = ({ stateCode, toggleDrawer }) => {
-  const [, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
-  const [, setHeaderStyle] = useSpring(() => ({ height: '350px' }))
   const classes = useStyles()
-
-  let headerOpen = false
-  const openFindState = () => {
-    headerOpen = true
-    setHeaderStyle({ height: '1250px' })
-    setSvgStyle({ transform: 'scale(3)' })
-  }
-  const closeFindState = () => {
-    headerOpen = false
-    setHeaderStyle({ height: '250px' })
-    setSvgStyle({ transform: 'scale(0.1)' })
-  }
-  const toggleFindState = () => {
-    if (headerOpen) {
-      closeFindState()
-    } else {
-      openFindState()
-    }
-  }
 
   return (
     <MuiAppBar position="fixed" className={classes.AppBar}>
@@ -75,9 +53,7 @@ const AppBar = ({ stateCode, toggleDrawer }) => {
         <Hidden smDown>
           <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
           <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
-          <ClickAwayListener onClickAway={closeFindState}>
-            <Button color="inherit" onClick={toggleFindState}>Find your State</Button>
-          </ClickAwayListener>
+          <Button color="inherit" component={RouterLink} to="/find-your-state">Find your State</Button>
           <Button color="inherit" component={RouterLink} to="/what-we-do">What we do</Button>
           <Button color="inherit" component={RouterLink} to="/why-we-pray">Why we pray</Button>
         </Hidden>

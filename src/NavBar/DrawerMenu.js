@@ -45,7 +45,7 @@ const DrawerMenu = ({
           </ListItemIcon>
           <ListItemText primary="What We Do" />
         </ListItem>
-        <ListItem button onClick={toggleFindState}>
+        <ListItem button component={RouterLink} to="/find-your-state">
           <ListItemIcon>
             <MapIcon />
           </ListItemIcon>

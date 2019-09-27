@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import { useSpring, animated } from 'react-spring'
-import { useCookies } from 'react-cookie'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
@@ -47,12 +46,8 @@ const useStyles = makeStyles({
   }
 })
 
-const addAllEvents = (stateCode, history, closeFindState, setCookie, setStyle) => {
-  const addEvents = (element, target, to, setStyle) => {
-    element.addEventListener('click', event => {
-      closeFindState()
-      setCookie('updateStateCode', stateCode)
-    })
+const addAllEvents = (stateCode, setStyle) => {
+  const addEvents = (element, setStyle) => {
     element.addEventListener('mouseover', event => {
       if (setStyle) setStyle({ fill: stateColorOver })
     })
@@ -61,38 +56,41 @@ const addAllEvents = (stateCode, history, closeFindState, setCookie, setStyle) =
     })
   }
 
-  const to = `/states/${stateCode.toLowerCase()}`
   const mapPath = document.querySelector(`.map-path-${stateCode}`)
   const mapText = document.querySelector(`.map-text-${stateCode}`)
   const mapRect = document.querySelector(`.map-rect-${stateCode}`)
 
-  addEvents(mapPath, mapPath, to, setStyle)
-  addEvents(mapText, mapPath, to, setStyle)
+  addEvents(mapPath, setStyle)
+  addEvents(mapText, setStyle)
+  if (mapRect) addEvents(mapRect, setStyle)
+}
 
-  if (mapRect) {
-    addEvents(mapRect, mapRect, to, setStyle)
-    addEvents(mapRect, mapPath, to, setStyle)
-    addEvents(mapText, mapRect, to, setStyle)
-    addEvents(mapPath, mapRect, to, setStyle)
-  }
+const addClickEvent = (element, stateCode, history) => {
+  if (!element) return
+
+  element.addEventListener('click', event => {
+    history.push(`/states/${stateCode.toLowerCase()}`)
+  })
 }
 
 const springConfig = { mass: 1, tension: 170, friction: 26 }
 
-const SVGMapPath = withRouter(({ stateCode, history, closeFindState, setCookie }) => {
+const SVGMapPath = withRouter(({ stateCode, history }) => {
   const classes = useStyles()
   const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
   const className = `${classes.path} map-path-${stateCode}`
   const d = statePaths[stateCode].d
 
   useEffect(() => {
-    addAllEvents(stateCode, history, closeFindState, setCookie, setStyle)
-  }, [setStyle, stateCode, history, closeFindState, setCookie])
+    const mapPath = document.querySelector(`.map-path-${stateCode}`)
+    addClickEvent(mapPath, stateCode, history)
+    addAllEvents(stateCode, setStyle)
+  }, [setStyle, stateCode, history])
 
   return <animated.path d={d} style={style} className={className} />
 })
 
-const SVGMapRect = withRouter(({ stateCode, history, closeFindState, setCookie }) => {
+const SVGMapRect = withRouter(({ stateCode, history }) => {
   const classes = useStyles()
   const className = `${classes.rect} map-rect-${stateCode}`
   const x = statePaths[stateCode].rectX
@@ -101,8 +99,10 @@ const SVGMapRect = withRouter(({ stateCode, history, closeFindState, setCookie }
   const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
 
   useEffect(() => {
-    addAllEvents(stateCode, history, closeFindState, setCookie, setStyle)
-  }, [setStyle, stateCode, history, closeFindState, setCookie])
+    const mapRect = document.querySelector(`.map-rect-${stateCode}`)
+    addClickEvent(mapRect, stateCode, history)
+    addAllEvents(stateCode, setStyle)
+  }, [history, setStyle, stateCode])
 
   if (!statePaths[stateCode].hasLabel) return null
 
@@ -111,7 +111,7 @@ const SVGMapRect = withRouter(({ stateCode, history, closeFindState, setCookie }
     className={className} x={x} y={y} style={style} transform={transform} />
 })
 
-const SVGMapText = withRouter(({ stateCode, history, closeFindState, setCookie }) => {
+const SVGMapText = withRouter(({ stateCode, history }) => {
   const classes = useStyles()
   const className = `${classes.text} map-text-${stateCode}`
   const x = statePaths[stateCode].textX
@@ -119,8 +119,9 @@ const SVGMapText = withRouter(({ stateCode, history, closeFindState, setCookie }
   const transform = statePaths[stateCode].textTransform
 
   useEffect(() => {
-    addAllEvents(stateCode, history, closeFindState, setCookie)
-  }, [stateCode, history, closeFindState, setCookie])
+    const mapText = document.querySelector(`.map-text-${stateCode}`)
+    addClickEvent(mapText, stateCode, history)
+  }, [stateCode, history])
 
   return (
     <text className={className} x={x} y={y} transform={transform}>
@@ -129,17 +130,15 @@ const SVGMapText = withRouter(({ stateCode, history, closeFindState, setCookie }
   )
 })
 
-const SVGMap = ({ svgStyle, closeFindState }) => {
-  const [, setCookie] = useCookies([])
-
+export default () => {
   useEffect(() => {
     svgPanZoom('#map', {
-      zoomEnabled: false,
+      zoomEnabled: true,
       controlIconsEnabled: true,
       fit: 1,
       center: 1,
       customEventsHandler: panZoomEventsHandler,
-      viewportSelector: '#pan-zoom-viewport',
+      //viewportSelector: '#pan-zoom-viewport',
     })
   })
 
@@ -159,15 +158,12 @@ const SVGMap = ({ svgStyle, closeFindState }) => {
       </Box>
       <div style={{ height: '500px' }}>
         <animated.svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
-          viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin" id="map"
-          style={svgStyle}>
-          {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
-          {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
-          {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} closeFindState={closeFindState} setCookie={setCookie} />)}
+          viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin" id="map">
+          {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} />)}
+          {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} />)}
+          {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} />)}
         </animated.svg>
       </div>
     </Container >
   )
 }
-
-export default SVGMap

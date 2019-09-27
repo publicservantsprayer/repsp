@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useSpring, animated } from 'react-spring'
 import { makeStyles } from '@material-ui/core/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Paper from '@material-ui/core/Paper'
@@ -9,7 +8,6 @@ import Box from '@material-ui/core/Box'
 import { useStateCode } from '../utilities/states'
 import AppBar from './AppBar'
 
-import Map from '../SVGMap'
 import DrawerMenu from './DrawerMenu'
 
 const useStyles = makeStyles(theme => ({
@@ -27,6 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     backgroundAttachment: 'fixed',
     overflow: 'hidden',
+    height: '180px'
   },
   logoPaper: {
     background: 'rgba(0, 0, 0, 0.6)',
@@ -37,31 +36,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const NavBar = ({ location }) => {
-  const height = '180px'
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [headerStyle, setHeaderStyle] = useSpring(() => ({ height: height }))
-  const [svgStyle, setSvgStyle] = useSpring(() => ({ transform: 'scale(0.1)' }))
   const classes = useStyles()
   const stateCode = useStateCode(location)
 
-  let headerOpen = false
-  const openFindState = () => {
-    headerOpen = true
-    setHeaderStyle({ height: '1250px' })
-    setSvgStyle({ transform: 'scale(1)' })
-  }
-  const closeFindState = () => {
-    headerOpen = false
-    setHeaderStyle({ height: height })
-    setSvgStyle({ transform: 'scale(0.1)' })
-  }
-  const toggleFindState = () => {
-    if (headerOpen) {
-      closeFindState()
-    } else {
-      openFindState()
-    }
-  }
   const toggleDrawer = () => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return
     setDrawerOpen(!drawerOpen)
@@ -75,20 +53,17 @@ const NavBar = ({ location }) => {
       <Hidden smUp>
         <DrawerMenu
           toggleDrawer={toggleDrawer}
-          toggleFindState={toggleFindState}
           drawerOpen={drawerOpen}
           stateCode={stateCode} />
       </Hidden>
 
-      <animated.div className={classes.header} style={headerStyle}>
+      <Box className={classes.header}>
         <Box m={3}>
           <Paper className={classes.logoPaper} square>
             <img className={classes.logo} src="/images/public-servants-prayer.png" alt="public servants' prayer" />
           </Paper>
         </Box>
-
-        <Map svgStyle={svgStyle} closeFindState={closeFindState} />
-      </animated.div>
+      </Box>
     </div >
   )
 }
