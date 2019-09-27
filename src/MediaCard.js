@@ -9,11 +9,11 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 400,
-    height: 400,
+    height: 'auto',
     backgroundColor: theme.palette.secondary.dark,
   },
   media: {
-    height: 250,
+    height: 350,
   },
 }))
 

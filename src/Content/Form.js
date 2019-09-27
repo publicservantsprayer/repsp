@@ -21,6 +21,25 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const ImageCodes = ({ images }) => {
+  const [show, setShow] = useState(false)
+  const toggleImageCode = () => {
+    console.log('toggled, show = ', show)
+    setShow(!show)
+  }
+
+  if (Object.keys(images).length < 1) return null
+
+  return (
+    <>
+      <Button variant="outlined" onClick={toggleImageCode}>
+        Image Codes
+      </Button>
+      {show && images.map(image => <ImageCode image={image} key={image} />)}
+    </>
+  )
+}
+
 const ImageCode = withFirebase(({ image, storageRef }) => {
   const [src, setSrc] = useState()
   const [copyText, setCopyText] = useState('Copy Snippet')
@@ -36,7 +55,6 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
     navigator.clipboard.writeText('![Alt text](' + src + ' "Optional Title")')
     setCopyText('Snippet Copied')
   }
-
   return (
     <Box p={2}>
       <Image src={src} />
@@ -131,10 +149,7 @@ export default withFirebase(
                   {...commonFieldProps}
                 />
 
-                {values.images &&
-                  values.images.map(image => (
-                    <ImageCode image={image} key={image} />
-                  ))}
+                <ImageCodes images={values.images} />
 
                 <Box py={2}>
                   <Button

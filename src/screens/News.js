@@ -30,7 +30,6 @@ export default withFirebase(({ db }) => {
 
   return (
     <Container maxWidth="lg">
-      <p></p>
       <Grid
         container
         direction="row"
