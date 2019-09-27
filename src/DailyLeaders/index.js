@@ -12,6 +12,8 @@ import EmailIcon from 'mdi-material-ui/Email'
 import FacebookIcon from 'mdi-material-ui/FacebookBox'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import InstagramIcon from 'mdi-material-ui/Instagram'
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { withFirebase } from '../Firebase'
 import ExpansionPanel from './ExpansionPanel'
@@ -33,13 +35,14 @@ const LeaderGridItem = ({ leader }) => {
   const classes = useStyles()
   return (
     <Grid item xs={4}>
-      <img src={src(leader)} alt="Leader" className={classes.img} />
+      <Link component={RouterLink} to={`/leader/${leader.permaLink}`}>
+        <img src={src(leader)} alt="Leader" className={classes.img} />
+      </Link>
     </Grid>
   )
 }
 
-
-function TabPanel (props) {
+function TabPanel(props) {
   const { children, value, index, ...other } = props
 
   return (
@@ -49,7 +52,8 @@ function TabPanel (props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       <Box p={3}>{children}</Box>
     </Typography>
   )
@@ -61,7 +65,7 @@ const DailyLeaders = ({ db, location }) => {
   const classes = useStyles()
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const snap = await db
         .collection(`/states/${stateCode}/posts/`)
         .orderBy('dateID', 'desc')
@@ -73,7 +77,7 @@ const DailyLeaders = ({ db, location }) => {
 
   const [tabIndex, setTabIndex] = React.useState(0)
 
-  function handleChange (event, newIndex) {
+  function handleChange(event, newIndex) {
     setTabIndex(newIndex)
   }
 
@@ -94,12 +98,19 @@ const DailyLeaders = ({ db, location }) => {
         <Box mb={1} textAlign="center">
           <Typography>{moment(post.dateID).format('dddd, MMMM Do')}</Typography>
         </Box>
-        <Box my={2} className={classes.today} fontWeight="bold" textAlign="center">
+        <Box
+          my={2}
+          className={classes.today}
+          fontWeight="bold"
+          textAlign="center"
+        >
           <Typography variant="h5">Today we are praying for</Typography>
         </Box>
         <Box my={1} p={1}>
           <Grid container spacing={3} justify="space-evenly">
-            {[post.leader1, post.leader2, post.leader3].map((leader, i) => <LeaderGridItem leader={leader} key={i} />)}
+            {[post.leader1, post.leader2, post.leader3].map((leader, i) => (
+              <LeaderGridItem leader={leader} key={i} />
+            ))}
           </Grid>
         </Box>
         <Box my={2} display="block">

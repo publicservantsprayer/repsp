@@ -5,7 +5,7 @@ import CookieSetter from './CookieSetter'
 import NavBar from './NavBar'
 import Home from './screens/Home'
 import StateLeaders from './screens/StateLeaders'
-import StateLeader from './screens/StateLeader'
+import Leader from './screens/Leader'
 import News from './screens/News'
 import NewsItem from './screens/NewsItem'
 import Events from './screens/Events'
@@ -39,11 +39,7 @@ function App () {
       <Route exact path="/updates" component={Updates} />
       <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/content" component={Content} />
-      <Route
-        exact
-        path="/states/:stateCode/leader/:id"
-        component={StateLeader}
-      />
+      <Route exact path="/leader/:id" component={Leader} />
       <Route path="/states/:stateCode/leaders" component={StateLeaders} />
       <Route component={Footer} />
     </Router>
