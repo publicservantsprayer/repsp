@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "spec": "jest spec functions --watch"
+    "spec": "jest spec functions --watch",
+    "update-firestore-indexes-from-live": "firebase firestore:indexes > firestore.indexes.json"
   },
   "eslintConfig": {
     "extends": "react-app"
