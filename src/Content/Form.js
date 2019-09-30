@@ -1,3 +1,4 @@
+import 'date-fns'
 import React, { useState, useEffect } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -7,6 +8,12 @@ import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 import Image from 'material-ui-image'
+import DateFnsUtils from '@date-io/date-fns'
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers'
 
 import { H1 } from '../utilities/formating'
 import Markdown from '../Markdown'
@@ -57,7 +64,7 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   }
   return (
     <Box p={2}>
-      <Image src={src} />
+      <img style={{ width: '100%' }} src={src} />
       <Box
         p={1}
         bgcolor="primary.dark"
@@ -78,9 +85,27 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
 })
 
 export default withFirebase(
-  ({ db, docValues, handleCancel, showList, showDelete }) => {
+  ({
+    firebase,
+    db,
+    docValues,
+    handleCancel,
+    showList,
+    showDelete,
+    idReadOnly,
+  }) => {
     const classes = useStyles()
-    const [values, setValues] = React.useState(docValues)
+    const [values, setValues] = useState(docValues)
+    const defaultDate = values.createdOn
+      ? values.createdOn.toDate()
+      : new Date()
+    const [selectedDate, setSelectedDate] = useState(defaultDate)
+
+    const handleDateChange = date => {
+      setSelectedDate(date)
+      const firebaseDate = firebase.firestore.Timestamp.fromDate(new Date(date))
+      setValues({ ...values, createdOn: firebaseDate })
+    }
 
     const handleChange = name => event => {
       setValues({ ...values, [name]: event.target.value })
@@ -88,10 +113,14 @@ export default withFirebase(
 
     const handleSave = async () => {
       try {
-        await db
-          .collection('content')
-          .doc(values.docId)
-          .set(values)
+        if (values.docId) {
+          await db
+            .collection('content')
+            .doc(values.docId)
+            .set(values)
+        } else {
+          await db.collection('content').add(values)
+        }
         showList()
       } catch (error) {
         console.log('Error writing to db: ', error)
@@ -109,6 +138,19 @@ export default withFirebase(
           <Paper>
             <Container>
               <form noValidate autoComplete="off">
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    margin="normal"
+                    id="date-picker-dialog"
+                    label="Created on"
+                    format="MM/dd/yyyy"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
                 <SelectField
                   field="category"
                   label="Category"
@@ -126,6 +168,7 @@ export default withFirebase(
                 <TextField
                   field="docId"
                   label="Unique ID"
+                  disabled={idReadOnly}
                   {...commonFieldProps}
                 />
                 <TextField field="title" label="Title" {...commonFieldProps} />
