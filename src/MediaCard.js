@@ -29,7 +29,7 @@ export default function MediaCard(props) {
           title="photo"
         ></CardMedia>
         <CardContent backgroundcolor="secondary">
-          <Typography gutterBottom variant="h6" color="black">
+          <Typography gutterBottom variant="h6">
             {props.title}
           </Typography>
           <Typography variant="subtitle2" color="textSecondary" component="p">

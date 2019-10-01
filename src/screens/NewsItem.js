@@ -19,7 +19,7 @@ export default withFirebase(({ db, match }) => {
   const classes = useStyles()
   if (error) console.log('Error getting newsItem: ', error)
   return (
-    <box className={classes.root}>
+    <Box className={classes.root}>
       {doc && (
         <Box p={1}>
           <h2>{doc.title}</h2>
@@ -27,6 +27,6 @@ export default withFirebase(({ db, match }) => {
           <Markdown>{doc.content}</Markdown>
         </Box>
       )}
-    </box>
+    </Box>
   )
 })

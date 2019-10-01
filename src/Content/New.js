@@ -1,7 +1,8 @@
 import React from 'react'
 import Form from './Form'
+import { withFirebase } from '../Firebase'
 
-export default ({ handleCancelNew, showList }) => {
+export default withFirebase(({ firebase, handleCancelNew, showList }) => {
   const defaultValues = {
     docId: '',
     title: '',
@@ -10,6 +11,7 @@ export default ({ handleCancelNew, showList }) => {
     content: '',
     category: '',
     images: [],
+    createdOn: firebase.firestore.Timestamp.fromDate(new Date()),
   }
 
   return (
@@ -19,4 +21,4 @@ export default ({ handleCancelNew, showList }) => {
       showList={showList}
     />
   )
-}
+})

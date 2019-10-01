@@ -32,7 +32,7 @@ const ImageCodes = ({ images }) => {
     console.log('toggled, show = ', show)
     setShow(!show)
   }
-
+  if (!images) return null
   if (Object.keys(images).length < 1) return null
 
   return (
@@ -50,7 +50,7 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   const [copyText, setCopyText] = useState('Copy Snippet')
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const url = await storageRef.child('content/' + image).getDownloadURL()
       setSrc(url)
     })()

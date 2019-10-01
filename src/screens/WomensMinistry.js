@@ -18,7 +18,8 @@ export default withFirebase(({ db }) => {
     db.collection('content').doc('womens-ministry')
   )
   const classes = useStyles()
-  if (error) console.log('Error getting womensMinistry: ', error)
+  if (error) console.log('Error getting womens-ministry: ', error)
+
   return (
     <Box className={classes.root}>
       {doc && (

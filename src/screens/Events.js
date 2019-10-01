@@ -30,6 +30,7 @@ export default withFirebase(({ db }) => {
     }
   )
   if (error) console.log('Error getting docs: ', error)
+  if (!docs) return null
 
   return (
     <Container maxWidth="lg">
@@ -42,8 +43,9 @@ export default withFirebase(({ db }) => {
         spacing={10}
       >
         {loading && '... loading'}
-        {docs &&
-          docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
+        {docs.map((article, i) => (
+          <ArticleGrid article={article} key={i} />
+        ))}
       </Grid>
     </Container>
   )
