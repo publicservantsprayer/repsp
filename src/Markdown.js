@@ -11,7 +11,7 @@ const styles = theme => ({
 })
 
 const Image = props => {
-  return <img style={{ maxWidth: '100%', height: 'auto' }} {...props} />
+  return <img style={{ maxWidth: '100%', height: 'auto' }} alt="" {...props} />
 }
 
 const options = {
@@ -47,6 +47,6 @@ const options = {
   },
 }
 
-export default function Markdown(props) {
+export default function Markdown (props) {
   return <ReactMarkdown options={options} {...props} />
 }

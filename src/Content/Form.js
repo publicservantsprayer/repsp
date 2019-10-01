@@ -7,11 +7,9 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
-import Image from 'material-ui-image'
 import DateFnsUtils from '@date-io/date-fns'
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers'
 
@@ -52,7 +50,7 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   const [copyText, setCopyText] = useState('Copy Snippet')
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const url = await storageRef.child('content/' + image).getDownloadURL()
       setSrc(url)
     })()
@@ -64,7 +62,7 @@ const ImageCode = withFirebase(({ image, storageRef }) => {
   }
   return (
     <Box p={2}>
-      <img style={{ width: '100%' }} src={src} />
+      <img style={{ width: '100%' }} src={src} alt="" />
       <Box
         p={1}
         bgcolor="primary.dark"

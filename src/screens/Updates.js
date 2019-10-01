@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
-import { H2, P } from '../utilities/formating'
+import { H2 } from '../utilities/formating'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -615,7 +615,7 @@ const ArticleGrid = ({ article }) => {
             <H2>{article.title}</H2>
           </Box>
           <Box>
-            <img style={{ width: '100%' }} src={article.image} />
+            <img style={{ width: '100%' }} src={article.image} alt="" />
           </Box>
           <Box>{article.blurb}</Box>
         </Box>
