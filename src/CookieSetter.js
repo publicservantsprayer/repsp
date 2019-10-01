@@ -10,8 +10,6 @@ export default withRouter(props => {
   const [, param1, param2] = params
 
   useEffect(() => {
-    console.log('Running CookieSetter.  stateCode cookie is: ', cookies.stateCode)
-
     if (param1 === 'states') {
       const urlStateCode = param2
 

@@ -15,7 +15,6 @@
     "firebase": "^6.4.2",
     "hammerjs": "^2.0.8",
     "markdown-to-jsx": "^6.10.3",
-    "material-ui-image": "^3.2.1",
     "mdi-material-ui": "^6.7.0",
     "moment": "^2.24.0",
     "raw-loader": "^3.1.0",
@@ -39,7 +38,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "spec": "jest spec functions --watch"
+    "spec": "jest spec functions --watch",
+    "update-firestore-indexes-from-live": "firebase firestore:indexes > firestore.indexes.json"
   },
   "eslintConfig": {
     "extends": "react-app"
