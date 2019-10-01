@@ -51,8 +51,8 @@ const useStyles = makeStyles({
   },
 })
 
-const StateLeaders = ({ location, db }) => {
-  const stateCode = useStateCode(location)
+const StateLeaders = ({ db }) => {
+  const stateCode = useStateCode()
   const [fedSenate, setfedSenate] = useState()
   const [fedHouse, setfedHouse] = useState()
   const [stateSenate, setstateSenate] = useState()
@@ -61,10 +61,10 @@ const StateLeaders = ({ location, db }) => {
   const classes = useStyles()
   const [currentTab, setCurrentTab] = React.useState(0)
 
-  function handleChange(event, tabIndex) {
+  function handleChange (event, tabIndex) {
     setCurrentTab(tabIndex)
   }
-  function TabPanel(props) {
+  function TabPanel (props) {
     const { leaders, currentTab, index } = props
     return (
       <>

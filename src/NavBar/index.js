@@ -35,10 +35,10 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const NavBar = ({ location }) => {
+const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const classes = useStyles()
-  const stateCode = useStateCode(location)
+  const stateCode = useStateCode({ useGeoCode: true })
 
   const toggleDrawer = () => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return
