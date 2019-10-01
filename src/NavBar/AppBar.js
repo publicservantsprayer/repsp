@@ -12,7 +12,7 @@ import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
 
 
-import { stateName } from '../utilities/states'
+import { stateName, useStateCode } from '../utilities/states'
 
 const useStyles = makeStyles(theme => ({
   AppBar: {
@@ -35,7 +35,20 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const AppBar = ({ stateCode, toggleDrawer }) => {
+const StateName = () => {
+  const stateCode = useStateCode()
+  return stateCode ? <>{stateName(stateCode)}</> : null
+}
+
+const ButtonLeaders = () => {
+  const stateCode = useStateCode()
+  if (!stateCode) return null
+  return (
+    <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
+  )
+}
+
+const AppBar = ({ toggleDrawer }) => {
   const classes = useStyles()
 
   return (
@@ -43,7 +56,7 @@ const AppBar = ({ stateCode, toggleDrawer }) => {
       <Toolbar>
         <Box flexGrow={1}>
           <Typography variant="h6">
-            PSP {stateName(stateCode)}
+            PSP <StateName />
           </Typography>
         </Box>
         <IconButton onClick={toggleDrawer()} edge="start" color="inherit">
@@ -51,8 +64,8 @@ const AppBar = ({ stateCode, toggleDrawer }) => {
         </IconButton>
         <Hidden smDown>
           <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-          <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
           <Button color="inherit" component={RouterLink} to="/find-your-state">Find your State</Button>
+          <ButtonLeaders />
           <Button color="inherit" component={RouterLink} to="/what-we-do">What we do</Button>
           <Button color="inherit" component={RouterLink} to="/why-we-pray">Why we pray</Button>
         </Hidden>

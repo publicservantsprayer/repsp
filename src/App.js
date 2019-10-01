@@ -1,7 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import CookieSetter from './CookieSetter'
 import NavBar from './NavBar'
 import Home from './screens/Home'
 import StateLeaders from './screens/StateLeaders'
@@ -23,8 +22,9 @@ import About from './About'
 function App () {
   return (
     <Router>
-      <Route component={CookieSetter} />
       <Route component={NavBar} />
+      <Route exact path="/" component={Home} />
+      <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/news" component={News} />
       <Route exact path="/about" component={About} />
       <Route exact path="/articles" component={Articles} />
@@ -37,10 +37,9 @@ function App () {
       <Route exact path="/why-we-pray" component={WhyWePray} />
       <Route exact path="/womens-ministry" component={WomensMinistry} />
       <Route exact path="/updates" component={Updates} />
-      <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />
-      <Route path="/states/:stateCode/leaders" component={StateLeaders} />
+      <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
       <Route component={Footer} />
     </Router>
   )

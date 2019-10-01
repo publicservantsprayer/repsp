@@ -31,6 +31,8 @@ const ListItem = ({ Icon, text, to }) => {
 }
 
 export default ({ drawerOpen, toggleDrawer, stateCode }) => {
+  if (!stateCode) return null
+
   const homeUrl = `/states/${stateCode.toLowerCase()}`
 
   return (

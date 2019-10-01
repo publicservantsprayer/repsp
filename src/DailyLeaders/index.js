@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
@@ -42,7 +41,7 @@ const LeaderGridItem = ({ leader }) => {
   )
 }
 
-function TabPanel(props) {
+function TabPanel (props) {
   const { children, value, index, ...other } = props
 
   return (
@@ -59,13 +58,13 @@ function TabPanel(props) {
   )
 }
 
-const DailyLeaders = ({ db, location }) => {
-  const stateCode = useStateCode(location)
+const DailyLeaders = ({ db }) => {
+  const stateCode = useStateCode()
   const [post, setPost] = useState()
   const classes = useStyles()
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const snap = await db
         .collection(`/states/${stateCode}/posts/`)
         .orderBy('dateID', 'desc')
@@ -77,7 +76,7 @@ const DailyLeaders = ({ db, location }) => {
 
   const [tabIndex, setTabIndex] = React.useState(0)
 
-  function handleChange(event, newIndex) {
+  function handleChange (event, newIndex) {
     setTabIndex(newIndex)
   }
 
@@ -134,4 +133,4 @@ const DailyLeaders = ({ db, location }) => {
     </Box>
   )
 }
-export default withRouter(withFirebase(DailyLeaders))
+export default withFirebase(DailyLeaders)
