@@ -22,7 +22,9 @@ const ListItem = ({ Icon, text, to }) => {
 
   return (
     <MuiListItem button component={RouterLink} to={to} selected={selected}>
-      <ListItemIcon><Icon /></ListItemIcon>
+      <ListItemIcon>
+        <Icon />
+      </ListItemIcon>
       <ListItemText primary={text} />
     </MuiListItem>
   )
@@ -39,7 +41,8 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
       anchor="right"
       onClose={toggleDrawer(false)}
       onClick={toggleDrawer(false)}
-      variant="temporary">
+      variant="temporary"
+    >
       <Toolbar />
       <List>
         <ListItem text="Home" Icon={HomeIcon} to={homeUrl} />
@@ -51,6 +54,11 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
         <ListItem text="About" Icon={InfoIcon} to="/about" />
+        <ListItem
+          text="Women's Ministry"
+          Icon={InfoIcon}
+          to="/womens-ministry"
+        />
       </List>
     </Drawer>
   )

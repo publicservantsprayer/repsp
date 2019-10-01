@@ -161,6 +161,7 @@ export default withFirebase(
                   <MenuItem value="events">Events</MenuItem>
                   <MenuItem value="updates">Updates</MenuItem>
                   <MenuItem value="articles">Articles</MenuItem>
+                  <MenuItem value="womensMinistry">Women's Ministry</MenuItem>
                 </SelectField>
 
                 <TextField
