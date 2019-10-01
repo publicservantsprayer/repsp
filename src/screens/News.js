@@ -29,7 +29,6 @@ export default withFirebase(({ db }) => {
       idField: 'docId',
     }
   )
-  if (error) console.log('Error getting docs: ', error)
 
   return (
     <Container maxWidth="lg">

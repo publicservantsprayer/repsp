@@ -1,34 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Link from '@material-ui/core/Link'
+import Box from '@material-ui/core/Box'
+import { makeStyles } from '@material-ui/core/styles'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 import { withFirebase } from '../Firebase'
 import Markdown from '../Markdown'
 
-const WomensMinistry = ({ db }) => {
-  const [article, setArticle] = useState()
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+})
 
-  useEffect(() => {
-    ; (async () => {
-      const doc = await db
-        .collection('/states/AK/articles')
-        .doc('why-we-pray-in-depth-part-1')
-        .get()
-      console.log('got it!', doc.data())
-      setArticle(doc.data())
-    })()
-  }, [db])
-
-  if (!article) return null
-
-  return (
-    <>
-      <div>
-        <Link to="https://youtu.be/ja2zlR1hT5U">Women's Ministry Video</Link>
-      </div>
-      <h2>{article.title}</h2>
-      <Markdown>{article.content}</Markdown>
-    </>
+export default withFirebase(({ db }) => {
+  const [doc, , error] = useDocumentData(
+    db.collection('content').doc('womens-ministry')
   )
-}
-
-export default withFirebase(WomensMinistry)
+  const classes = useStyles()
+  if (error) console.log('Error getting womensMinistry: ', error)
+  return (
+    <Box className={classes.root}>
+      {doc && (
+        <Box p={1}>
+          <h2>{doc.title}</h2>
+          <hr />
+          <div>
+            <Link to="https://youtu.be/ja2zlR1hT5U">
+              Women's Ministry Video
+            </Link>
+          </div>
+          <Markdown>{doc.content}</Markdown>
+        </Box>
+      )}
+    </Box>
+  )
+})
