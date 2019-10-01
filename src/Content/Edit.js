@@ -6,7 +6,8 @@ import Form from './Form'
 
 export default withFirebase(({ db, docId, showList, handleCancelEdit }) => {
   const [docValues, loading, error] = useDocumentData(
-    db.collection('content').doc(docId)
+    db.collection('content').doc(docId),
+    { idField: 'docId' }
   )
 
   return (
@@ -20,6 +21,7 @@ export default withFirebase(({ db, docId, showList, handleCancelEdit }) => {
             showList={showList}
             handleCancel={handleCancelEdit}
             showDelete
+            idReadOnly
           />
         </>
       )}

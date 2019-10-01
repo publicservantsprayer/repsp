@@ -21,7 +21,10 @@ const ArticleGrid = ({ article }) => (
 )
 export default withFirebase(({ db }) => {
   const [docs, loading, error] = useCollectionData(
-    db.collection('content').where('category', '==', 'events'),
+    db
+      .collection('content')
+      .where('category', '==', 'events')
+      .orderBy('createdOn'),
     {
       idField: 'docId',
     }

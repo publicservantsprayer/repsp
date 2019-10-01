@@ -1,8 +1,10 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-
-import MediaCard from '../MediaCard'
+import Box from '@material-ui/core/Box'
+import { H2, P } from '../utilities/formating'
+import Paper from '@material-ui/core/Paper'
+import { makeStyles } from '@material-ui/core/styles'
 
 const db = [
   {
@@ -51,7 +53,8 @@ const db = [
     title: 'August 10, 2019',
     image:
       'images/mattsupdates/67749004_10220072718716426_8248293961060319232_o.jpg',
-    blurb: '',
+    blurb:
+      'Matt Barnes, Pam Russell and Jessica Ray with Bobby Little who leads many Bible studies on Capitol Hill and throughout Washington D.C.',
   },
   {
     title: 'August 5, 2019',
@@ -580,20 +583,14 @@ const db = [
       'What an honor to kick off the "Global Conference of Parliament and Faith" in Jerusalem. #TripOfALifetime #Pray4Leaders',
   },
 ]
-
-const ArticleGrid = ({ article }) => (
-  <Grid item sm={4}>
-    <MediaCard
-      title={article.title}
-      image={article.image}
-      blurb={article.blurb}
-    />
-  </Grid>
-)
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(3, 2),
+  },
+}))
 
 export default () => (
   <Container maxWidth="lg">
-    <p></p>
     <Grid
       container
       direction="row"
@@ -607,3 +604,22 @@ export default () => (
     </Grid>
   </Container>
 )
+
+const ArticleGrid = ({ article }) => {
+  const classes = useStyles()
+  return (
+    <Grid item sm={4}>
+      <Paper className={classes.root}>
+        <Box maxWidth={350} height="auto" mx={2} my={2} px={2} py={2}>
+          <Box>
+            <H2>{article.title}</H2>
+          </Box>
+          <Box>
+            <img style={{ width: '100%' }} src={article.image} />
+          </Box>
+          <Box>{article.blurb}</Box>
+        </Box>
+      </Paper>
+    </Grid>
+  )
+}
