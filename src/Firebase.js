@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
-import { useParams } from 'react-router-dom'
 
 const Firebase = React.createContext(null)
 
@@ -47,12 +46,11 @@ export const useContentCollection = (category) => {
 }
 
 export const useContentItem = (docId) => {
-  const params = useParams()
   const { db } = useFirebase()
   const [doc, loading, error] = useDocumentData(
-    db.collection('content').doc(docId || params.docId)
+    db.collection('content').doc(docId)
   )
-  if (error) console.log('Error getting content item: ', (docId || params.docId), error)
+  if (error) console.log('Error getting content item: ', (docId), error)
 
   return [doc, loading, error]
 }

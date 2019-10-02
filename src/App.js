@@ -5,20 +5,15 @@ import NavBar from './NavBar'
 import Home from './screens/Home'
 import StateLeaders from './screens/StateLeaders'
 import Leader from './screens/Leader'
-import News from './screens/News'
-import NewsItem from './screens/NewsItem'
-import Events from './screens/Events'
-import Event from './screens/Event'
+import ContentItem from './screens/ContentItem'
 import FindYourState from './screens/FindYourState'
-import WhatWeDo from './screens/WhatWeDo'
-import WhyWePray from './screens/WhyWePray'
-import WomensMinistry from './screens/WomensMinistry'
 import Content from './Content'
 import Footer from './Footer'
 import Updates from './screens/Updates'
 import Articles from './screens/Articles'
-import About from './About'
 import SignIn from './screens/SignIn'
+import PostBrowser from './PostBrowser'
+import ContentCollection from './screens/ContentCollection'
 
 function App () {
   return (
@@ -26,17 +21,37 @@ function App () {
       <Route component={NavBar} />
       <Route exact path="/" component={Home} />
       <Route exact path="/states/:stateCode" component={Home} />
-      <Route exact path="/news" component={News} />
-      <Route exact path="/about" component={About} />
+      <Route exact path="/about">
+        <ContentItem docId="about" />
+      </Route>
       <Route exact path="/articles" component={Articles} />
-      <Route exact path="/updates" component={Updates} />
-      <Route exact path="/events" component={Events} />
-      <Route exact path="/event/:docId" component={Event} />
-      <Route exact path="/news-item/:docId" component={NewsItem} />
-      <Route exact path="/what-we-do" component={WhatWeDo} />
+      <Route exact path="/article/:docId">
+        <ContentItem />
+      </Route>
+      <Route exact path="/events" >
+        <ContentCollection category="events" />
+      </Route>
+      <Route exact path="/events/:docId">
+        <ContentItem />
+      </Route>
+      <Route exact path="/news" >
+        <ContentCollection category="news" />
+      </Route>
+      <Route exact path="/news/:docId" >
+        <ContentItem />
+      </Route>
+      <Route exact path="/what-we-do">
+        <ContentItem docId="what-we-do">
+          <PostBrowser />
+        </ContentItem>
+      </Route>
       <Route exact path="/find-your-state" component={FindYourState} />
-      <Route exact path="/why-we-pray" component={WhyWePray} />
-      <Route exact path="/womens-ministry" component={WomensMinistry} />
+      <Route exact path="/why-we-pray">
+        <ContentItem docId="why-we-pray" />
+      </Route>
+      <Route exact path="/womens-ministry">
+        <ContentItem docId="womens-ministry" />
+      </Route>
       <Route exact path="/updates" component={Updates} />
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />

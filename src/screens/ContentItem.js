@@ -1,9 +1,10 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
+import { useParams } from 'react-router-dom'
 
-import Markdown from './Markdown'
-import { useContentItem } from './firebase'
+import Markdown from '../Markdown'
+import { useContentItem } from '../firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -11,12 +12,14 @@ const useStyles = makeStyles({
   },
 })
 
-export default () => {
+export default ({ docId, children }) => {
   const classes = useStyles()
-  const [doc, loading] = useContentItem('about')
+  const params = useParams()
+  if (!docId) docId = params.docId
+  const [doc, loading] = useContentItem(docId)
 
   return (
-    <box className={classes.root}>
+    <Box className={classes.root}>
       {loading && <p>Loading...</p>}
       {doc && (
         <Box p={1}>
@@ -25,6 +28,7 @@ export default () => {
           <Markdown>{doc.content}</Markdown>
         </Box>
       )}
-    </box>
+      {children}
+    </Box>
   )
 }
