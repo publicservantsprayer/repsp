@@ -13,6 +13,7 @@ export const withFirebase = Component => props => (
         {...props}
         firebase={firebase}
         db={firebase.firestore()}
+        auth={firebase.auth()}
         storage={firebase.storage()}
         storageRef={firebase.storage().ref()} />}
   </Firebase.Consumer>
@@ -23,6 +24,7 @@ export const useFirebase = () => {
   return {
     firebase: firebase,
     db: firebase.firestore(),
+    auth: firebase.auth(),
     storage: firebase.storage(),
     storageRef: firebase.storage().ref()
   }

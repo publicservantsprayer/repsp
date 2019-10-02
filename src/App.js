@@ -18,6 +18,7 @@ import Footer from './Footer'
 import Updates from './screens/Updates'
 import Articles from './screens/Articles'
 import About from './About'
+import SignIn from './screens/SignIn'
 
 function App () {
   return (
@@ -40,6 +41,7 @@ function App () {
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
+      <Route exact path="/sign-in" component={SignIn} />
       <Route component={Footer} />
     </Router>
   )
