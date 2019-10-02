@@ -12,7 +12,7 @@ import Link from '@material-ui/core/Link'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { useStateCode } from '../utilities/states'
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
 import StateBlurb from '../StateBlurb'

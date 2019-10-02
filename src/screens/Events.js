@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>

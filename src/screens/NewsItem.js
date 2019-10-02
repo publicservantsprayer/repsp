@@ -1,10 +1,9 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
-import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 import Markdown from '../Markdown'
-import { withFirebase } from '../Firebase'
+import { useContentItem } from '../firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -12,14 +11,13 @@ const useStyles = makeStyles({
   },
 })
 
-export default withFirebase(({ db, match }) => {
-  const [doc, , error] = useDocumentData(
-    db.collection('content').doc(match.params.docId)
-  )
+export default () => {
   const classes = useStyles()
-  if (error) console.log('Error getting newsItem: ', error)
+  const [doc, loading] = useContentItem()
+
   return (
     <Box className={classes.root}>
+      {loading && <p>Loading...</p>}
       {doc && (
         <Box p={1}>
           <h2>{doc.title}</h2>
@@ -29,4 +27,4 @@ export default withFirebase(({ db, match }) => {
       )}
     </Box>
   )
-})
+}

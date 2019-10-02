@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Leader from '../Leader'
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +18,7 @@ const StateLeader = ({ match, db }) => {
   const classes = useStyles()
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const snapshot = await db
         .collectionGroup('leaders')
         .where('permaLink', '==', id)

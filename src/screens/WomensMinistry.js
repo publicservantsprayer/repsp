@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import Markdown from '../Markdown'
 
 const useStyles = makeStyles({

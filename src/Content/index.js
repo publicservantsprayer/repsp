@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
 
 import { H1 } from '../utilities/formating'
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import List from './List'
 import New from './New'
 import Edit from './Edit'

@@ -14,7 +14,7 @@ import InstagramIcon from 'mdi-material-ui/Instagram'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import ExpansionPanel from './ExpansionPanel'
 import TwitterTimeline from './TwitterTimeline'
 import { useStateCode } from '../utilities/states'

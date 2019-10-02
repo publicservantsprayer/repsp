@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button'
 
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import ImageUpload from './ImageUpload'
 
 const useStyles = makeStyles(theme => ({

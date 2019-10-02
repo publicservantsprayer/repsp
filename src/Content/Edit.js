@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 
-import { withFirebase } from '../Firebase'
+import { withFirebase } from '../firebase'
 import Form from './Form'
 
 export default withFirebase(({ db, docId, showList, handleCancelEdit }) => {

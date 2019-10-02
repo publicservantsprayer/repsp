@@ -1,12 +1,11 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
-import { withFirebase } from '../Firebase'
+import { useContentCollection } from '../firebase'
 
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>
@@ -19,16 +18,9 @@ const ArticleGrid = ({ article }) => (
     </Link>
   </Grid>
 )
-export default withFirebase(({ db }) => {
-  const [docs, loading, error] = useCollectionData(
-    db
-      .collection('content')
-      .where('category', '==', 'news')
-      .orderBy('createdOn'),
-    {
-      idField: 'docId',
-    }
-  )
+
+export default () => {
+  const [docs, loading] = useContentCollection('news')
 
   return (
     <Container maxWidth="lg">
@@ -45,4 +37,4 @@ export default withFirebase(({ db }) => {
       </Grid>
     </Container>
   )
-})
+}

@@ -1,8 +1,9 @@
 import React from 'react'
 import Form from './Form'
-import { withFirebase } from '../Firebase'
+import { useFirebase } from '../firebase'
 
-export default withFirebase(({ firebase, handleCancelNew, showList }) => {
+export default ({ handleCancelNew, showList }) => {
+  const { firebase } = useFirebase()
   const defaultValues = {
     docId: '',
     title: '',
@@ -21,4 +22,4 @@ export default withFirebase(({ firebase, handleCancelNew, showList }) => {
       showList={showList}
     />
   )
-})
+}
