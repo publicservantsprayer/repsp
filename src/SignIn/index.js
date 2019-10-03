@@ -27,7 +27,7 @@ export default () => {
     console.log(actionCodeSettings)
     try {
       await auth.sendSignInLinkToEmail(email, actionCodeSettings)
-      //window.localStorage.setItem('emailForSignIn', email)
+      window.localStorage.setItem('emailForSignIn', email)
       setMessageSentOpen(true)
     } catch (error) {
       console.log('Error sending email: ', error)
