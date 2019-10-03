@@ -5,8 +5,12 @@ import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button'
+import AppBar from '@material-ui/core/AppBar'
+import Tabs from '@material-ui/core/Tabs'
+import Typography from '@material-ui/core/Typography'
+import Tab from '@material-ui/core/Tab'
 
-import { withFirebase } from '../firebase'
+import { useContentCollection } from '../firebase'
 import ImageUpload from './ImageUpload'
 
 const useStyles = makeStyles(theme => ({
@@ -42,46 +46,120 @@ const UpdateButtons = ({ content, handleEdit }) => {
     <>
       {showUpdateImages && <ImageUpload content={content} />}
 
-      {!showUpdateImages &&
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleEdit(content.docId)}>
-          <EditIcon className={classes.leftIcon} />Edit
-        </Button>}
+      {!showUpdateImages && (
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={handleEdit(content.docId)}
+        >
+          <EditIcon className={classes.leftIcon} />
+          Edit
+        </Button>
+      )}
 
-      {!showUpdateImages &&
-        <Button variant="contained" color="primary" onClick={handleUpdateImages}>Update Images</Button>}
+      {!showUpdateImages && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleUpdateImages}
+        >
+          Update Images
+        </Button>
+      )}
 
-      {showUpdateImages &&
-        <Button variant="contained" color="secondary" onClick={handleDoneUpdatingImages}>Done</Button>}
+      {showUpdateImages && (
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleDoneUpdatingImages}
+        >
+          Done
+        </Button>
+      )}
     </>
   )
 }
 
-export default withFirebase(({ db, handleEdit }) => {
-  const [docs, loading, error] = useCollectionData(
-    db.collection('content'),
-    { idField: 'docId' }
+const ContentItem = ({ content, handleEdit }) => {
+  return (
+    <Box m={2} key={content.docId}>
+      <Paper>
+        <Box p={2} key={content.docId}>
+          <h2>{content.title}</h2>
+          <p>{content.blurb}</p>
+          <UpdateButtons content={content} handleEdit={handleEdit} />
+        </Box>
+      </Paper>
+    </Box>
   )
+}
+
+const ContentCategory = ({ docs, handleEdit }) => {
+  return (
+    <>
+      <hr />
+      {docs.map((doc, i) => (
+        <ContentItem content={doc} key={i} handleEdit={handleEdit} />
+      ))}
+    </>
+  )
+}
+const TabPanel = ({ children, value, index, ...other }) => {
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  )
+}
+
+export default ({ handleEdit }) => {
+  const categories = ['', 'news', 'events', 'updates', 'articles']
+  const categoryDocs = categories.map(category => {
+    const [docs] = useContentCollection(category)
+    return docs
+  })
+  const [tabIndex, setTabIndex] = React.useState(0)
+  const handleChange = (event, newValue) => {
+    setTabIndex(newValue)
+  }
+
+  for (const docs of categoryDocs) {
+    if (!docs) return null
+  }
+  console.log(categoryDocs)
 
   return (
     <>
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Collection: Loading...</span>}
-      {docs && (
-        <span>
-          {docs.map(content => (
-            <Box m={2} key={content.docId}>
-              <Paper>
-                <Box p={2} key={content.docId}>
-                  <h2>{content.title}</h2>
-                  <p>{content.blurb}</p>
-                  <UpdateButtons content={content} handleEdit={handleEdit} />
-                </Box>
-              </Paper>
-            </Box>
+      <AppBar position="static">
+        <Tabs
+          value={tabIndex}
+          onChange={handleChange}
+          aria-label="simple tabs example"
+        >
+          <Tab label="None" />
+          <Tab label="News" />
+          <Tab label="Events" />
+          <Tab label="Updates" />
+          <Tab label="Articles" />
+        </Tabs>
+      </AppBar>
+      {categoryDocs && (
+        <>
+          {categoryDocs.map((docs, i) => (
+            <TabPanel value={tabIndex} key={i} index={i}>
+              <ContentCategory docs={docs} handleEdit={handleEdit} />
+            </TabPanel>
           ))}
-        </span>
+        </>
       )}
     </>
   )
-})
-
+}

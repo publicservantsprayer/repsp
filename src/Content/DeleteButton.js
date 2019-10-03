@@ -29,7 +29,10 @@ export default withFirebase(({ db, docValues, showList }) => {
     setOpenConfirm(true)
   }
   const handleConfirmDelete = docId => async event => {
-    await db.collection('content').doc(docId).delete()
+    await db
+      .collection('content')
+      .doc(docId)
+      .delete()
     console.log('deleted')
     setOpenConfirm(false)
     showList()
@@ -40,21 +43,30 @@ export default withFirebase(({ db, docValues, showList }) => {
 
   return (
     <>
-      <Button variant="contained" color="secondary" className={classes.button} onClick={handleDelete}>
-        Delete <DeleteIcon className={classes.rightIcon} onClick={handleDelete} />
+      <Button
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        onClick={handleDelete}
+      >
+        Delete{' '}
+        <DeleteIcon className={classes.rightIcon} onClick={handleDelete} />
       </Button>
       <Dialog
         open={openConfirm}
         onClose={handleCancelDelete}
-        aria-labelledby="responsive-dialog-title">
-        <DialogTitle id="responsive-dialog-title">{"Delete this content?"}</DialogTitle>
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {'Delete this content?'}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             <strong>{docValues.title}</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDelete} color="primary" >
+          <Button onClick={handleCancelDelete} color="primary">
             Cancel
           </Button>
           <Button onClick={handleConfirmDelete(docValues.docId)} autoFocus>
