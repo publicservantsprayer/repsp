@@ -105,5 +105,10 @@ const useStateCode = (options = {}) => {
   return cookieStateCode
 }
 
+const useHomePath = () => {
+  const stateCode = useStateCode()
+  return `/states/${stateCode.toLowerCase()}`
+}
 
-export { statesObj, stateName, stateCodes, useStateCode, validStateCode }
+
+export { statesObj, stateName, stateCodes, useStateCode, validStateCode, useHomePath }
