@@ -13,6 +13,7 @@ import Updates from './screens/Updates'
 import Articles from './screens/Articles'
 import SignIn from './screens/SignIn'
 import SignInEmailLinkLanding from './SignIn/EmailLinkLanding'
+import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import ContentCollection from './screens/ContentCollection'
 
@@ -59,6 +60,7 @@ function App () {
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
       <Route exact path="/sign-in" component={SignIn} />
       <Route exact path="/sign-in/email-link-landing" component={SignInEmailLinkLanding} />
+      <Route exact path="/sign-out" component={SignOut} />
       <Route component={Footer} />
     </Router>
   )

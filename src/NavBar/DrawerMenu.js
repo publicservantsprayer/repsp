@@ -1,11 +1,15 @@
 import React from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useFirebase } from '../firebase'
+import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import MuiListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
+import Divider from '@material-ui/core/Divider'
 import HomeIcon from '@material-ui/icons/Home'
 import PeopleIcon from '@material-ui/icons/People'
 import MapIcon from '@material-ui/icons/Map'
@@ -15,6 +19,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary'
 import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import InfoIcon from '@material-ui/icons/Info'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -32,6 +37,8 @@ const ListItem = ({ Icon, text, to }) => {
 
 export default ({ drawerOpen, toggleDrawer, stateCode }) => {
   if (!stateCode) return null
+  const { auth } = useFirebase()
+  const [user] = useAuthState(auth)
 
   const homeUrl = `/states/${stateCode.toLowerCase()}`
 
@@ -41,25 +48,23 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
       anchor="right"
       onClose={toggleDrawer(false)}
       onClick={toggleDrawer(false)}
-      variant="temporary"
-    >
+      variant="temporary">
       <Toolbar />
       <List>
         <ListItem text="Home" Icon={HomeIcon} to={homeUrl} />
-        <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
         <ListItem text="Find Your State" Icon={MapIcon} to="/find-your-state" />
+        <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
         <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
+        <Divider />
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="News" Icon={LocalLibraryIcon} to="/news" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
         <ListItem text="About" Icon={InfoIcon} to="/about" />
-        <ListItem text="Sign In" Icon={InfoIcon} to="/sign-in" />
-        <ListItem
-          text="Women's Ministry"
-          Icon={InfoIcon}
-          to="/womens-ministry"
-        />
+        <Divider />
+        {user && <Box m={2}>{user.email}</Box>}
+        {!user && <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />}
+        {user && <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />}
       </List>
     </Drawer>
   )
