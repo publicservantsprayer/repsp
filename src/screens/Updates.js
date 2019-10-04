@@ -8,11 +8,11 @@ import moment from 'moment'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 
 import { useContentCollection, useFirebase } from '../firebase'
-import { H2 } from '../utilities/formating'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(3, 2),
+    padding: theme.spacing(1, 1),
+    margin: 30,
   },
 }))
 
@@ -28,22 +28,36 @@ const ArticleGrid = ({ article }) => {
   if (error) console.log('Error loading image: ', error)
 
   return (
-    <Grid item sm={4}>
-      <Paper className={classes.root}>
-        <Box maxWidth={350} height="auto" mx={2} my={2} px={2} py={2}>
-          <Box>
-            <H2>
-              {moment(article.createdOn.toDate()).format('MMMM Do, YYYY')}
-            </H2>
+    <Box bgcolor="common.white" px={3} py={1}>
+      <Grid item sm={4}>
+        <Paper className={classes.root}>
+          <Box
+            maxWidth={375}
+            height="auto"
+            mx={2}
+            my={2}
+            px={1}
+            py={2}
+            boxShadow={9}
+            bgcolor="common.white"
+            color="common.black"
+          >
+            <Box>
+              <h1>
+                {moment(article.createdOn.toDate()).format('MMMM Do, YYYY')}
+              </h1>
+            </Box>
+            <Box>
+              {loading && <p>Loading...</p>}
+              {image && src && (
+                <img style={{ width: '100%' }} src={src} alt="" />
+              )}
+            </Box>
+            <Box>{article.content}</Box>
           </Box>
-          <Box>
-            {loading && <p>Loading...</p>}
-            {image && src && <img style={{ width: '100%' }} src={src} alt="" />}
-          </Box>
-          <Box>{article.content}</Box>
-        </Box>
-      </Paper>
-    </Grid>
+        </Paper>
+      </Grid>
+    </Box>
   )
 }
 
