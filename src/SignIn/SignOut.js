@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 
 import { useHomePath } from '../utilities/states'
 import { useFirebase, useUser } from '../firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
 import { H1 } from '../utilities/formating'
 import Box from '@material-ui/core/Box'
 

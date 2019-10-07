@@ -2,7 +2,6 @@ import React from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { useUser, useAdminUser } from '../firebase'
 import Box from '@material-ui/core/Box'
-import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
@@ -20,7 +19,7 @@ import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import InfoIcon from '@material-ui/icons/Info'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import useHomePath from '../utilities/states'
+import { useHomePath } from '../utilities/states'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -66,7 +65,6 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         {!user && <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />}
         {user && <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />}
         {admin && <ListItem text="Content" Icon={DashboardIcon} to="/content" />}
-        <Button onClick={makeAdmin} >make admin</Button>
       </List>
     </Drawer>
   )

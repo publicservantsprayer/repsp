@@ -8,14 +8,16 @@ export const FirebaseProvider = Firebase.Provider
 
 export const withFirebase = Component => props => (
   <Firebase.Consumer>
-    {firebase =>
+    {firebase => (
       <Component
         {...props}
         firebase={firebase}
         db={firebase.firestore()}
         auth={firebase.auth()}
         storage={firebase.storage()}
-        storageRef={firebase.storage().ref()} />}
+        storageRef={firebase.storage().ref()}
+      />
+    )}
   </Firebase.Consumer>
 )
 
@@ -26,17 +28,17 @@ export const useFirebase = () => {
     db: firebase.firestore(),
     auth: firebase.auth(),
     storage: firebase.storage(),
-    storageRef: firebase.storage().ref()
+    storageRef: firebase.storage().ref(),
   }
 }
 
-export const useContentCollection = (category) => {
+export const useContentCollection = category => {
   const { db } = useFirebase()
   const [docs, loading, error] = useCollectionData(
     db
       .collection('content')
       .where('category', '==', category)
-      .orderBy('createdOn'),
+      .orderBy('createdOn', 'desc'),
     {
       idField: 'docId',
     }
@@ -46,12 +48,12 @@ export const useContentCollection = (category) => {
   return [docs, loading, error]
 }
 
-export const useContentItem = (docId) => {
+export const useContentItem = docId => {
   const { db } = useFirebase()
   const [doc, loading, error] = useDocumentData(
     db.collection('content').doc(docId)
   )
-  if (error) console.log('Error getting content item: ', (docId), error)
+  if (error) console.log('Error getting content item: ', docId, error)
 
   return [doc, loading, error]
 }

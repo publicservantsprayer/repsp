@@ -48,9 +48,7 @@ const ImageCodes = ({ images }) => {
 
 const ImageCode = ({ image }) => {
   const { storageRef } = useFirebase()
-  const [src, , error] = useDownloadURL(
-    storageRef.child('content/' + image)
-  )
+  const [src, , error] = useDownloadURL(storageRef.child('content/' + image))
   const [copyText, setCopyText] = useState('Copy Snippet')
 
   if (error) console.log('Error loading image code: ', error)
@@ -82,13 +80,17 @@ const ImageCode = ({ image }) => {
   )
 }
 
-export default ({ docValues, handleCancel, showList, showDelete, idReadOnly }) => {
+export default ({
+  docValues,
+  handleCancel,
+  showList,
+  showDelete,
+  idReadOnly,
+}) => {
   const { firebase, db } = useFirebase()
   const classes = useStyles()
   const [values, setValues] = useState(docValues)
-  const defaultDate = values.createdOn
-    ? values.createdOn.toDate()
-    : new Date()
+  const defaultDate = values.createdOn ? values.createdOn.toDate() : new Date()
   const [selectedDate, setSelectedDate] = useState(defaultDate)
 
   const handleDateChange = date => {
@@ -153,7 +155,6 @@ export default ({ docValues, handleCancel, showList, showDelete, idReadOnly }) =
                 <MenuItem value="events">Events</MenuItem>
                 <MenuItem value="updates">Updates</MenuItem>
                 <MenuItem value="articles">Articles</MenuItem>
-                <MenuItem value="womensMinistry">Women's Ministry</MenuItem>
               </SelectField>
 
               <TextField
@@ -193,7 +194,7 @@ export default ({ docValues, handleCancel, showList, showDelete, idReadOnly }) =
                   onClick={handleCancel}
                 >
                   Cancel
-                  </Button>
+                </Button>
                 <Button
                   variant="contained"
                   color="secondary"
@@ -201,7 +202,7 @@ export default ({ docValues, handleCancel, showList, showDelete, idReadOnly }) =
                   onClick={handleSave}
                 >
                   Save
-                  </Button>
+                </Button>
                 {showDelete && (
                   <DeleteButton showList={showList} docValues={docValues} />
                 )}
