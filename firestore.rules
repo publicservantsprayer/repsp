@@ -1,9 +1,15 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+    function isAdmin() {
+      return exists(/databases/$(database)/documents/adminUsers/$(request.auth.uid))
+    }
+    match /states/{document=**} {
       allow read;
-      allow write: if false;
+    }
+    match /content/{document=**} {
+      allow read;
+      allow write: if isAdmin();
     }
   }
 }
