@@ -11,5 +11,8 @@ service cloud.firestore {
       allow read;
       allow write: if isAdmin();
     }
+    match /adminUsers/{adminId} {
+      allow get: if request.auth.uid != null;
+    }
   }
 }
