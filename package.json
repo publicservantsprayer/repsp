@@ -42,8 +42,8 @@
     "update-firestore-indexes-from-live": "firebase firestore:indexes > firestore.indexes.json",
     "deploy": "firebase deploy --only hosting",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules",
-    "test-firestore-rules": "node_modules/jest/bin/jest.js --watch firestore.rules firestore.rules.spec.js",
-    "test-functions": "node_modules/jest/bin/jest.js --watch functions"
+    "test-firestore-rules": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch firestore.rules firestore.rules.spec.js'",
+    "test-functions": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch functions'"
   },
   "eslintConfig": {
     "extends": "react-app"
