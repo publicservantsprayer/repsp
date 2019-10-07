@@ -6,12 +6,6 @@ import MediaCard from '../MediaCard'
 
 const db = [
   {
-    title: 'Live Prayer Requests From Leaders',
-    image: 'https://saintmike.com/wp-content/uploads/MilitaryPrayerList1.jpg',
-    blurb:
-      'Want to pray more specifically? Here are live prayer requests from our leaders.',
-  },
-  {
     title: 'Pray, Give, Volunteer',
     image:
       'https://d3d86zle58b9ct.cloudfront.net/wp-content/uploads/sites/2/2018/06/Praying-hands.jpg',
