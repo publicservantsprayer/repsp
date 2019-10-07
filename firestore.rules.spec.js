@@ -53,6 +53,14 @@ describe(' Database rules', () => {
       await expect(ref.get()).toAllow()
       await expect(ref.doc('test').set({ foo: 'bar' })).toDeny()
     })
+
+    test('read-only in leaders collectionGroup', async () => {
+      const db = await setup()
+      const ref = db.collection('leaders')
+
+      await expect(ref.get()).toAllow()
+      await expect(ref.doc('test').set({ foo: 'bar' })).toDeny()
+    })
   })
 
   describe('adminUsers collection', () => {

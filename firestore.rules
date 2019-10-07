@@ -7,6 +7,9 @@ service cloud.firestore {
     match /states/{document=**} {
       allow read;
     }
+    match /{path=**}/leaders/{leader} {
+      allow read;
+    }
     match /content/{document=**} {
       allow read;
       allow write: if isAdmin();
