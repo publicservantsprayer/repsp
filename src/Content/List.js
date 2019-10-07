@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import EditIcon from '@material-ui/icons/Edit'
@@ -131,10 +130,7 @@ export default ({ handleEdit }) => {
     setTabIndex(newValue)
   }
 
-  for (const docs of categoryDocs) {
-    if (!docs) return null
-  }
-  console.log(categoryDocs)
+  if (categoryDocs.some(docs => !docs)) return null
 
   return (
     <>

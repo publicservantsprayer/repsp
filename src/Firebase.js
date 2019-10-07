@@ -1,8 +1,6 @@
-import React, { useContext } from 'react'
-import {
-  useCollectionData,
-  useDocumentData,
-} from 'react-firebase-hooks/firestore'
+import React from 'react'
+import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 const Firebase = React.createContext(null)
 
@@ -24,7 +22,7 @@ export const withFirebase = Component => props => (
 )
 
 export const useFirebase = () => {
-  const firebase = useContext(Firebase)
+  const firebase = React.useContext(Firebase)
   return {
     firebase: firebase,
     db: firebase.firestore(),
@@ -58,6 +56,29 @@ export const useContentItem = docId => {
   if (error) console.log('Error getting content item: ', docId, error)
 
   return [doc, loading, error]
+}
+
+export const useUser = () => {
+  const { auth } = useFirebase()
+  const [user, loading, error] = useAuthState(auth)
+  return [user, loading, error]
+}
+
+export const useAdminUser = () => {
+  const [admin, setAdmin] = React.useState()
+  const { db } = useFirebase()
+  const [user, loading, error] = useUser()
+
+  React.useEffect(() => {
+    if (user) {
+      return db.collection('adminUsers').doc(user.uid).onSnapshot(adminUser => {
+        if (adminUser.exists) setAdmin(user)
+        else setAdmin(false)
+      })
+    }
+  })
+
+  return [admin, loading, error]
 }
 
 export default Firebase

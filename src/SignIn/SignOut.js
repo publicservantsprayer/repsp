@@ -3,15 +3,14 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 
 import { useHomePath } from '../utilities/states'
-import { useFirebase } from '../firebase'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useFirebase, useUser } from '../firebase'
 import { H1 } from '../utilities/formating'
 import Box from '@material-ui/core/Box'
 
 export default () => {
   const homePath = useHomePath()
   const { auth } = useFirebase()
-  const [user, initializing] = useAuthState(auth)
+  const [user, initializing] = useUser()
 
   React.useEffect(() => {
     auth.signOut()

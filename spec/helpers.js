@@ -3,17 +3,16 @@ const fs = require('fs')
 
 module.exports.setup = async (auth, data) => {
   const projectId = `repsp-spec-${Date.now()}`
-  const app = await firebase.initializeTestApp({
-    projectId,
-    auth
+  const adminApp = await firebase.initializeAdminApp({
+    projectId
   })
 
-  const db = app.firestore()
+  const adminDb = adminApp.firestore()
 
   // Seed data
   if (data) {
     for (const key in data) {
-      const ref = db.doc(key)
+      const ref = adminDb.doc(key)
       await ref.set(data[key])
     }
   }
@@ -24,7 +23,13 @@ module.exports.setup = async (auth, data) => {
     rules: fs.readFileSync('firestore.rules')
   })
 
-  return db
+  const testApp = await firebase.initializeTestApp({
+    projectId,
+    auth
+  })
+
+  const testDb = testApp.firestore()
+  return testDb
 }
 
 module.exports.setupAdmin = async (data) => {
