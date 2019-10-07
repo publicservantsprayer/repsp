@@ -1,8 +1,7 @@
 import React from 'react'
 
 import { Link as RouterLink } from 'react-router-dom'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useFirebase } from '../firebase'
+import { useUser } from '../firebase'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -52,8 +51,7 @@ const ButtonLeaders = () => {
 
 const AppBar = ({ toggleDrawer }) => {
   const classes = useStyles()
-  const { auth } = useFirebase()
-  const [user] = useAuthState(auth)
+  const [user] = useUser()
 
   return (
     <MuiAppBar position="fixed" className={classes.AppBar}>
