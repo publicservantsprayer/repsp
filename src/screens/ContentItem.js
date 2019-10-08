@@ -1,25 +1,20 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import { makeStyles } from '@material-ui/core/styles'
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@material-ui/core/Link'
 import { useParams } from 'react-router-dom'
 
 import Markdown from '../Markdown'
-import { useContentItem } from '../firebase'
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-})
+import { useContentItem, useAdmin } from '../firebase'
 
 export default ({ docId, children }) => {
-  const classes = useStyles()
   const params = useParams()
   if (!docId) docId = params.docId
   const [doc, loading] = useContentItem(docId)
+  const [admin] = useAdmin()
 
   return (
-    <Box className={classes.root}>
+    <Box flexGrow={1}>
       {loading && <p>Loading...</p>}
       {doc && (
         <Box p={1}>
@@ -28,6 +23,7 @@ export default ({ docId, children }) => {
           <Markdown>{doc.content}</Markdown>
         </Box>
       )}
+      {admin && <Link component={RouterLink} to={`/content/edit/${doc.docId}`}>Edit this content</Link>}
       {children}
     </Box>
   )

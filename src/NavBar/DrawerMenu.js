@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { useUser, useAdminUser } from '../firebase'
+import { useUser, useAdmin } from '../firebase'
 import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
 import Drawer from '@material-ui/core/Drawer'
@@ -38,7 +38,7 @@ const ListItem = ({ Icon, text, to }) => {
 export default ({ drawerOpen, toggleDrawer, stateCode }) => {
   if (!stateCode) return null
   const [user] = useUser()
-  const [admin] = useAdminUser()
+  const [admin] = useAdmin()
   const homePath = useHomePath()
 
   return (

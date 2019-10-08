@@ -64,7 +64,7 @@ export const useUser = () => {
   return [user, loading, error]
 }
 
-export const useAdminUser = () => {
+export const useAdmin = () => {
   const [admin, setAdmin] = React.useState()
   const { db } = useFirebase()
   const [user, loading, error] = useUser()
