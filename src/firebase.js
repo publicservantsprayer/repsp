@@ -51,7 +51,8 @@ export const useContentCollection = category => {
 export const useContentItem = docId => {
   const { db } = useFirebase()
   const [doc, loading, error] = useDocumentData(
-    db.collection('content').doc(docId)
+    db.collection('content').doc(docId),
+    { idField: 'docId' }
   )
   if (error) console.log('Error getting content item: ', docId, error)
 

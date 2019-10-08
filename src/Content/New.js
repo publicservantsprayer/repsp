@@ -1,8 +1,10 @@
 import React from 'react'
 import Form from './Form'
 import { useFirebase } from '../firebase'
+import { H1 } from '../utilities/formating'
+import Box from '@material-ui/core/Box'
 
-export default ({ handleCancelNew, showList }) => {
+export default () => {
   const { firebase } = useFirebase()
   const defaultValues = {
     docId: '',
@@ -15,11 +17,5 @@ export default ({ handleCancelNew, showList }) => {
     createdOn: firebase.firestore.Timestamp.fromDate(new Date()),
   }
 
-  return (
-    <Form
-      handleCancel={handleCancelNew}
-      docValues={defaultValues}
-      showList={showList}
-    />
-  )
+  return <Box><H1>New Content</H1><Form docValues={defaultValues} isNew /></Box>
 }

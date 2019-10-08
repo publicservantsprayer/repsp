@@ -1,11 +1,10 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import { Link as RouterLink } from 'react-router-dom'
-import Link from '@material-ui/core/Link'
 import { useParams } from 'react-router-dom'
 
 import Markdown from '../Markdown'
 import { useContentItem, useAdmin } from '../firebase'
+import UpdateButtons from '../Content/UpdateButtons'
 
 export default ({ docId, children }) => {
   const params = useParams()
@@ -21,9 +20,9 @@ export default ({ docId, children }) => {
           <h2>{doc.title}</h2>
           <hr />
           <Markdown>{doc.content}</Markdown>
+          {admin && <UpdateButtons content={doc} />}
         </Box>
       )}
-      {admin && <Link component={RouterLink} to={`/content/edit/${doc.docId}`}>Edit this content</Link>}
       {children}
     </Box>
   )

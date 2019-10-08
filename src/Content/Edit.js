@@ -1,30 +1,20 @@
 import React from 'react'
-import { useDocumentData } from 'react-firebase-hooks/firestore'
-
-import { withFirebase } from '../firebase'
+import { useParams } from 'react-router-dom'
+import Box from '@material-ui/core/Box'
+import { useContentItem } from '../firebase'
 import Form from './Form'
+import { H1 } from '../utilities/formating'
 
-export default withFirebase(({ db, docId, showList, handleCancelEdit }) => {
-  const [docValues, loading, error] = useDocumentData(
-    db.collection('content').doc(docId),
-    { idField: 'docId' }
-  )
+export default () => {
+  const params = useParams()
+  const [docValues, loading, error] = useContentItem(params.docId)
 
   return (
-    <>
+    <Box>
+      <H1>Edit Content</H1>
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <span>Content: Loading...</span>}
-      {docValues && (
-        <>
-          <Form
-            docValues={docValues}
-            showList={showList}
-            handleCancel={handleCancelEdit}
-            showDelete
-            idReadOnly
-          />
-        </>
-      )}
-    </>
+      {docValues && <Form docValues={docValues} />}
+    </Box>
   )
-})
+}

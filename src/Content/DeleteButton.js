@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default withFirebase(({ db, docValues, showList }) => {
   const classes = useStyles()
+  const history = useHistory()
   const [openConfirm, setOpenConfirm] = useState(false)
   const handleDelete = docValues => {
     setOpenConfirm(true)
@@ -35,7 +37,7 @@ export default withFirebase(({ db, docValues, showList }) => {
       .delete()
     console.log('deleted')
     setOpenConfirm(false)
-    showList()
+    history.goBack()
   }
   const handleCancelDelete = () => {
     setOpenConfirm(false)

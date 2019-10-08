@@ -8,6 +8,8 @@ import Leader from './screens/Leader'
 import ContentItem from './screens/ContentItem'
 import FindYourState from './screens/FindYourState'
 import Content from './Content'
+import ContentEdit from './Content/Edit'
+import ContentNew from './Content/New'
 import Footer from './Footer'
 import Updates from './screens/Updates'
 import SignIn from './screens/SignIn'
@@ -16,7 +18,7 @@ import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import ContentCollection from './screens/ContentCollection'
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Route component={NavBar} />
@@ -59,6 +61,8 @@ function App() {
       <Route exact path="/international-prayer">
         <ContentItem docId="international-prayer" />
       </Route>
+      <Route exact path="/content/edit/:docId" component={ContentEdit} />
+      <Route exact path="/content/new" component={ContentNew} />
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
