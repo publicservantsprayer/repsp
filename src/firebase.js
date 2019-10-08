@@ -1,28 +1,15 @@
 import React from 'react'
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { useStateCode } from './utilities/states'
 
-const Firebase = React.createContext(null)
+const FirebaseContext = React.createContext(null)
 
-export const FirebaseProvider = Firebase.Provider
-
-export const withFirebase = Component => props => (
-  <Firebase.Consumer>
-    {firebase => (
-      <Component
-        {...props}
-        firebase={firebase}
-        db={firebase.firestore()}
-        auth={firebase.auth()}
-        storage={firebase.storage()}
-        storageRef={firebase.storage().ref()}
-      />
-    )}
-  </Firebase.Consumer>
-)
+export const FirebaseProvider = FirebaseContext.Provider
 
 export const useFirebase = () => {
-  const firebase = React.useContext(Firebase)
+  const firebase = React.useContext(FirebaseContext)
+
   return {
     firebase: firebase,
     db: firebase.firestore(),
@@ -59,9 +46,27 @@ export const useContentItem = docId => {
   return [doc, loading, error]
 }
 
+export const useDailyPost = () => {
+  const { db } = useFirebase()
+  const stateCode = useStateCode()
+
+  const [posts, loading, error] = useCollectionData(
+    db
+      .collection(`/states/${stateCode}/posts/`)
+      .orderBy('dateID', 'desc')
+      .limit(1)
+  )
+
+  if (error) console.log('Error loading news: ', error)
+
+  if (Array.isArray(posts)) return [posts[0], loading, error]
+  else return [false, loading, error]
+}
+
 export const useUser = () => {
   const { auth } = useFirebase()
   const [user, loading, error] = useAuthState(auth)
+
   return [user, loading, error]
 }
 
@@ -81,5 +86,3 @@ export const useAdmin = () => {
 
   return [admin, loading, error]
 }
-
-export default Firebase

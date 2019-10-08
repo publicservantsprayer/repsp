@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
@@ -13,11 +13,9 @@ import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import InstagramIcon from 'mdi-material-ui/Instagram'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
-
-import { withFirebase } from '../firebase'
+import { useDailyPost } from '../firebase'
 import ExpansionPanel from './ExpansionPanel'
 import TwitterTimeline from './TwitterTimeline'
-import { useStateCode } from '../utilities/states'
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -41,46 +39,28 @@ const LeaderGridItem = ({ leader }) => {
   )
 }
 
-function TabPanel (props) {
-  const { children, value, index, ...other } = props
-
+const TabPanel = ({ children, value, index }) => {
   return (
     <Typography
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
     >
       <Box p={3}>{children}</Box>
     </Typography>
   )
 }
 
-const DailyLeaders = ({ db }) => {
-  const stateCode = useStateCode()
-  const [post, setPost] = useState()
+const DailyLeaders = () => {
   const classes = useStyles()
-
-  useEffect(() => {
-    ; (async () => {
-      const snap = await db
-        .collection(`/states/${stateCode}/posts/`)
-        .orderBy('dateID', 'desc')
-        .limit(1)
-        .get()
-      setPost(snap.docs[0].data())
-    })()
-  }, [db, stateCode])
-
   const [tabIndex, setTabIndex] = React.useState(0)
+  const [post] = useDailyPost()
+
+  if (!post) return null
 
   function handleChange (event, newIndex) {
     setTabIndex(newIndex)
   }
-
-  if (!post) return null
 
   return (
     <Box bgcolor="common.black" m={2} borderRadius="borderRadius">
@@ -133,4 +113,4 @@ const DailyLeaders = ({ db }) => {
     </Box>
   )
 }
-export default withFirebase(DailyLeaders)
+export default DailyLeaders

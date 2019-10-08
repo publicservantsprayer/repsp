@@ -1,37 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-import { withFirebase } from './firebase'
+import { useFirebase } from './firebase'
 import { useStateCode } from './utilities/states'
 
-const TabPanel = ({ children, value, index, ...other }) =>
+const TabPanel = ({ children, value, index }) =>
   <Typography
     component="div"
     role="tabpanel"
-    hidden={value !== index}
-    id={`vertical-tabpanel-${index}`}
-    aria-labelledby={`vertical-tab-${index}`}
-    {...other}>
+    hidden={value !== index}>
     <Box p={3}>{children}</Box>
   </Typography>
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-}
-
-function a11yProps (index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  }
-}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,11 +31,11 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const PostBrowser = ({ db }) => {
+export default () => {
   const [posts, setPosts] = useState()
   const stateCode = useStateCode()
-
-  const classes = useStyles();
+  const { db } = useFirebase()
+  const classes = useStyles()
   const [value, setValue] = React.useState(0);
 
   function handleChange (event, newValue) {
@@ -84,10 +67,9 @@ const PostBrowser = ({ db }) => {
         variant="scrollable"
         value={value}
         onChange={handleChange}
-        aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        {posts.map((post, i) => <Tab key={i} label={post.dateID} {...a11yProps(i)} />)}
+        {posts.map((post, i) => <Tab key={i} label={post.dateID} />)}
       </Tabs>
       {posts.map((post, i) => {
         return (
@@ -99,5 +81,3 @@ const PostBrowser = ({ db }) => {
     </div>
   )
 }
-
-export default withFirebase(PostBrowser)

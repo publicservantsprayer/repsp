@@ -8,11 +8,13 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview"
 import "filepond/dist/filepond.min.css"
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
 
-import { withFirebase } from '../firebase'
+import { useFirebase } from '../firebase'
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
-export default withFirebase(({ firebase, db, storageRef, content }) => {
+export default ({ content }) => {
+  const { firebase, db, storageRef } = useFirebase()
+
   if (!Array.isArray(content.images)) content.images = []
 
   const saveImageName = image => {
@@ -108,4 +110,4 @@ export default withFirebase(({ firebase, db, storageRef, content }) => {
       onupdatefiles={onupdatefiles}
       server={serverConfig} />
   )
-})
+}

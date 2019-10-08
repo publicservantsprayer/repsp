@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Leader from '../Leader'
-import { withFirebase } from '../firebase'
+import { useFirebase } from '../firebase'
+import { useParams } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -12,21 +13,22 @@ const useStyles = makeStyles({
   },
 })
 
-const StateLeader = ({ match, db }) => {
-  const id = match.params.id
-  const [leader, setLeader] = useState()
+export default () => {
+  const params = useParams()
+  const { db } = useFirebase()
+  const [leader, setLeader] = React.useState()
   const classes = useStyles()
 
-  useEffect(() => {
+  React.useEffect(() => {
     ; (async () => {
       const snapshot = await db
         .collectionGroup('leaders')
-        .where('permaLink', '==', id)
+        .where('permaLink', '==', params.id)
         .get()
       setLeader(snapshot.docs[0].data())
       console.log('leader doc:', snapshot.docs[0].data())
     })()
-  }, [db, id])
+  }, [db, params])
 
   if (!leader) return null
 
@@ -34,5 +36,3 @@ const StateLeader = ({ match, db }) => {
     <div className={classes.root}>{leader && <Leader leader={leader} />}</div>
   )
 }
-
-export default withFirebase(StateLeader)

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
@@ -12,7 +12,7 @@ import Link from '@material-ui/core/Link'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { useStateCode } from '../utilities/states'
-import { withFirebase } from '../firebase'
+import { useFirebase } from '../firebase'
 import PageTitle from '../PageTitle'
 import StateFlag from '../StateFlag'
 import StateBlurb from '../StateBlurb'
@@ -51,29 +51,25 @@ const useStyles = makeStyles({
   },
 })
 
-const StateLeaders = ({ db }) => {
+export default () => {
+  const { db } = useFirebase()
   const stateCode = useStateCode()
-  const [fedSenate, setfedSenate] = useState()
-  const [fedHouse, setfedHouse] = useState()
-  const [stateSenate, setstateSenate] = useState()
-  const [stateHouse, setstateHouse] = useState()
-
+  const [fedSenate, setfedSenate] = React.useState()
+  const [fedHouse, setfedHouse] = React.useState()
+  const [stateSenate, setstateSenate] = React.useState()
+  const [stateHouse, setstateHouse] = React.useState()
   const classes = useStyles()
   const [currentTab, setCurrentTab] = React.useState(0)
 
-  function handleChange (event, tabIndex) {
-    setCurrentTab(tabIndex)
-  }
-  function TabPanel (props) {
-    const { leaders, currentTab, index } = props
+  const handleChange = (event, tabIndex) => setCurrentTab(tabIndex)
+
+  const TabPanel = ({ leaders, currentTab, index }) => {
     return (
       <>
         <Typography
           component="div"
           role="tabpanel"
           hidden={currentTab !== index}
-          id={`simple-tabpanel-${index}`}
-          aria-labelledby={`simple-tab-${index}`}
         >
           <Box px={20} display="flex" className={classes.contents}>
             {leaders.map(leader => (
@@ -96,7 +92,7 @@ const StateLeaders = ({ db }) => {
     )
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const getLeaders = async () => {
       const [
         fedSenateSnap,
@@ -215,5 +211,3 @@ const StateLeaders = ({ db }) => {
     </div>
   )
 }
-
-export default withFirebase(StateLeaders)

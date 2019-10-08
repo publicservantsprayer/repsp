@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -9,38 +9,25 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContentText from '@material-ui/core/DialogContentText'
 
-import { withFirebase } from '../firebase'
+import { useFirebase } from '../firebase'
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  rightIcon: {
-    marginLeft: theme.spacing(1),
-  },
-}))
-
-export default withFirebase(({ db, docValues, showList }) => {
-  const classes = useStyles()
+export default ({ docValues }) => {
+  const { db } = useFirebase()
+  const theme = useTheme()
   const history = useHistory()
-  const [openConfirm, setOpenConfirm] = useState(false)
-  const handleDelete = docValues => {
-    setOpenConfirm(true)
-  }
-  const handleConfirmDelete = docId => async event => {
+  const [openConfirm, setOpenConfirm] = React.useState(false)
+
+  const handleDelete = docValues => setOpenConfirm(true)
+
+  const handleCancelDelete = () => setOpenConfirm(false)
+
+  const handleConfirmDelete = docId => async () => {
     await db
       .collection('content')
       .doc(docId)
       .delete()
-    console.log('deleted')
     setOpenConfirm(false)
     history.goBack()
-  }
-  const handleCancelDelete = () => {
-    setOpenConfirm(false)
   }
 
   return (
@@ -48,16 +35,15 @@ export default withFirebase(({ db, docValues, showList }) => {
       <Button
         variant="contained"
         color="secondary"
-        className={classes.button}
+        style={{ marginRight: theme.spacing(1) }}
         onClick={handleDelete}
       >
         Delete{' '}
-        <DeleteIcon className={classes.rightIcon} onClick={handleDelete} />
+        <DeleteIcon style={{ marginRight: theme.spacing(1) }} onClick={handleDelete} />
       </Button>
       <Dialog
         open={openConfirm}
         onClose={handleCancelDelete}
-        aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
           {'Delete this content?'}
@@ -78,4 +64,4 @@ export default withFirebase(({ db, docValues, showList }) => {
       </Dialog>
     </>
   )
-})
+}
