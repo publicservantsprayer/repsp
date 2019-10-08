@@ -47,7 +47,8 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
       anchor="right"
       onClose={toggleDrawer(false)}
       onClick={toggleDrawer(false)}
-      variant="temporary">
+      variant="temporary"
+    >
       <Toolbar />
       <List>
         <ListItem text="Home" Icon={HomeIcon} to={homePath} />
@@ -59,12 +60,31 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="News" Icon={LocalLibraryIcon} to="/news" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
+        <ListItem
+          text="Women's Ministry"
+          Icon={EventIcon}
+          to="/womens-ministry"
+        />
+        <ListItem
+          text="International Prayer"
+          Icon={PostAddIcon}
+          to="/international-prayer"
+        />
+        <Divider />
         <ListItem text="About" Icon={InfoIcon} to="/about" />
+        <ListItem text="Pray, Give, Go" Icon={InfoIcon} to="/pray-give-go" />
+        <ListItem text="Sponsored By" Icon={InfoIcon} to="/sponsored-by" />
         <Divider />
         {user && <Box m={2}>{user.email}</Box>}
-        {!user && <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />}
-        {user && <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />}
-        {admin && <ListItem text="Content" Icon={DashboardIcon} to="/content" />}
+        {!user && (
+          <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />
+        )}
+        {user && (
+          <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />
+        )}
+        {admin && (
+          <ListItem text="Content" Icon={DashboardIcon} to="/content" />
+        )}
       </List>
     </Drawer>
   )

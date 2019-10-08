@@ -16,8 +16,10 @@ import SignInEmailLinkLanding from './SignIn/EmailLinkLanding'
 import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import ContentCollection from './screens/ContentCollection'
+import InternationalPrayer from './screens/InternationalPrayer'
+import WhyWePray from './screens/WhyWePray'
 
-function App () {
+function App() {
   return (
     <Router>
       <Route component={NavBar} />
@@ -30,16 +32,16 @@ function App () {
       <Route exact path="/article/:docId">
         <ContentItem />
       </Route>
-      <Route exact path="/events" >
+      <Route exact path="/events">
         <ContentCollection category="events" />
       </Route>
       <Route exact path="/events/:docId">
         <ContentItem />
       </Route>
-      <Route exact path="/news" >
+      <Route exact path="/news">
         <ContentCollection category="news" />
       </Route>
-      <Route exact path="/news/:docId" >
+      <Route exact path="/news/:docId">
         <ContentItem />
       </Route>
       <Route exact path="/what-we-do">
@@ -55,11 +57,20 @@ function App () {
         <ContentItem docId="womens-ministry" />
       </Route>
       <Route exact path="/updates" component={Updates} />
+      <Route
+        exact
+        path="/international-prayer"
+        component={InternationalPrayer}
+      />
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
       <Route exact path="/sign-in" component={SignIn} />
-      <Route exact path="/sign-in/email-link-landing" component={SignInEmailLinkLanding} />
+      <Route
+        exact
+        path="/sign-in/email-link-landing"
+        component={SignInEmailLinkLanding}
+      />
       <Route exact path="/sign-out" component={SignOut} />
       <Route component={Footer} />
     </Router>
