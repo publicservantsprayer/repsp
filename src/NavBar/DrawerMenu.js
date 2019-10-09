@@ -72,7 +72,7 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         />
         <Divider />
         <ListItem text="About" Icon={InfoIcon} to="/about" />
-        <ListItem text="Pray, Give, Go" Icon={InfoIcon} to="/pray-give-go" />
+        <ListItem text="Give/Volunteer" Icon={InfoIcon} to="/give" />
         <ListItem text="Sponsored By" Icon={InfoIcon} to="/sponsored-by" />
         <Divider />
         {user && <Box m={2}>{user.email}</Box>}

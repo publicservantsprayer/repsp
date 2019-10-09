@@ -57,6 +57,9 @@ const App = () => {
       <Route exact path="/womens-ministry">
         <ContentItem docId="womens-ministry" />
       </Route>
+      <Route exact path="/give">
+        <ContentItem docId="give" />
+      </Route>
       <Route exact path="/updates" component={Updates} />
       <Route exact path="/international-prayer">
         <ContentItem docId="international-prayer" />
