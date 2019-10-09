@@ -17,5 +17,9 @@ service cloud.firestore {
     match /adminUsers/{adminId} {
       allow get: if request.auth.uid != null;
     }
+    match /twitterAccounts/{document=**} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
   }
 }

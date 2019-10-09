@@ -96,4 +96,34 @@ describe(' Database rules', () => {
       await expect(ref.doc('joe123').set({ foo: 'bar' })).toDeny()
     })
   })
+
+  describe('twitterAccounts collection', () => {
+    const data = {
+      'adminUsers/admin123': { 'uid': 'admin123' }
+    }
+
+    test('access denied from non-authenticated user', async () => {
+      db = await setup(null, data)
+      const ref = db.collection('twitterAccounts')
+
+      await expect(ref.doc('Praying4_IN').get()).toDeny()
+      await expect(ref.doc('Praying4_IN').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('access denied from authenticated user', async () => {
+      db = await setup({ uid: 'joe123' }, data)
+      const ref = db.collection('twitterAccounts')
+
+      await expect(ref.doc('Praying4_IN').get()).toDeny()
+      await expect(ref.doc('Praying4_IN').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('access denied from authenticated admin user', async () => {
+      db = await setup({ uid: 'admin123' }, data)
+      const ref = db.collection('twitterAccounts')
+
+      await expect(ref.doc('Praying4_IN').get()).toAllow()
+      await expect(ref.doc('Praying4_IN').set({ foo: 'bar' })).toAllow()
+    })
+  })
 })
