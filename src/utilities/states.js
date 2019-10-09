@@ -107,7 +107,8 @@ const useStateCode = (options = {}) => {
 
 const useHomePath = () => {
   const stateCode = useStateCode()
-  return `/states/${stateCode.toLowerCase()}`
+  if (stateCode) return `/states/${stateCode.toLowerCase()}`
+  else return '/'
 }
 
 
