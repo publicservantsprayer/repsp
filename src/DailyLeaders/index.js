@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
+import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Tabs from '@material-ui/core/Tabs'
@@ -15,7 +16,7 @@ import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import { useDailyPost } from '../firebase'
 import ExpansionPanel from './ExpansionPanel'
-import TwitterTimeline from './TwitterTimeline'
+import TwitterTimeline from '../TwitterTimeline'
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -105,7 +106,7 @@ const DailyLeaders = () => {
         Follow on Facebook
       </TabPanel>
       <TabPanel value={tabIndex} index={3}>
-        <TwitterTimeline />
+        <Paper><TwitterTimeline /></Paper>
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
         Follow on Instagram

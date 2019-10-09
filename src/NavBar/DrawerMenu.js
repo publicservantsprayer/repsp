@@ -19,6 +19,7 @@ import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import InfoIcon from '@material-ui/icons/Info'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import { useHomePath } from '../utilities/states'
 import VpnKeyIcon from '@material-ui/icons/VpnKey'
 
@@ -74,6 +75,9 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         )}
         {admin && (
           <ListItem text="Content" Icon={DashboardIcon} to="/content" />
+        )}
+        {admin && (
+          <ListItem text="Twitter Accounts" Icon={TwitterIcon} to="/twitter-accounts" />
         )}
       </List>
     </Drawer>

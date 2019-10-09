@@ -16,6 +16,7 @@ import SignIn from './screens/SignIn'
 import SignInEmailLinkLanding from './SignIn/EmailLinkLanding'
 import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
+import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
       <Route exact path="/content" component={Content} />
       <Route exact path="/leader/:id" component={Leader} />
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
+      <Route exact path="/twitter-accounts" component={TwitterAccounts} />
       <Route exact path="/sign-in" component={SignIn} />
       <Route
         exact
