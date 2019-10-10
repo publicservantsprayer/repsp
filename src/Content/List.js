@@ -9,7 +9,6 @@ import Tab from '@material-ui/core/Tab'
 import { useContentCollection } from '../firebase'
 import UpdateButtons from './UpdateButtons'
 
-
 const ContentItem = ({ content }) => {
   return (
     <Box m={2} key={content.docId}>
@@ -35,18 +34,14 @@ const ContentCategory = ({ docs }) => {
 }
 const TabPanel = ({ children, value, index }) => {
   return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-    >
+    <Typography component="div" role="tabpanel" hidden={value !== index}>
       <Box p={0}>{children}</Box>
     </Typography>
   )
 }
 
 export default () => {
-  const categories = ['', 'news', 'events', 'updates', 'articles']
+  const categories = ['', 'events', 'updates', 'articles']
   const [tabIndex, setTabIndex] = React.useState(0)
   const categoryDocs = categories.map(category => {
     const [docs] = useContentCollection(category)
@@ -60,12 +55,8 @@ export default () => {
   return (
     <>
       <AppBar position="static">
-        <Tabs
-          value={tabIndex}
-          onChange={handleChange}
-        >
+        <Tabs value={tabIndex} onChange={handleChange}>
           <Tab label="None" />
-          <Tab label="News" />
           <Tab label="Events" />
           <Tab label="Updates" />
           <Tab label="Articles" />
