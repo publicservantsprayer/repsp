@@ -10,14 +10,14 @@ import Grid from '@material-ui/core/Grid'
 import { Link as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link'
 
-import { leaderPhoto, leaderUrl } from '../utilities/leader'
-import { useStateCode } from '../utilities/states'
-import { useFirebase } from '../firebase'
-import PageTitle from '../PageTitle'
-import StateFlag from '../StateFlag'
-import StateBlurb from '../StateBlurb'
-import StateCapitalPic from '../StateCapitalPic'
-import StateFacts from '../StateFacts'
+import { leaderPhoto, leaderUrl } from './utilities/leader'
+import { useStateCode } from './utilities/states'
+import { useFirebase } from './firebase'
+import PageTitle from './PageTitle'
+import StateFlag from './StateFlag'
+import StateBlurb from './StateBlurb'
+import StateCapitalPic from './StateCapitalPic'
+import StateFacts from './StateFacts'
 
 const useStyles = makeStyles({
   root: {
