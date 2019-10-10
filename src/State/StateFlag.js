@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 
-import { stateName } from './utilities/states'
+import { stateName } from '../utilities/states'
 
 const StateFlag = ({ stateCode }) => {
   return (

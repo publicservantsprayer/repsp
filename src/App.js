@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import NavBar from './NavBar'
 import Home from './screens/Home'
-import StateLeaders from './StateLeaders'
+import StateLeaders from './State/StateLeaders'
 import Leader from './screens/Leader'
 import ContentItem from './screens/ContentItem'
 import FindYourState from './screens/FindYourState'
@@ -61,9 +61,6 @@ const App = () => {
         <ContentItem docId="give" />
       </Route>
       <Route exact path="/updates" component={Updates} />
-      <Route exact path="/international-prayer">
-        <ContentItem docId="international-prayer" />
-      </Route>
       <Route exact path="/content/edit/:docId" component={ContentEdit} />
       <Route exact path="/content/new" component={ContentNew} />
       <Route exact path="/content" component={Content} />

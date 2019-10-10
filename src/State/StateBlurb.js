@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 
 import wiki from 'wikijs'
-import { stateName } from './utilities/states'
+import { stateName } from '../utilities/states'
 
 const StateBlurb = ({ stateCode }) => {
   const [blurb, setBlurb] = useState()

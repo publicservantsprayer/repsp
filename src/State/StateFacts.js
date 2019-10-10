@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 
-import { useStateCode } from './utilities/states'
-import stateFacts from './utilities/stateFacts'
+import { useStateCode } from '../utilities/states'
+import stateFacts from '../utilities/stateFacts'
 
 const FactLI = ({ fact, children }) => {
   const stateCode = useStateCode()

@@ -57,19 +57,8 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
         <Divider />
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
-        <ListItem text="News" Icon={LocalLibraryIcon} to="/news" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
-        <ListItem
-          text="Women's Ministry"
-          Icon={EventIcon}
-          to="/womens-ministry"
-        />
-        <ListItem
-          text="International Prayer"
-          Icon={PostAddIcon}
-          to="/international-prayer"
-        />
         <Divider />
         <ListItem text="About" Icon={InfoIcon} to="/about" />
         <ListItem text="Give/Volunteer" Icon={InfoIcon} to="/give" />
