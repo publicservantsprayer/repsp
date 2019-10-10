@@ -71,7 +71,17 @@ export default () => {
           role="tabpanel"
           hidden={currentTab !== index}
         >
-          <Box px={20} display="flex" className={classes.contents}>
+          <Box
+            mx={4}
+            my={4}
+            display="flex"
+            bgcolor="common.white"
+            border={15}
+            borderColor="secondary.dark"
+            flexGrow={1}
+            justifyContent="center"
+            className={classes.contents}
+          >
             {leaders.map(leader => (
               <Box key={leader.PID} m={2}>
                 {leader.FirstName} {leader.LastName}
@@ -145,8 +155,26 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Box display="flex" justifyContent="center">
-        <Box flexGrow={1} order={1} bgcolor="common.black" px={4} ml={4} my={6}>
+      <Box
+        display="flex"
+        flexGrow={1}
+        justifyContent="center"
+        bgcolor="common.white"
+        flexWrap="wrap"
+      >
+        <Box
+          flexGrow={1}
+          order={1}
+          justifyContent="center"
+          bgcolor="common.white"
+          color="common.black"
+          border={8}
+          borderColor="secondary.dark"
+          px={2}
+          py={2}
+          ml={2}
+          my={6}
+        >
           <PageTitle
             stateCode={stateCode}
             className={classes.title}
@@ -155,7 +183,18 @@ export default () => {
           <StateFlag stateCode={stateCode} />
           <p>State Flag</p>
         </Box>
-        <Box flexGrow={1} order={2} bgcolor="common.black" px={3} pt={2} my={6}>
+        <Box
+          flexGrow={1}
+          order={2}
+          justifyContent="center"
+          border={8}
+          borderColor="secondary.dark"
+          bgcolor="common.white"
+          color="common.black"
+          px={2}
+          py={2}
+          my={6}
+        >
           <div className={classes.scroll}>
             <h3>State Facts</h3>
             <StateFacts stateCode={stateCode} />
@@ -164,11 +203,14 @@ export default () => {
         <Box
           flexGrow={1}
           order={3}
+          justifyContent="center"
           my={6}
-          px={3}
+          px={2}
           py={2}
-          boxShadow={1}
-          bgcolor="common.black"
+          border={8}
+          borderColor="secondary.dark"
+          bgcolor="common.white"
+          color="common.black"
         >
           <div className={classes.scroll}>
             <h3>State Summary</h3>
@@ -178,16 +220,21 @@ export default () => {
         <Box
           flexGrow={1}
           order={4}
-          bgcolor="common.black"
-          pt={3}
-          pr={4}
+          border={8}
+          justifyContent="center"
+          borderColor="secondary.dark"
+          bgcolor="common.white"
+          color="common.black"
+          pt={2}
+          px={2}
           my={6}
-          mr={4}
+          mr={2}
         >
           <StateCapitalPic stateCode={stateCode} />
           <p>State Capital</p>
         </Box>
       </Box>
+
       <AppBar position="static">
         <Tabs
           value={currentTab}
@@ -195,6 +242,7 @@ export default () => {
           indicatorColor="secondary"
           textColor="secondary"
           centered
+          variant="fullWidth"
         >
           <Tab label="Federal Senate" />
           <Tab label="Federal House" />

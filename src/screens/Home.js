@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import { Redirect, useRouteMatch } from 'react-router'
 
 import DailyLeaders from '../DailyLeaders'
+import StateLeaders from '../StateLeaders'
 import { useStateCode, useHomePath } from '../utilities/states'
 
 const Home = () => {
@@ -16,8 +17,13 @@ const Home = () => {
   }
 
   return (
-    <Box bgcolor="primary.light" py={1}>
-      <DailyLeaders />
+    <Box>
+      <Box bgcolor="primary.light" py={1}>
+        <DailyLeaders />
+      </Box>
+      <Box>
+        <StateLeaders />
+      </Box>
     </Box>
   )
 }

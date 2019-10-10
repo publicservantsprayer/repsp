@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import NavBar from './NavBar'
 import Home from './screens/Home'
-import StateLeaders from './screens/StateLeaders'
+import StateLeaders from './StateLeaders'
 import Leader from './screens/Leader'
 import ContentItem from './screens/ContentItem'
 import FindYourState from './screens/FindYourState'
