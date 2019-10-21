@@ -80,11 +80,11 @@ export default ({ docValues, isNew }) => {
               <SelectField
                 field="category"
                 label="Category"
-                {...commonFieldProps}>
+                {...commonFieldProps}
+              >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value="news">News</MenuItem>
                 <MenuItem value="events">Events</MenuItem>
                 <MenuItem value="updates">Updates</MenuItem>
                 <MenuItem value="articles">Articles</MenuItem>
@@ -92,11 +92,13 @@ export default ({ docValues, isNew }) => {
               <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <TextField field="title" label="Title" {...commonFieldProps} />
-              {!isNew && <TextField
-                field="cardImage"
-                label="Card Image"
-                {...commonFieldProps}
-              />}
+              {!isNew && (
+                <TextField
+                  field="cardImage"
+                  label="Card Image"
+                  {...commonFieldProps}
+                />
+              )}
               <TextField
                 field="blurb"
                 label="Blurb"
@@ -131,9 +133,7 @@ export default ({ docValues, isNew }) => {
                 >
                   Save
                 </Button>
-                {!isNew && (
-                  <DeleteButton docValues={docValues} />
-                )}
+                {!isNew && <DeleteButton docValues={docValues} />}
               </Box>
             </form>
           </Container>
@@ -143,7 +143,9 @@ export default ({ docValues, isNew }) => {
       <Box m={2}>
         <Paper>
           <AppBar position="static">
-            <Box p={1} mx={1}><em>PREVIEW</em></Box>
+            <Box p={1} mx={1}>
+              <em>PREVIEW</em>
+            </Box>
           </AppBar>
           <Box p={2}>
             <H1>{values.title}</H1>
