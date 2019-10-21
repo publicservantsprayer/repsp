@@ -15,13 +15,13 @@ const Image = props => {
   return <img style={{ maxWidth: '100%', height: 'auto' }} alt="" {...props} />
 }
 
-const LinkButton = ({ children, ...restOfProps }) => {
+const LinkButton = React.forwardRef(({ children, ...restOfProps }, ref) => {
   return (
-    <Button variant="contained" {...restOfProps}>
+    <Button ref={ref} variant="contained" {...restOfProps}>
       {children}
     </Button>
   )
-}
+})
 
 const options = {
   overrides: {
@@ -60,6 +60,6 @@ const options = {
   },
 }
 
-export default function Markdown(props) {
+export default props => {
   return <ReactMarkdown options={options} {...props} />
 }
