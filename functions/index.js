@@ -30,3 +30,21 @@ exports.createDailyPost = functions.pubsub.schedule('55 5 * * *')
 
     return Promise.all(posts)
   })
+
+exports.twitterAuthorize = functions.https.onCall((data, context) => {
+  const twitter = require('./twitter/authorize')
+
+  return twitter.authorize(data)
+})
+
+exports.twitterAccessToken = functions.https.onCall((data, context) => {
+  const twitter = require('./twitter/authorize')
+
+  return twitter.accessToken(data)
+})
+
+exports.twitterRetweets = functions.https.onCall((data, context) => {
+  const twitter = require('./twitter/retweets')
+
+  return twitter.retweets(data)
+})

@@ -68,6 +68,7 @@ const App = () => {
       <Route exact path="/leader/:id" component={Leader} />
       <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
       <Route exact path="/twitter-accounts" component={TwitterAccounts} />
+      <Route exact path="/twitter-accounts/:accountName" component={TwitterAccounts} />
       <Route exact path="/sign-in" component={SignIn} />
       <Route
         exact

@@ -9,6 +9,7 @@
     "@material-ui/pickers": "^3.2.6",
     "axios": "^0.19.0",
     "date-fns": "^2.4.1",
+    "env-var": "^5.1.0",
     "filepond": "^4.7.1",
     "filepond-plugin-image-exif-orientation": "^1.0.6",
     "filepond-plugin-image-preview": "^4.4.0",
@@ -17,6 +18,7 @@
     "markdown-to-jsx": "^6.10.3",
     "mdi-material-ui": "^6.7.0",
     "moment": "^2.24.0",
+    "notistack": "^0.9.4",
     "raw-loader": "^3.1.0",
     "react": "^16.8.6",
     "react-cookie": "^4.0.1",
@@ -40,20 +42,19 @@
     "eject": "react-scripts eject",
     "spec": "jest spec functions --watch",
     "update-firestore-indexes-from-live": "firebase firestore:indexes > firestore.indexes.json",
-    "deploy": "firebase deploy --only hosting",
+    "deploy": "npm run build && firebase deploy",
+    "deploy-hosting": "npm run build && firebase deploy --only hosting",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules",
     "test-firestore-rules": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch firestore.rules firestore.rules.spec.js'",
-    "test-functions": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch functions'"
+    "test-functions": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch functions'",
+    "copy-functions-config-for-local-emulator": "firebase functions:config:get > functions/.runtimeconfig.json",
+    "start-with-functions-emulator": "FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'npm start'"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

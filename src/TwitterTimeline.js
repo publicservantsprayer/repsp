@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react'
 
 import Box from '@material-ui/core/Box'
-import { useStateCode } from './utilities/states'
 
-export default ({ stateCode }) => {
-  const siteStateCode = useStateCode()
-  stateCode = stateCode ? stateCode : siteStateCode
-  const elementId = `twitter-timeline-${stateCode}`
+export default ({ accountName }) => {
+  const elementId = `twitter-timeline-${accountName}`
 
   useEffect(() => {
     window.twttr.widgets.createTimeline(
       {
         sourceType: "profile",
-        screenName: `Praying4_${stateCode}`,
+        screenName: accountName,
       },
       document.getElementById(elementId),
       {
@@ -22,7 +19,7 @@ export default ({ stateCode }) => {
         chrome: 'transparent nofooter'
       }
     )
-  }, [stateCode, elementId])
+  }, [accountName, elementId])
 
   return (
     <Box id={elementId} />

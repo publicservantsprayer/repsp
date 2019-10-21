@@ -17,6 +17,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useDailyPost } from '../firebase'
 import ExpansionPanel from './ExpansionPanel'
 import TwitterTimeline from '../TwitterTimeline'
+import { useStateCode } from '../utilities/states'
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -54,6 +55,7 @@ const TabPanel = ({ children, value, index }) => {
 
 const DailyLeaders = () => {
   const classes = useStyles()
+  const stateCode = useStateCode()
   const [tabIndex, setTabIndex] = React.useState(0)
   const [post] = useDailyPost()
 
@@ -106,7 +108,7 @@ const DailyLeaders = () => {
         Follow on Facebook
       </TabPanel>
       <TabPanel value={tabIndex} index={3}>
-        <Paper><TwitterTimeline /></Paper>
+        <Paper><TwitterTimeline accountName={`Praying4_${stateCode}`} /></Paper>
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
         Follow on Instagram

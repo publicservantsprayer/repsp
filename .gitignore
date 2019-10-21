@@ -29,6 +29,7 @@ firebase-debug.log*
 firestore-debug.log*
 serviceAccountKey.json
 .firebase
+.runtimeconfig.json
 
 # google sheets
 credentials.json

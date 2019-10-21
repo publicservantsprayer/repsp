@@ -16,6 +16,7 @@ export const useFirebase = () => {
     auth: firebase.auth(),
     storage: firebase.storage(),
     storageRef: firebase.storage().ref(),
+    functions: firebase.functions()
   }
 }
 
@@ -31,6 +32,37 @@ export const useContentCollection = category => {
     }
   )
   if (error) console.log('Error loading news: ', error)
+
+  return [docs, loading, error]
+}
+
+export const useOtherTwitterAccounts = category => {
+  const { db } = useFirebase()
+  const [docs, loading, error] = useCollectionData(
+    db
+      .collection('twitterAccounts')
+      .where('stateAccount', '==', false),
+    {
+      idField: 'accountName',
+    }
+  )
+  if (error) console.log('Error loading other twitter accounts: ', error)
+
+  return [docs, loading, error]
+}
+
+export const useStateTwitterAccounts = category => {
+  const { db } = useFirebase()
+  const [docs, loading, error] = useCollectionData(
+    db
+      .collection('twitterAccounts')
+      .where('stateAccount', '==', true)
+      .orderBy('stateCode'),
+    {
+      idField: 'accountName',
+    }
+  )
+  if (error) console.log('Error loading state twitter accounts: ', error)
 
   return [docs, loading, error]
 }
@@ -85,4 +117,27 @@ export const useAdmin = () => {
   })
 
   return [admin, loading, error]
+}
+
+export const useHttpsCallable = (functionName, data) => {
+  const [result, setResult] = React.useState()
+  const [error, setError] = React.useState()
+  const { functions } = useFirebase()
+  const func = functions.httpsCallable(functionName)
+
+  React.useEffect(() => {
+    const callFunction = async () => {
+      try {
+        const result = await func(data)
+        setResult(result)
+      } catch (error) {
+        console.log('Error calling httpsCallable', error)
+        setError(error)
+      }
+    }
+    callFunction()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return [result, error]
 }

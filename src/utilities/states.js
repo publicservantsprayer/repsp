@@ -111,5 +111,4 @@ const useHomePath = () => {
   else return '/'
 }
 
-
 export { statesObj, stateName, stateCodes, useStateCode, validStateCode, useHomePath }
