@@ -89,6 +89,7 @@ export default ({ docValues, isNew }) => {
                 <MenuItem value="updates">Updates</MenuItem>
                 <MenuItem value="articles">Articles</MenuItem>
               </SelectField>
+
               <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <TextField field="title" label="Title" {...commonFieldProps} />

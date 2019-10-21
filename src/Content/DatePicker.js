@@ -4,7 +4,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 
-export default ({ selectedDate, handleDateChange }) =>
+export default ({ selectedDate, onChange }) =>
   <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <KeyboardDatePicker
       inputVariant="outlined"
@@ -13,7 +13,7 @@ export default ({ selectedDate, handleDateChange }) =>
       label="Created on"
       format="MM/dd/yyyy"
       value={selectedDate}
-      onChange={handleDateChange}
+      onChange={onChange}
       KeyboardButtonProps={{
         'aria-label': 'change date',
       }}
