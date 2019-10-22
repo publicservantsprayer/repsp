@@ -141,3 +141,8 @@ export const useHttpsCallable = (functionName, data) => {
 
   return [result, error]
 }
+
+export const useHttpsCallableFunction = (functionName) => {
+  const { functions } = useFirebase()
+  return functions.httpsCallable(functionName)
+}

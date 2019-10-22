@@ -48,3 +48,9 @@ exports.twitterRetweets = functions.https.onCall((data, context) => {
 
   return twitter.retweets(data)
 })
+
+exports.twitterCheckForLocked = functions.https.onCall((data, context) => {
+  const twitter = require('./twitter/checkForLocked')
+
+  return twitter.checkForLocked(data)
+})

@@ -5,9 +5,10 @@ import Paper from '@material-ui/core/Paper'
 import { H1, H2 } from '../utilities/formating'
 import { statesObj, stateCodes } from '../utilities/states'
 import TwitterTimeline from '../TwitterTimeline'
-import { useFirebase, useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts } from '../firebase'
+import { useFirebase, useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, useHttpsCallableFunction } from '../firebase'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
+import 'array-foreach-async'
 
 const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {
   const history = useHistory()
@@ -63,11 +64,11 @@ const Retweets = ({ accountName }) => {
   if (result && result.data) {
     return (
       <Box>
-
-        {result.data.map(tweet => <Box>
+        Last 5 retweeted posts:
+        {result.data.map(tweet => <Box key={tweet.created_at}>
+          <hr />
           <p>{tweet.created_at}</p>
           <p>{tweet.text}</p>
-          {JSON.stringify(tweet)}
         </Box>)}
       </Box>
     )
@@ -85,14 +86,16 @@ const TwitterAccount = ({ account }) => {
   const [authorize, setAuthorize] = React.useState()
 
   return (
-    <Box>
-      <Box p={0}>
+    <Box p={1}>
+      <Box m={1}>
         <Button variant="outlined" onClick={() => setShowTimeline(!showTimeline)}>Timeline</Button>
       </Box>
-      <Box p={0}>
+      <Box m={1}>
         <Button variant="outlined" onClick={() => setShowRetweets(!showRetweets)}>Retweets</Button>
       </Box>
-      <Button variant="outlined" onClick={() => setAuthorize(true)}>Authorize</Button>
+      <Box m={1}>
+        <Button variant="outlined" onClick={() => setAuthorize(true)}>Authorize</Button>
+      </Box>
 
       {showRetweets && <Retweets accountName={account.accountName} />}
       {showTimeline && <TwitterTimeline accountName={account.accountName} />}
@@ -132,7 +135,6 @@ const TwitterAccountHeader = ({ account }) => {
   )
 }
 
-
 const useTempOauthToken = () => {
   const urlQueryParams = new URLSearchParams(useLocation().search)
 
@@ -144,11 +146,45 @@ const useTempOauthToken = () => {
   }
 }
 
+const CheckForLocked = () => {
+  const checkAuthorization = useHttpsCallableFunction('twitterCheckForLocked')
+  const [currentlyChecking, setCurrentlyChecking] = React.useState()
+  const [accountsLocked, setAccountsLocked] = React.useState([])
+  const [complete, setComplete] = React.useState()
+
+  React.useEffect(() => {
+    const accounts = stateCodes.map(stateCode => `Praying4_${stateCode}`)
+    const checkAccounts = async () => {
+      await accounts.forEachAsync(async accountName => {
+        setCurrentlyChecking(accountName)
+        const result = await checkAuthorization({ accountName: accountName })
+        console.log(result)
+        if (result && result.data && result.data.locked) {
+          setAccountsLocked(accountsLocked => [...accountsLocked, accountName])
+        }
+      })
+      setCurrentlyChecking(false)
+      setComplete(true)
+    }
+    checkAccounts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <Box>
+      {currentlyChecking && <Box m={1}>Checking: {currentlyChecking}</Box>}
+      {accountsLocked.length > 0 && <Box m={1}>Currently locked: {accountsLocked.map(accountName => <Box key={accountName}>{accountName}</Box>)}</Box>}
+      {complete && <Box m={1}>Checked all accounts.</Box>}
+    </Box>
+  )
+}
+
 export default () => {
   const { db } = useFirebase()
   const tempOauthToken = useTempOauthToken()
   const [stateTwitterAccounts] = useStateTwitterAccounts()
   const [otherTwitterAccounts] = useOtherTwitterAccounts()
+  const [showCheckForLocked, setShowCheckForLocked] = React.useState()
 
   // This function recreates all the state twitter accounts
   // don't call it unless you need to recreate them from scratch and
@@ -168,6 +204,12 @@ export default () => {
       <H1>Twitter Accounts</H1>
 
       {tempOauthToken && <TwitterAccessToken {...tempOauthToken} />}
+
+      <Box p={0}>
+        <Button variant="outlined" onClick={() => setShowCheckForLocked(!showCheckForLocked)}>Check for locked accounts</Button>
+      </Box>
+
+      {showCheckForLocked && <CheckForLocked />}
 
       <H2>Non-state Accounts</H2>
       {otherTwitterAccounts && otherTwitterAccounts.map(account => {

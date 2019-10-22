@@ -1,30 +1,12 @@
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
-const db = admin.firestore()
 const Twitter = require('twitter')
-
-const consumerKeys = () => {
-  return {
-    consumer_key: functions.config().twitter.consumer_key,
-    consumer_secret: functions.config().twitter.consumer_secret,
-  }
-}
-
-const accountKeys = async (accountName) => {
-  const keys = await db.collection('twitterAccounts').doc(accountName).get()
-
-  return {
-    access_token_key: keys.data().oauth_token,
-    access_token_secret: keys.data().oauth_token_secret
-  }
-}
+const keys = require('./keys')
 
 module.exports.retweets = async ({ accountName }) => {
-  const keys = { ...consumerKeys(), ...await accountKeys(accountName) }
-  const client = new Twitter(keys)
+  const twitter = new Twitter(await keys(accountName))
   let response
+
   try {
-    response = await client.get('statuses/retweets_of_me', {
+    response = await twitter.get('statuses/retweets_of_me', {
       count: 5,
       trim_user: true,
       include_entities: false,
