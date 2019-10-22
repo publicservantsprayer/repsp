@@ -3,5 +3,5 @@ export const leaderPhoto = leader => {
 }
 
 export const leaderUrl = leader => {
-  return `/states/${leader.StateCode.toLowerCase()}/leader/${leader.permaLink}`
+  return `/leader/${leader.permaLink}`
 }
