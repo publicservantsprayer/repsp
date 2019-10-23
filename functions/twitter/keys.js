@@ -9,6 +9,12 @@ const consumerKeys = () => {
   }
 }
 
+const bearerToken = () => {
+  return {
+    bearer_token: functions.config().twitter.bearer_token
+  }
+}
+
 const accountKeys = async (accountName) => {
   const keys = await db.collection('twitterAccounts').doc(accountName).get()
 
@@ -18,6 +24,10 @@ const accountKeys = async (accountName) => {
   }
 }
 
-module.exports = async (accountName) => {
+module.exports.appUserKeys = async (accountName) => {
   return { ...consumerKeys(), ...await accountKeys(accountName) }
+}
+
+module.exports.appOnlyKeys = () => {
+  return { ...consumerKeys(), ...bearerToken() }
 }

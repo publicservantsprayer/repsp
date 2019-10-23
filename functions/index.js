@@ -20,7 +20,7 @@ exports.createPostPhoto = functions.firestore
     return createPostPhoto(date, stateCode, post)
   })
 
-exports.createDailyPost = functions.pubsub.schedule('55 5 * * *')
+exports.createDailyPost = functions.pubsub.schedule('55 4 * * *')
   .timeZone('America/New_York') // default is America/Los_Angeles
   .onRun((context) => {
     const dateID = moment().format('YYYY-MM-DD')
@@ -29,6 +29,14 @@ exports.createDailyPost = functions.pubsub.schedule('55 5 * * *')
     })
 
     return Promise.all(posts)
+  })
+
+exports.tweetDailyPosts = functions.pubsub.schedule('55 5 * * *')
+  .timeZone('America/New_York') // default is America/Los_Angeles
+  .onRun((context) => {
+    const { tweetDailyPosts } = require('./twitter/tweetDailyPosts')
+
+    return tweetDailyPosts()
   })
 
 exports.twitterAuthorize = functions.https.onCall((data, context) => {

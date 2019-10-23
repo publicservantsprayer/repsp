@@ -49,17 +49,14 @@
     "test-firestore-rules": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch firestore.rules firestore.rules.spec.js'",
     "test-functions": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch functions'",
     "copy-functions-config-for-local-emulator": "firebase functions:config:get > functions/.runtimeconfig.json",
-    "start-with-functions-emulator": "FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'npm start'"
+    "start-with-functions-emulator": "FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'npm start'",
+    "functions-shell": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase functions:shell"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

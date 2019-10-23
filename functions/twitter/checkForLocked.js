@@ -1,8 +1,8 @@
 const Twitter = require('twitter')
-const keys = require('./keys')
+const { appUserKeys } = require('./keys')
 
 module.exports.checkForLocked = async ({ accountName }) => {
-  const twitter = new Twitter(await keys(accountName))
+  const twitter = new Twitter(await appUserKeys(accountName))
 
   try {
     await twitter.get('statuses/retweets_of_me', { count: 1, trim_user: true })

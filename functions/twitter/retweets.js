@@ -1,8 +1,8 @@
 const Twitter = require('twitter')
-const keys = require('./keys')
+const { appUserKeys } = require('./keys')
 
 module.exports.retweets = async ({ accountName }) => {
-  const twitter = new Twitter(await keys(accountName))
+  const twitter = new Twitter(await appUserKeys(accountName))
   let response
 
   try {
