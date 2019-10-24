@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
@@ -10,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
-
 
 import { stateName, useStateCode } from '../utilities/states'
 
@@ -24,7 +22,8 @@ const useStyles = makeStyles(theme => ({
       backgroundPositionY: '-400px',
     },
     [theme.breakpoints.down('sm')]: {
-      background: 'url("/images/capitol-color-night-700.jpg") top left no-repeat',
+      background:
+        'url("/images/capitol-color-night-700.jpg") top left no-repeat',
       backgroundPositionY: '-100px',
     },
     backgroundAttachment: 'fixed',
@@ -44,7 +43,13 @@ const ButtonLeaders = () => {
   const stateCode = useStateCode()
   if (!stateCode) return null
   return (
-    <Button color="inherit" component={RouterLink} to={`/states/${stateCode.toLowerCase()}/leaders`}>State Leaders</Button>
+    <Button
+      color="inherit"
+      component={RouterLink}
+      to={`/states/${stateCode.toLowerCase()}/leaders`}
+    >
+      State Leaders
+    </Button>
   )
 }
 
@@ -63,11 +68,19 @@ const AppBar = ({ toggleDrawer }) => {
           <MenuIcon />
         </IconButton>
         <Hidden smDown>
-          <Button color="inherit" component={RouterLink} to="/articles">Articles</Button>
-          <Button color="inherit" component={RouterLink} to="/find-your-state">Find your State</Button>
+          <Button color="inherit" component={RouterLink} to="/articles">
+            Articles
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/find-your-state">
+            Find your State
+          </Button>
           <ButtonLeaders />
-          <Button color="inherit" component={RouterLink} to="/what-we-do">What we do</Button>
-          <Button color="inherit" component={RouterLink} to="/why-we-pray">Why we pray</Button>
+          <Button color="inherit" component={RouterLink} to="/what-we-do">
+            What we do
+          </Button>
+          <Button color="inherit" component={RouterLink} to="/why-we-pray">
+            Why we pray
+          </Button>
         </Hidden>
       </Toolbar>
     </MuiAppBar>

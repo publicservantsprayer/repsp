@@ -76,7 +76,7 @@ const LeaderInfo = ({ leader }) => {
         <Box px={2}>
           <p>{blurb}</p>
         </Box>
-        <Box px={5}>
+        <Box px={1}>
           <Paper className={classes.paper}>
             <Table className={classes.table} size="small">
               <TableBody>

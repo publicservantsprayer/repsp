@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(1, 1),
     margin: 30,
+    flexGrow: 1,
   },
 }))
 
@@ -28,7 +29,7 @@ const ArticleGrid = ({ article }) => {
   if (error) console.log('Error loading image: ', error)
 
   return (
-    <Box bgcolor="common.white" px={3} py={1}>
+    <Box flexGrow={1} bgcolor="common.white" px={3} py={1}>
       <Grid item sm={4}>
         <Paper className={classes.root}>
           <Box
@@ -41,6 +42,7 @@ const ArticleGrid = ({ article }) => {
             boxShadow={9}
             bgcolor="common.white"
             color="common.black"
+            flexGrow={1}
           >
             <Box>
               <h1>

@@ -7,7 +7,15 @@ import { leaderPhoto, leaderUrl } from '../utilities/leader'
 const Leader = ({ leader }) => {
   console.log('leader', leader)
   return (
-    <Box my={4} mx={4} px={2} py={2} bgcolor="primary.dark">
+    <Box
+      my={4}
+      mx={4}
+      px={2}
+      py={2}
+      bgcolor="primary.dark"
+      border={4}
+      borderColor="common.white"
+    >
       <div>
         <Box mx={2} my={1} py={0} bgcolor="primary.dark">
           <h3>
@@ -16,7 +24,7 @@ const Leader = ({ leader }) => {
         </Box>
         {leader.StateCode && (
           <a href={leaderUrl(leader)}>
-            <img src={leaderPhoto(leader)} alt={leader.PhotoFile} />
+            <img src={leaderPhoto(leader)} alt={leader.PhotoFile} border={4} />
           </a>
         )}
       </div>

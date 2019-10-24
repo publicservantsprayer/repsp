@@ -21,6 +21,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import { useHomePath } from '../utilities/states'
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'
+import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -66,8 +68,16 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
           to="/women"
         />
         <Divider />
-        <ListItem text="Give/Volunteer" Icon={InfoIcon} to="/give" />
-        <ListItem text="Sponsored By" Icon={InfoIcon} to="/sponsored-by" />
+        <ListItem
+          text="Give/Volunteer"
+          Icon={SupervisedUserCircleIcon}
+          to="/give"
+        />
+        <ListItem
+          text="Our Partners"
+          Icon={NaturePeopleIcon}
+          to="/our-partners"
+        />
         <Divider />
         {user && <Box m={2}>{user.email}</Box>}
         {!user && (
