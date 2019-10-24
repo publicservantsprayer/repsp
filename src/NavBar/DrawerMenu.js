@@ -20,7 +20,7 @@ import InfoIcon from '@material-ui/icons/Info'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import { useHomePath } from '../utilities/states'
-import VpnKeyIcon from '@material-ui/icons/VpnKey'
+import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -60,7 +60,11 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
-        <ListItem text="Women's Ministry" Icon={VpnKeyIcon} to="/women" />
+        <ListItem
+          text="Women's Ministry"
+          Icon={FilterVintageIcon}
+          to="/women"
+        />
         <Divider />
         <ListItem text="Give/Volunteer" Icon={InfoIcon} to="/give" />
         <ListItem text="Sponsored By" Icon={InfoIcon} to="/sponsored-by" />
