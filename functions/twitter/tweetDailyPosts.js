@@ -28,15 +28,16 @@ const createStatusText = ({ post, dateID, stateCode }) => {
   const leaderName1 = leaderName(post.leader1)
   const leaderName2 = leaderName(post.leader2)
   const leaderName3 = leaderName(post.leader3)
-  let statusText = `Today we are praying for ${leaderName1}, ${leaderName2} and ${leaderName3} - `
+  let statusText = `Today we are praying for ${leaderName1}, ${leaderName2} and ${leaderName3}`
   const statusLength = 140 - shortUrlLengthttps
   if (statusText.length > statusLength) {
-    statusText = `Praying for ${leaderName1}, ${leaderName2} and ${leaderName3} - `
+    statusText = `Praying for ${leaderName1}, ${leaderName2} and ${leaderName3}`
   }
   if (statusText.length > statusLength) {
-    statusText = `${leaderName1}, ${leaderName2} and ${leaderName3} - `
+    statusText = `${leaderName1}, ${leaderName2} and ${leaderName3}`
   }
-  return statusText + url
+  //return statusText + ' - ' + url
+  return statusText
 }
 
 const getPost = async ({ dateID, stateCode }) => {
@@ -145,7 +146,8 @@ module.exports.tweetDailyPosts = async () => {
     },
   ]
 
-  const accounts = testAccounts
+  //const accounts = testAccounts
+  const accounts = actualAccounts
 
   const tweets = accounts.map(async account => await sendTweet(account))
 
