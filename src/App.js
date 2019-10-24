@@ -25,6 +25,7 @@ const App = () => {
       <Route component={NavBar} />
       <Route exact path="/" component={Home} />
       <Route exact path="/states/:stateCode" component={Home} />
+      <Route exact path="/states/:stateCode/:year/:month/:day" component={Home} />
       <Route exact path="/about">
         <ContentItem docId="about" />
       </Route>

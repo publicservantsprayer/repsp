@@ -78,7 +78,20 @@ export const useContentItem = docId => {
   return [doc, loading, error]
 }
 
-export const useDailyPost = () => {
+export const useHistoricalPost = (year, month, day) => {
+  const { db } = useFirebase()
+  const stateCode = useStateCode()
+
+  const [post, loading, error] = useDocumentData(
+    db.doc(`/states/${stateCode}/posts/${year}-${month}-${day}`)
+  )
+
+  if (error) console.log('Error loading historical post: ', error)
+
+  return [post, loading, error]
+}
+
+export const useLatestPost = () => {
   const { db } = useFirebase()
   const stateCode = useStateCode()
 
@@ -89,7 +102,7 @@ export const useDailyPost = () => {
       .limit(1)
   )
 
-  if (error) console.log('Error loading news: ', error)
+  if (error) console.log('Error loading lastest post: ', error)
 
   if (Array.isArray(posts)) return [posts[0], loading, error]
   else return [false, loading, error]

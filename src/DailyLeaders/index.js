@@ -14,7 +14,6 @@ import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import InstagramIcon from 'mdi-material-ui/Instagram'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
-import { useDailyPost } from '../firebase'
 import ExpansionPanel from './ExpansionPanel'
 import TwitterTimeline from '../TwitterTimeline'
 import { useStateCode } from '../utilities/states'
@@ -53,15 +52,20 @@ const TabPanel = ({ children, value, index }) => {
   )
 }
 
-const DailyLeaders = () => {
+const PrayingTitle = ({ dateID }) => {
+  if (moment().isSame(moment(dateID), 'day')) {
+    return <Typography variant="h5">Today we are praying for</Typography>
+  } else {
+    return <Typography variant="h5">This day we prayed for</Typography>
+  }
+}
+
+export default ({ post }) => {
   const classes = useStyles()
   const stateCode = useStateCode()
   const [tabIndex, setTabIndex] = React.useState(0)
-  const [post] = useDailyPost()
 
-  if (!post) return null
-
-  function handleChange (event, newIndex) {
+  const handleChange = (event, newIndex) => {
     setTabIndex(newIndex)
   }
 
@@ -86,7 +90,7 @@ const DailyLeaders = () => {
           fontWeight="bold"
           textAlign="center"
         >
-          <Typography variant="h5">Today we are praying for</Typography>
+          <PrayingTitle dateID={post.dateID} />
         </Box>
         <Box my={1} p={1}>
           <Grid container spacing={3} justify="space-evenly">
@@ -116,4 +120,3 @@ const DailyLeaders = () => {
     </Box>
   )
 }
-export default DailyLeaders
