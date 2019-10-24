@@ -158,7 +158,6 @@ const CheckForLocked = () => {
       await accounts.forEachAsync(async accountName => {
         setCurrentlyChecking(accountName)
         const result = await checkAuthorization({ accountName: accountName })
-        console.log(result)
         if (result && result.data && result.data.locked) {
           setAccountsLocked(accountsLocked => [...accountsLocked, accountName])
         }

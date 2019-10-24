@@ -28,7 +28,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
-if (env.get('FIREBASE_FUNCTIONS_EMULATOR')) {
+console.log('env', env.get('REACT_APP_FIREBASE_FUNCTIONS_EMULATOR').asBool())
+
+if (env.get('REACT_APP_FIREBASE_FUNCTIONS_EMULATOR').asBool()) {
   console.log('Using local functions emulator')
   firebase.functions().useFunctionsEmulator('http://localhost:5001')
 }
