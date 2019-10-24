@@ -68,16 +68,8 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
           to="/women"
         />
         <Divider />
-        <ListItem
-          text="Give/Volunteer"
-          Icon={SupervisedUserCircleIcon}
-          to="/give"
-        />
-        <ListItem
-          text="Our Partners"
-          Icon={NaturePeopleIcon}
-          to="/our-partners"
-        />
+        <ListItem text="Give/Volunteer" Icon={SupervisedUserCircleIcon} to="/give" />
+        <ListItem text="Our Partners" Icon={NaturePeopleIcon} to="/our-partners" />
         <Divider />
         {user && <Box m={2}>{user.email}</Box>}
         {!user && (
