@@ -14,7 +14,6 @@ import PeopleIcon from '@material-ui/icons/People'
 import MapIcon from '@material-ui/icons/Map'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import DashboardIcon from '@material-ui/icons/Dashboard'
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary'
 import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import InfoIcon from '@material-ui/icons/Info'
@@ -77,7 +76,11 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
           <ListItem text="Content" Icon={DashboardIcon} to="/content" />
         )}
         {admin && (
-          <ListItem text="Twitter Accounts" Icon={TwitterIcon} to="/twitter-accounts" />
+          <ListItem
+            text="Twitter Accounts"
+            Icon={TwitterIcon}
+            to="/twitter-accounts"
+          />
         )}
       </List>
     </Drawer>

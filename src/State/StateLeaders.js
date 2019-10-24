@@ -174,6 +174,7 @@ export default () => {
           py={2}
           ml={2}
           my={6}
+          mx={1}
         >
           <PageTitle
             stateCode={stateCode}
@@ -194,6 +195,7 @@ export default () => {
           px={2}
           py={2}
           my={6}
+          mx={1}
         >
           <div className={classes.scroll}>
             <h3>State Facts</h3>
@@ -207,6 +209,7 @@ export default () => {
           my={6}
           px={2}
           py={2}
+          mx={1}
           border={8}
           borderColor="secondary.dark"
           bgcolor="common.white"
@@ -229,6 +232,7 @@ export default () => {
           px={2}
           my={6}
           mr={2}
+          mx={1}
         >
           <StateCapitalPic stateCode={stateCode} />
           <p>State Capital</p>
