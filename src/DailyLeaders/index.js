@@ -17,6 +17,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import ExpansionPanel from './ExpansionPanel'
 import TwitterTimeline from '../TwitterTimeline'
 import { useStateCode } from '../utilities/states'
+import { leaderPhoto } from '../utilities/leader'
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -25,16 +26,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const src = leader => {
-  return `https://firebasestorage.googleapis.com/v0/b/repsp123-leaders/o/${leader.PhotoFile}?alt=media`
-}
-
 const LeaderGridItem = ({ leader }) => {
   const classes = useStyles()
   return (
     <Grid item xs={4}>
       <Link component={RouterLink} to={`/leader/${leader.permaLink}`}>
-        <img src={src(leader)} alt="Leader" className={classes.img} />
+        <img src={leaderPhoto(leader)} alt="Leader" className={classes.img} />
       </Link>
     </Grid>
   )
@@ -73,7 +70,7 @@ export default ({ post }) => {
           <Tab label={<EmailIcon />} />
           <Tab label={<FacebookIcon />} />
           <Tab label={<TwitterIcon />} />
-          <Tab label={<InstagramIcon />} />
+          {/* <Tab label={<InstagramIcon />} /> */}
         </Tabs>
       </AppBar>
       <TabPanel value={tabIndex} index={0}>
