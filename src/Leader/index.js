@@ -14,19 +14,19 @@ const Leader = ({ leader }) => {
       py={2}
       bgcolor="primary.dark"
       border={4}
-      borderColor="common.white"
+      borderColor="secondary.main"
     >
       <div>
-        <Box mx={2} my={1} py={0} bgcolor="primary.dark">
+        <Box mx={2} my={1} py={0} bgcolor="primary.dark" color="secondary.main">
           <h3>
             {leader.Title} {leader.FirstName} {leader.LastName}
           </h3>
         </Box>
-        {leader.StateCode && (
-          <a href={leaderUrl(leader)}>
-            <img src={leaderPhoto(leader)} alt={leader.PhotoFile} border={4} />
-          </a>
-        )}
+        <Box>
+          {leader.StateCode && (
+            <img border={4} src={leaderPhoto(leader)} alt={leader.PhotoFile} />
+          )}
+        </Box>
       </div>
 
       <Info leader={leader} />

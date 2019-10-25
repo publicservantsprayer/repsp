@@ -6,7 +6,6 @@ import wiki from 'wikijs'
 import WebIcon from '@material-ui/icons/Web'
 import FacebookIcon from '@material-ui/icons/Facebook'
 import TwitterIcon from '@material-ui/icons/Twitter'
-import ContactMailIcon from '@material-ui/icons/ContactMail'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -36,6 +35,9 @@ const useStyles = makeStyles({
   button: {
     margin: theme.spacing(1),
   },
+  typography: {
+    padding: theme.spacing(2),
+  },
 })
 
 const birthday = leader => {
@@ -48,12 +50,24 @@ const birthday = leader => {
 
 const Row = ({ field, value }) => {
   if (!value) return null
+  console.log('value: ', value)
 
   return (
     <TableRow>
       <TableCell>{field}</TableCell>
       <TableCell>{value}</TableCell>
     </TableRow>
+  )
+}
+
+const Address = ({ leader }) => {
+  return (
+    <>
+      {leader.MailAddr1 && <div>{leader.MailAddr1}</div>}
+      {leader.MailAddr2 && <div>{leader.MailAddr2}</div>}
+      {leader.MailAddr3 && <div>{leader.MailAddr3}</div>}
+      {leader.MailAddr5 && <div>{leader.MailAddr5}</div>}
+    </>
   )
 }
 
@@ -86,6 +100,7 @@ const LeaderInfo = ({ leader }) => {
                 <Row field="Spouse:" value={leader.Spouse} />
                 <Row field="Family:" value={leader.Family} />
                 <Row field="Birthday" value={birthday(leader)} />
+                <Row field="Address:" value={<Address leader={leader} />} />
               </TableBody>
             </Table>
           </Paper>
@@ -95,6 +110,7 @@ const LeaderInfo = ({ leader }) => {
             variant="contained"
             color="secondary"
             className={classes.button}
+            href={leader.Website}
           >
             Website <WebIcon className={classes.rightIcon} />
           </Button>
@@ -102,6 +118,7 @@ const LeaderInfo = ({ leader }) => {
             variant="contained"
             color="secondary"
             className={classes.button}
+            href={leader.Facebook}
           >
             Facebook <FacebookIcon className={classes.rightIcon} />
           </Button>
@@ -109,15 +126,9 @@ const LeaderInfo = ({ leader }) => {
             variant="contained"
             color="secondary"
             className={classes.button}
+            href={leader.Twitter}
           >
             Twitter <TwitterIcon className={classes.rightIcon} />
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-          >
-            Contact <ContactMailIcon className={classes.rightIcon} />
           </Button>
         </Box>
       </div>
