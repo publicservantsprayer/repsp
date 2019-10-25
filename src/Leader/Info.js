@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   paper: {
     marginTop: theme.spacing(3),
-    width: '100%',
+    width: 'auto',
     overflowX: 'auto',
     marginBottom: theme.spacing(2),
     boxShadow: 1,
@@ -34,9 +34,6 @@ const useStyles = makeStyles({
   },
   button: {
     margin: theme.spacing(1),
-  },
-  typography: {
-    padding: theme.spacing(2),
   },
 })
 

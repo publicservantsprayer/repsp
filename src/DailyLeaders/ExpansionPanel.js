@@ -9,8 +9,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import MuiTableRow from '@material-ui/core/TableRow'
 
-
-function TableRow ({ name, data }) {
+function TableRow({ name, data }) {
   if (!data) return null
 
   return (
@@ -31,19 +30,21 @@ export default ({ leader }) => {
   return (
     <ExpansionPanel
       expanded={expanded === 'panel'}
-      onChange={handleChange('panel')}>
-      <ExpansionPanelSummary
-        expandIcon={<ExpandMoreIcon />}>
+      onChange={handleChange('panel')}
+    >
+      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>
           {leader.FirstName} {leader.LastName}
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Table>
+        <Table size="small">
           <TableBody>
             <TableRow name="Title" data={leader.Title} />
             <TableRow name="Spouse" data={leader.Spouse} />
             <TableRow name="Family" data={leader.Family} />
+            <TableRow name="Religon" data={leader.Religon} />
+            <TableRow name="Time in Office" data={leader.Title} />
           </TableBody>
         </Table>
       </ExpansionPanelDetails>

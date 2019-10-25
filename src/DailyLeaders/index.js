@@ -42,11 +42,7 @@ const LeaderGridItem = ({ leader }) => {
 
 const TabPanel = ({ children, value, index }) => {
   return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-    >
+    <Typography component="div" role="tabpanel" hidden={value !== index}>
       <Box p={3}>{children}</Box>
     </Typography>
   )
@@ -112,7 +108,9 @@ export default ({ post }) => {
         Follow on Facebook
       </TabPanel>
       <TabPanel value={tabIndex} index={3}>
-        <Paper><TwitterTimeline accountName={`Praying4_${stateCode}`} /></Paper>
+        <Paper>
+          <TwitterTimeline accountName={`Praying4_${stateCode}`} />
+        </Paper>
       </TabPanel>
       <TabPanel value={tabIndex} index={4}>
         Follow on Instagram
