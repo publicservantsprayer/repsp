@@ -40,25 +40,37 @@ exports.tweetDailyPosts = functions.pubsub.schedule('55 5 * * *')
   })
 
 exports.twitterAuthorize = functions.https.onCall((data, context) => {
-  const twitter = require('./twitter/authorize')
+  const { authorize } = require('./twitter/authorize')
 
-  return twitter.authorize(data)
+  return authorize(data)
 })
 
 exports.twitterAccessToken = functions.https.onCall((data, context) => {
-  const twitter = require('./twitter/authorize')
+  const { accessToken } = require('./twitter/authorize')
 
-  return twitter.accessToken(data)
+  return accessToken(data)
 })
 
 exports.twitterRetweets = functions.https.onCall((data, context) => {
-  const twitter = require('./twitter/retweets')
+  const { retweets } = require('./twitter/retweets')
 
-  return twitter.retweets(data)
+  return retweets(data)
 })
 
 exports.twitterCheckForLocked = functions.https.onCall((data, context) => {
-  const twitter = require('./twitter/checkForLocked')
+  const { checkForLocked } = require('./twitter/checkForLocked')
 
-  return twitter.checkForLocked(data)
+  return checkForLocked(data)
 })
+
+exports.createFacebookPost = functions.firestore
+  .document('states/{stateCode}/posts/{dateID}')
+  .onCreate((snapshot, context) => {
+    const stateCode = context.params.stateCode
+    const dateID = context.params.dateID
+    const post = snapshot.data()
+
+    const { createFacebookPost } = require('./facebook/createFacebookPost')
+
+    return createFacebookPost(db, dateID, stateCode, post)
+  })
