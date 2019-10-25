@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import { H1, H2 } from '../utilities/formating'
 import { statesObj, stateCodes } from '../utilities/states'
 import TwitterTimeline from '../TwitterTimeline'
-import { useFirebase, useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, useHttpsCallableFunction } from '../firebase'
+import { useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, useHttpsCallableFunction } from '../firebase'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 import 'array-foreach-async'
@@ -179,24 +179,10 @@ const CheckForLocked = () => {
 }
 
 export default () => {
-  const { db } = useFirebase()
   const tempOauthToken = useTempOauthToken()
   const [stateTwitterAccounts] = useStateTwitterAccounts()
   const [otherTwitterAccounts] = useOtherTwitterAccounts()
   const [showCheckForLocked, setShowCheckForLocked] = React.useState()
-
-  // This function recreates all the state twitter accounts
-  // don't call it unless you need to recreate them from scratch and
-  // thus, reauthorize them all.
-  // eslint-disable-next-line no-unused-vars
-  const createStateAccounts = async () => {
-    await Promise.all(stateCodes.map(async stateCode => {
-      await db.collection('twitterAccounts').doc(`Praying4_${stateCode}`).set({
-        stateAccount: true,
-        stateCode: stateCode
-      })
-    }))
-  }
 
   return (
     <Box m={1}>
