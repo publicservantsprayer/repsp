@@ -1,10 +1,10 @@
 import React from 'react'
-import DateFnsUtils from '@date-io/date-fns'
+import MomentUtils from '@date-io/moment'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import { KeyboardDatePicker } from '@material-ui/pickers'
 
 export default ({ value, onChange }) =>
-  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+  <MuiPickersUtilsProvider utils={MomentUtils}>
     <KeyboardDatePicker
       inputVariant="outlined"
       margin="normal"
