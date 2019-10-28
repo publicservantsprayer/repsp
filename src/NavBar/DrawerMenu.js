@@ -65,7 +65,7 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
 
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
-        <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
+        <ListItem text="Matt's Updates" Icon={PostAddIcon} to="/updates" />
         <ListItem text="Women's Ministry" Icon={FilterVintageIcon} to="/women" />
 
         <Divider />

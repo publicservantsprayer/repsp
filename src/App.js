@@ -9,7 +9,7 @@ import FindYourState from './screens/FindYourState'
 import Content from './Content'
 import ContentEdit from './Content/Edit'
 import ContentNew from './Content/New'
-import Updates from './screens/Updates'
+import MattsUpdates from './screens/MattsUpdates'
 import SignIn from './screens/SignIn'
 import SignInEmailLinkLanding from './SignIn/EmailLinkLanding'
 import SignOut from './SignIn/SignOut'
@@ -42,7 +42,7 @@ const App = () => {
         <Route exact path="/articles"><ContentCollection category="articles" /></Route>
         <Route exact path="/events"><ContentCollection category="events" /></Route>
         <Route exact path="/news"><ContentCollection category="news" /></Route>
-        <Route exact path="/updates" component={Updates} />
+        <Route exact path="/updates" component={MattsUpdates} />
 
         {/* Content Item */}
         <Route exact path="/articles/:docId" component={ContentItem} />
