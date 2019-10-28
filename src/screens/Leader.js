@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-
+import Screen from '../Screen'
 import Leader from '../Leader'
 import { useFirebase } from '../firebase'
 import { useParams } from 'react-router-dom'
@@ -33,6 +33,8 @@ export default () => {
   if (!leader) return null
 
   return (
-    <div className={classes.root}>{leader && <Leader leader={leader} />}</div>
+    <Screen>
+      <div className={classes.root}>{leader && <Leader leader={leader} />}</div>
+    </Screen>
   )
 }

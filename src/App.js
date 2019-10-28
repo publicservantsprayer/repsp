@@ -23,7 +23,6 @@ import Palette from './screens/Palette'
 const App = () => {
   return (
     <Router>
-      <Route component={NavBar} />
       <Route exact path="/" component={Home} />
       <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/states/:stateCode/:year/:month/:day" component={Home} />
@@ -89,7 +88,6 @@ const App = () => {
         component={SignInEmailLinkLanding}
       />
       <Route exact path="/sign-out" component={SignOut} />
-      <Route component={Footer} />
     </Router>
   )
 }

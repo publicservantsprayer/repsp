@@ -6,6 +6,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
 import { useContentCollection } from '../firebase'
+import Screen from '../Screen'
 
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>
@@ -23,18 +24,20 @@ export default ({ category }) => {
   const [docs, loading] = useContentCollection(category)
 
   return (
-    <Container maxWidth="lg">
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-        spacing={10}
-      >
-        {loading && '... loading'}
-        {docs &&
-          docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
-      </Grid>
-    </Container>
+    <Screen>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="center"
+          spacing={10}
+        >
+          {loading && '... loading'}
+          {docs &&
+            docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
+        </Grid>
+      </Container>
+    </Screen>
   )
 }

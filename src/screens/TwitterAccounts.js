@@ -9,6 +9,7 @@ import { useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, use
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 import 'array-foreach-async'
+import Screen from '../Screen'
 
 const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {
   const history = useHistory()
@@ -187,26 +188,28 @@ export default () => {
   const [showCheckForLocked, setShowCheckForLocked] = React.useState()
 
   return (
-    <Box m={1}>
-      <H1>Twitter Accounts</H1>
+    <Screen>
+      <Box m={1}>
+        <H1>Twitter Accounts</H1>
 
-      {tempOauthToken && <TwitterAccessToken {...tempOauthToken} />}
+        {tempOauthToken && <TwitterAccessToken {...tempOauthToken} />}
 
-      <Box p={0}>
-        <Button variant="outlined" onClick={() => setShowCheckForLocked(!showCheckForLocked)}>Check for locked accounts</Button>
+        <Box p={0}>
+          <Button variant="outlined" onClick={() => setShowCheckForLocked(!showCheckForLocked)}>Check for locked accounts</Button>
+        </Box>
+
+        {showCheckForLocked && <CheckForLocked />}
+
+        <H2>Non-state Accounts</H2>
+        {otherTwitterAccounts && otherTwitterAccounts.map(account => {
+          return <TwitterAccountHeader account={account} key={account.accountName} />
+        })}
+
+        <H2>State Accounts</H2>
+        {stateTwitterAccounts && stateTwitterAccounts.map(account => {
+          return <TwitterAccountHeader account={account} key={account.accountName} />
+        })}
       </Box>
-
-      {showCheckForLocked && <CheckForLocked />}
-
-      <H2>Non-state Accounts</H2>
-      {otherTwitterAccounts && otherTwitterAccounts.map(account => {
-        return <TwitterAccountHeader account={account} key={account.accountName} />
-      })}
-
-      <H2>State Accounts</H2>
-      {stateTwitterAccounts && stateTwitterAccounts.map(account => {
-        return <TwitterAccountHeader account={account} key={account.accountName} />
-      })}
-    </Box>
+    </Screen>
   )
 }
