@@ -65,6 +65,7 @@ const useStateCode = ({ useGeoCode }) => {
 export default (options = {}) => {
   const stateCode = useStateCode(options)
   if (!stateCode) return {}
+
   const lowerCaseStateCode = stateCode.toLowerCase()
   const stateName = statesObj[stateCode]
   const facebookPage = `PSP${stateName.split(' ').join('')}`
