@@ -40,9 +40,9 @@ export default ({ setTabIndex }) => {
         <Divider />
       </Box>
       <P>
-        Every day we pray for three members of the{' '}
+        Every day we pray for three{' '}
         <Link variant="inherit" component={RouterLink} to="/state-leaders">
-          {stateName} legislature
+          {stateName} legislators
         </Link>{' '}
         on both the state and federal level.
       </P>
