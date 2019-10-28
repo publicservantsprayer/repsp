@@ -18,7 +18,7 @@ const FactLI = ({ fact, children }) => {
 const StateFacts = () => {
   return (
     <Box>
-      <FactLI fact="capitol">State Capitol: </FactLI>
+      <FactLI fact="capitol">State Capital: </FactLI>
       <FactLI fact="motto">State Motto: </FactLI>
       <FactLI fact="nickname">State Nickname: </FactLI>
       <FactLI fact="governor">Governor: </FactLI>

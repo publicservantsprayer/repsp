@@ -22,13 +22,7 @@ export default ({ setTabIndex }) => {
   return (
     <>
       <MobileOnly>
-        <Box
-          m={1}
-          mt={7}
-          display="flex"
-          justifyContent="center"
-          color="common.white"
-        >
+        <Box m={1} mt={7} display="flex" justifyContent="center">
           <Typography variant="h4" component="h2" gutterBottom>
             PSP {stateName}
           </Typography>
@@ -36,12 +30,7 @@ export default ({ setTabIndex }) => {
       </MobileOnly>
       <DesktopOnly>
         <Box m={1} mt={8} mb={1} display="flex" justifyContent="left">
-          <Typography
-            variant="h5"
-            component="h2"
-            color="common.white"
-            gutterBottom
-          >
+          <Typography variant="h5" component="h2" color="inherit" gutterBottom>
             PSP {stateName}
           </Typography>
         </Box>
@@ -50,38 +39,34 @@ export default ({ setTabIndex }) => {
       <Box mx={1} my={1}>
         <Divider />
       </Box>
-      <Box color="common.white">
-        <P>
-          Every day we pray for three members of the{' '}
-          <Link variant="inherit" component={RouterLink} to="/state-leaders">
-            {stateName} legislature
-          </Link>{' '}
-          on both the state and federal level.
-        </P>
+      <P>
+        Every day we pray for three members of the{' '}
+        <Link variant="inherit" component={RouterLink} to="/state-leaders">
+          {stateName} legislature
+        </Link>{' '}
+        on both the state and federal level.
+      </P>
 
-        <P>
-          To help facilitate this movement, we send a post out each morning.
-        </P>
+      <P>To help facilitate this movement, we send a post out each morning.</P>
 
-        <DesktopOnly>
-          <Button onClick={() => setTabIndex(1)}>mailing list</Button>
-          <Button onClick={() => setTabIndex(2)}>Facebook</Button>
-          <Button onClick={() => setTabIndex(3)}>Twitter</Button>
-        </DesktopOnly>
+      <DesktopOnly>
+        <Button onClick={() => setTabIndex(1)}>mailing list</Button>
+        <Button onClick={() => setTabIndex(2)}>Facebook</Button>
+        <Button onClick={() => setTabIndex(3)}>Twitter</Button>
+      </DesktopOnly>
 
-        <P>
-          If {stateName} is not your state, first{' '}
-          <Link variant="inherit" component={RouterLink} to="/find-your-state">
-            find your state
-          </Link>{' '}
-          and then follow on Twitter or Facebook, or get on the mailing list.
-        </P>
+      <P>
+        If {stateName} is not your state, first{' '}
+        <Link variant="inherit" component={RouterLink} to="/find-your-state">
+          find your state
+        </Link>{' '}
+        and then follow on Twitter or Facebook, or get on the mailing list.
+      </P>
 
-        <P>
-          You can join thousands in every state who are praying for their
-          specific state leaders each day.
-        </P>
-      </Box>
+      <P>
+        You can join thousands in every state who are praying for their specific
+        state leaders each day.
+      </P>
     </>
   )
 }
