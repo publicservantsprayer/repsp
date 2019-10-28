@@ -44,8 +44,7 @@ const options = {
     p: { component: Typography, props: { paragraph: true, component: 'div' } },
 
     a: {
-      component: Link,
-      props: { component: LinkButton, color: 'secondary' },
+      component: Link
     },
     img: {
       component: Image,
