@@ -196,7 +196,7 @@ export default () => {
             <StateFacts stateCode={stateCode} />
           </div>
         </Box>
-        <Box
+        {/* <Box
           flexGrow={1}
           order={3}
           justifyContent="center"
@@ -213,7 +213,7 @@ export default () => {
             <h3>State Summary</h3>
             <StateBlurb stateCode={stateCode} />
           </div>
-        </Box>
+        </Box> */}
         <Box
           flexGrow={1}
           order={4}
