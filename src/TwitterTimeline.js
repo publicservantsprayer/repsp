@@ -14,7 +14,7 @@ export default ({ accountName }) => {
       document.getElementById(elementId),
       {
         theme: 'dark',
-        height: '400',
+        height: '500',
         dnt: true,
         chrome: 'transparent nofooter'
       }

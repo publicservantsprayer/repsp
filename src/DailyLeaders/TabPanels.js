@@ -7,6 +7,7 @@ import TwitterTimeline from '../TwitterTimeline'
 import useUSAState from '../utilities/useUSAState'
 import PrayingForTitle from './PrayingForTitle'
 import LeaderPhoto from './LeaderPhoto'
+import FacebookTimeline from '../FacebookTimeline'
 
 export const TabPanel = ({ children, value, index }) => {
   return (
@@ -45,7 +46,9 @@ export default ({ tabIndex, post }) => {
     </TabPanel>
 
     <TabPanel value={tabIndex} index={2}>
-      <Paper>Follow on Facebook</Paper>
+      <Paper>
+        <FacebookTimeline />
+      </Paper>
     </TabPanel>
 
     <TabPanel value={tabIndex} index={3}>

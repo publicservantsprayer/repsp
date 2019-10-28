@@ -5,6 +5,10 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const googleBrowserKey = 'AIzaSyBQkLQ1DJEtDczE179QNc7fF1UM6t0piqY'
+const googleGeolocationUrl = googleBrowserKey => `https://www.googleapis.com/geolocation/v1/geolocate?key=${googleBrowserKey}`
+const googleGeocodeUrl = (lat, lng, googleBrowserKey) => {
+  return `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=administrative_area_level_1&key=${googleBrowserKey}`
+}
 
 const stateCodes = Object.keys(statesObj)
 
@@ -24,12 +28,13 @@ const useStateCode = (options = {}) => {
   React.useEffect(() => {
     const getGeoCodeState = async () => {
       try {
-        const geoLocation = await axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleBrowserKey}`)
+        const geoLocation = await axios.post(googleGeolocationUrl(googleBrowserKey))
         const { lng, lat } = geoLocation.data.location
-        const geoCode = await axios.post(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&result_type=administrative_area_level_1&key=${googleBrowserKey}`)
+
+        const geoCode = await axios.post(googleGeocodeUrl(lat, lng, googleBrowserKey))
         const stateCodeGeoCode = geoCode.data.results[0].address_components[0].short_name
+
         if (validStateCode(stateCodeGeoCode)) {
-          console.log('Setting stateCode from geoCode: ', stateCodeGeoCode)
           setStateCodeToCookie(stateCodeGeoCode)
         } else {
           console.error('Got invalid stateCode from GeoCode: ', stateCodeGeoCode)
@@ -55,6 +60,7 @@ export default () => {
   const stateCode = useStateCode()
   const lowerCaseStateCode = stateCode.toLowerCase()
   const stateName = statesObj[stateCode]
+  const facebookPage = `PSP${stateName.split(' ').join('')}`
 
   const stateNameFromStateCode = stateCode => statesObj[stateCode]
 
@@ -65,5 +71,6 @@ export default () => {
     stateNameFromStateCode,
     stateCodes,
     statesObj,
+    facebookPage
   })
 }
