@@ -16,6 +16,7 @@ const validStateCode = stateCode => stateCodes.includes(stateCode)
 
 const removeCookiesAccidentallySetToWrongPath = (removeCookie, pathname) => {
   if (pathname !== '/') removeCookie('stateCode', { path: pathname })
+  removeCookie('stateCode', { path: '/states' })
 }
 
 const useStateCode = ({ useGeoCode }) => {
