@@ -14,13 +14,14 @@ import theme from '../utilities/theme'
 import panZoomEventsHandler from './panZoomEventsHandler'
 import useUSAState from '../utilities/useUSAState'
 
-const stateColor = theme.palette.secondary.main
-const stateColorOver = theme.palette.primary.main
-const stateText = '#ffffff'
+const stateColor = theme.palette.primary.main
+const stateColorOver = theme.palette.background.paper
+const stateText = theme.palette.common.white
+const stroke = theme.palette.common.white
 
 const useStyles = makeStyles({
   path: {
-    stroke: '#ffffff',
+    stroke: stroke,
     opacity: 1,
     cursor: 'pointer',
     strokeWidth: 2,
