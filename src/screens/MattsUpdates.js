@@ -5,13 +5,15 @@ import moment from 'moment'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 import Screen from '../Screen'
 
-import { useContentCollection, useFirebase } from '../firebase'
+import { useContentCollection, useFirebase, useAdmin } from '../firebase'
 import { H2, ScreenTitle } from '../utilities/formating'
 import ContentScreen from '../ContentScreen'
 import Markdown from '../Markdown'
 import useStyles from '../utilities/useStyles'
+import UpdateButtons from '../Content/UpdateButtons'
 
 const Post = ({ post }) => {
+  const admin = useAdmin()
   const classes = useStyles()
   const { storageRef } = useFirebase()
   const image = post.cardImage ? post.cardImage : post.images[0]
@@ -35,6 +37,9 @@ const Post = ({ post }) => {
           </Box>
           <Box my={2}>
             <Markdown>{post.content}</Markdown>
+          </Box>
+          <Box my={2}>
+            {admin && <UpdateButtons content={post} />}
           </Box>
         </Box>
       </Paper>
