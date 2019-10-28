@@ -2,20 +2,28 @@ import React from 'react'
 import Box from '@material-ui/core/Box'
 import useUSAState from '../utilities/useUSAState'
 import stateFacts from '../utilities/stateFacts'
+import Link from '@material-ui/core/Link'
 
 const FactLI = ({ fact, children }) => {
   const { stateCode } = useUSAState()
   const info = stateFacts(stateCode)
   if (!info[fact]) return null
 
+  let data = info[fact]
+  if (fact === 'website') {
+    const url = `http://${data}`
+    data = <Link href={url}>{data}</Link>
+  }
   return (
     <li>
-      {children} {info[fact]}
+      {children} {data}
     </li>
   )
 }
 
 const StateFacts = () => {
+  const preventDefault = event => event.preventDefault()
+
   return (
     <Box>
       <FactLI fact="capitol">State Capital: </FactLI>
@@ -30,7 +38,7 @@ const StateFacts = () => {
       <FactLI fact="2010Pop">Population: </FactLI>
       <FactLI fact="populationRank">Population Rank: </FactLI>
       <FactLI fact="largestCity">Largest City: </FactLI>
-      <FactLI fact="website">State Website: </FactLI>
+      <FactLI fact="website">State Website:</FactLI>
     </Box>
   )
 }
