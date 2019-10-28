@@ -229,7 +229,7 @@ export default () => {
           mx={1}
         >
           <StateCapitalPic stateCode={stateCode} />
-          <p>State Capital</p>
+          <p>State Capitol</p>
         </Box>
       </Box>
 

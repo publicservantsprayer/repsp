@@ -17,11 +17,7 @@ export default () => {
             Privacy Policy
           </Link>
         </Box>
-        <Box p={2} mx={3}>
-          <Link color="inherit" component={RouterLink} to="/">
-            Terms
-          </Link>
-        </Box>
+        <Box p={2} mx={3}></Box>
       </Box>
       <Box display="flex" justifyContent="center">
         <Box p={3}>© 2019 Public Servants' Prayer.</Box>
