@@ -44,7 +44,7 @@ export default ({ leader }) => {
             <TableRow name="Spouse" data={leader.Spouse} />
             <TableRow name="Family" data={leader.Family} />
             <TableRow name="Religon" data={leader.Religon} />
-            <TableRow name="Time in Office" data={leader.Title} />
+            <TableRow name="Time in Office" data={leader.ElectDate} />
           </TableBody>
         </Table>
       </ExpansionPanelDetails>

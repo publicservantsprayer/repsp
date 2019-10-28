@@ -13,6 +13,7 @@ module.exports.requiredFields = [
   'PartyCode',
   'District',
   'DistrictID',
+  'ElectDate',
   'Family',
   'Religion',
   'Email',
@@ -55,5 +56,5 @@ module.exports.requiredFields = [
   'MailAddr5',
   'BirthYear',
   'BirthMonth',
-  'BirthDate'
+  'BirthDate',
 ]

@@ -92,7 +92,7 @@ const LeaderInfo = ({ leader }) => {
             <Table className={classes.table} size="small">
               <TableBody>
                 <Row field="District:" value={leader.District} />
-                <Row field="In Office Since:" value={leader.Religon} />
+                <Row field="In Office Since:" value={leader.ElectDate} />
                 <Row field="Religon:" value={leader.Religon} />
                 <Row field="Spouse:" value={leader.Spouse} />
                 <Row field="Family:" value={leader.Family} />
