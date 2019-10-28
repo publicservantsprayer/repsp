@@ -26,7 +26,8 @@ export const useContentCollection = category => {
     db
       .collection('content')
       .where('category', '==', category)
-      .orderBy('createdOn', 'desc'),
+      .orderBy('createdOn', 'desc')
+      .limit(20),
     {
       idField: 'docId',
     }
