@@ -127,8 +127,10 @@ export const useAdmin = () => {
         if (adminUser.exists) setAdmin(user)
         else setAdmin(false)
       })
+    } else {
+      setAdmin(false)
     }
-  })
+  }, [db, user])
 
   return [admin, loading, error]
 }
