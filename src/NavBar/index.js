@@ -47,13 +47,12 @@ const NavBarDailyLeaders = () => {
   const desktop = useDesktop()
   const homePath = useHomePath()
   const location = useLocation()
-  //const { year, month, day } = useParams()
+  const { year, month, day } = useParams()
   const todaysHome = homePath === location.pathname
-  //const historicalHome = year && month && day
-  //const home = todaysHome || historicalHome
+  const historicalHome = year && month && day
+  const home = todaysHome || historicalHome
 
-  //if (desktop && home) return (
-  if (desktop && todaysHome) return (
+  if (desktop && home) return (
     <Box display="flex" justifyContent="center" m={1} w={1}>
       <DailyLeaders />
     </Box>
