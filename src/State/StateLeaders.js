@@ -11,9 +11,8 @@ import { Link as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
-import { useStateCode } from '../utilities/states'
+import useUSAState from '../utilities/useUSAState'
 import { useFirebase } from '../firebase'
-import PageTitle from '../PageTitle'
 import StateFlag from './StateFlag'
 import StateBlurb from './StateBlurb'
 import StateCapitalPic from './StateCapitalPic'
@@ -53,7 +52,7 @@ const useStyles = makeStyles({
 
 export default () => {
   const { db } = useFirebase()
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
   const [fedSenate, setfedSenate] = React.useState()
   const [fedHouse, setfedHouse] = React.useState()
   const [stateSenate, setstateSenate] = React.useState()
@@ -176,11 +175,6 @@ export default () => {
           my={6}
           mx={1}
         >
-          <PageTitle
-            stateCode={stateCode}
-            className={classes.title}
-            color="secondary"
-          ></PageTitle>
           <StateFlag stateCode={stateCode} />
           <p>State Flag</p>
         </Box>

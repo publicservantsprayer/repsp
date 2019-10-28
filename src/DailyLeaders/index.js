@@ -1,85 +1,70 @@
 import React from 'react'
-import moment from 'moment'
 import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from './Tab'
-import AppBar from '@material-ui/core/AppBar'
-import EmailIcon from 'mdi-material-ui/Email'
-import FacebookIcon from 'mdi-material-ui/FacebookBox'
-import TwitterIcon from 'mdi-material-ui/TwitterBox'
-//import InstagramIcon from 'mdi-material-ui/Instagram'
-import ExpansionPanel from './ExpansionPanel'
-import TwitterTimeline from '../TwitterTimeline'
-import { useStateCode } from '../utilities/states'
-import PrayingForTitle from './PrayingForTitle'
-import LeaderPhoto from './LeaderPhoto'
+import { useParams } from 'react-router-dom'
+import useUSAState from '../utilities/useUSAState'
+import { useHistoricalPost, useLatestPost } from '../firebase'
+import MobileOnly from '../MobileOnly'
+import DesktopOnly from '../DesktopOnly'
+import Tabs from './Tabs'
+import TabPanels from './TabPanels'
+import StateMessage from './StateMessage'
 
-const TabPanel = ({ children, value, index }) => {
+const DailyLeaders = ({ post }) => {
+  const [tabIndex, setTabIndex] = React.useState(0)
+
+  const onChange = (event, newIndex) => setTabIndex(newIndex)
+
   return (
-    <Box role="tabpanel" p={3} hidden={value !== index}>
-      {children}
-    </Box>
+    <Box bgcolor="common.black" maxWidth="900px" width="100%" borderRadius="borderRadius">
+      <MobileOnly>
+        <Tabs tabIndex={tabIndex} onChange={onChange} fullWidth />
+
+        <TabPanels tabIndex={tabIndex} post={post} />
+
+        <Box p={1} bgcolor="background.default" color="text.secondary">
+          <StateMessage setTabIndex={setTabIndex} />
+        </Box>
+      </MobileOnly>
+
+      <DesktopOnly>
+        <Tabs tabIndex={tabIndex} onChange={onChange} centered />
+
+        <Box display="flex">
+          <Box p={2} mx={2} borderRadius="borderRadius" flexGrow={1}>
+            <TabPanels tabIndex={tabIndex} post={post} />
+          </Box>
+
+          <Box width="38%" p={2} bgcolor="background.default" color="text.secondary">
+            <StateMessage setTabIndex={setTabIndex} />
+          </Box>
+        </Box>
+      </DesktopOnly>
+    </Box >
   )
 }
 
-export default ({ post }) => {
-  const stateCode = useStateCode()
-  const [tabIndex, setTabIndex] = React.useState(0)
+const HistoricalDailyLeaders = () => {
+  const { year, month, day } = useParams()
+  const [post] = useHistoricalPost(year, month, day)
 
-  const handleChange = (event, newIndex) => {
-    setTabIndex(newIndex)
+  return post ? <DailyLeaders post={post} /> : null
+}
+
+const LatestDailyLeaders = () => {
+  const [post] = useLatestPost()
+
+  return post ? <DailyLeaders post={post} /> : null
+}
+
+export default () => {
+  const { stateCode } = useUSAState()
+  if (!stateCode) return null
+
+  const { year, month, day } = useParams()
+
+  if (year && month && day) {
+    return <HistoricalDailyLeaders />
+  } else {
+    return <LatestDailyLeaders />
   }
-
-  return (
-    <Box bgcolor="common.black" mx="auto" maxWidth="430px" borderRadius="borderRadius">
-      <AppBar position="static">
-        <Tabs value={tabIndex} onChange={handleChange} variant="standard">
-          <Tab label="Today" />
-          <Tab icon={<EmailIcon />} />
-          <Tab icon={<FacebookIcon />} />
-          <Tab icon={<TwitterIcon />} />
-          {/* <Tab label={<InstagramIcon />} /> */}
-        </Tabs>
-      </AppBar>
-
-      <TabPanel value={tabIndex} index={0}>
-        <Box mb={1} textAlign="center">
-          {moment(post.dateID).format('dddd, MMMM Do')}
-        </Box>
-
-        <PrayingForTitle dateID={post.dateID} />
-
-        <Box display="flex" justifyContent="space-around">
-          <LeaderPhoto leader={post.leader1} />
-          <LeaderPhoto leader={post.leader2} />
-          <LeaderPhoto leader={post.leader3} />
-        </Box>
-
-        <Box my={2}>
-          <ExpansionPanel leader={post.leader1} />
-          <ExpansionPanel leader={post.leader2} />
-          <ExpansionPanel leader={post.leader3} />
-        </Box>
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={1}>
-        Subscribe via Email
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={2}>
-        Follow on Facebook
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={3}>
-        <Paper>
-          <TwitterTimeline accountName={`Praying4_${stateCode}`} />
-        </Paper>
-      </TabPanel>
-
-      <TabPanel value={tabIndex} index={4}>
-        Follow on Instagram
-      </TabPanel>
-    </Box>
-  )
 }

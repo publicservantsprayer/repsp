@@ -55,7 +55,7 @@ export default () => {
   return (
     <>
       <AppBar position="static">
-        <Tabs value={tabIndex} onChange={handleChange}>
+        <Tabs value={tabIndex} onChange={handleChange} textColor="secondary">
           <Tab label="None" />
           <Tab label="Events" />
           <Tab label="Updates" />

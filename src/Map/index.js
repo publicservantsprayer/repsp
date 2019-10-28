@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/styles'
 import { useSpring, animated } from 'react-spring'
@@ -9,11 +9,10 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import svgPanZoom from 'svg-pan-zoom'
-
-import { stateCodes } from '../utilities/states'
 import statePaths from './statePaths'
 import theme from '../utilities/theme'
 import panZoomEventsHandler from './panZoomEventsHandler'
+import useUSAState from '../utilities/useUSAState'
 
 const stateColor = theme.palette.secondary.main
 const stateColorOver = theme.palette.primary.main
@@ -81,7 +80,7 @@ const SVGMapPath = withRouter(({ stateCode, history }) => {
   const className = `${classes.path} map-path-${stateCode}`
   const d = statePaths[stateCode].d
 
-  useEffect(() => {
+  React.useEffect(() => {
     const mapPath = document.querySelector(`.map-path-${stateCode}`)
     addClickEvent(mapPath, stateCode, history)
     addAllEvents(stateCode, setStyle)
@@ -98,7 +97,7 @@ const SVGMapRect = withRouter(({ stateCode, history }) => {
   const transform = statePaths[stateCode].rectTransform
   const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
 
-  useEffect(() => {
+  React.useEffect(() => {
     const mapRect = document.querySelector(`.map-rect-${stateCode}`)
     addClickEvent(mapRect, stateCode, history)
     addAllEvents(stateCode, setStyle)
@@ -118,7 +117,7 @@ const SVGMapText = withRouter(({ stateCode, history }) => {
   const y = statePaths[stateCode].textY
   const transform = statePaths[stateCode].textTransform
 
-  useEffect(() => {
+  React.useEffect(() => {
     const mapText = document.querySelector(`.map-text-${stateCode}`)
     addClickEvent(mapText, stateCode, history)
   }, [stateCode, history])
@@ -131,7 +130,9 @@ const SVGMapText = withRouter(({ stateCode, history }) => {
 })
 
 export default () => {
-  useEffect(() => {
+  const { stateCodes } = useUSAState()
+
+  React.useEffect(() => {
     svgPanZoom('#map', {
       zoomEnabled: true,
       controlIconsEnabled: true,

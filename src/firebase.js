@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useStateCode } from './utilities/states'
+import useUSAState from './utilities/useUSAState'
 
 const FirebaseContext = React.createContext(null)
 
@@ -80,7 +80,7 @@ export const useContentItem = docId => {
 
 export const useHistoricalPost = (year, month, day) => {
   const { db } = useFirebase()
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
 
   const [post, loading, error] = useDocumentData(
     db.doc(`/states/${stateCode}/posts/${year}-${month}-${day}`)
@@ -93,7 +93,7 @@ export const useHistoricalPost = (year, month, day) => {
 
 export const useLatestPost = () => {
   const { db } = useFirebase()
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
 
   const [posts, loading, error] = useCollectionData(
     db

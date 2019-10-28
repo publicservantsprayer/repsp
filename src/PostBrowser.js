@@ -4,9 +4,8 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-
 import { useFirebase } from './firebase'
-import { useStateCode } from './utilities/states'
+import useUSAState from './utilities/useUSAState'
 
 const TabPanel = ({ children, value, index }) =>
   <Typography
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const [posts, setPosts] = useState()
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
   const { db } = useFirebase()
   const classes = useStyles()
   const [value, setValue] = React.useState(0);

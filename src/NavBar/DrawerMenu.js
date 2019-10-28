@@ -18,7 +18,7 @@ import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
-import { useHomePath } from '../utilities/states'
+import useHomePath from '../utilities/useHomePath'
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
@@ -57,19 +57,21 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="Find Your State" Icon={MapIcon} to="/find-your-state" />
         <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
         <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
+
         <Divider />
+
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Updates" Icon={PostAddIcon} to="/updates" />
-        <ListItem
-          text="Women's Ministry"
-          Icon={FilterVintageIcon}
-          to="/women"
-        />
+        <ListItem text="Women's Ministry" Icon={FilterVintageIcon} to="/women" />
+
         <Divider />
+
         <ListItem text="Give/Volunteer" Icon={SupervisedUserCircleIcon} to="/give" />
         <ListItem text="Our Partners" Icon={NaturePeopleIcon} to="/our-partners" />
+
         <Divider />
+
         {user && <Box m={2}>{user.email}</Box>}
         {!user && (
           <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />
@@ -78,14 +80,10 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
           <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />
         )}
         {admin && (
-          <ListItem text="Content" Icon={DashboardIcon} to="/content" />
-        )}
-        {admin && (
-          <ListItem
-            text="Twitter Accounts"
-            Icon={TwitterIcon}
-            to="/twitter-accounts"
-          />
+          <>
+            <ListItem text="Content" Icon={DashboardIcon} to="/content" />
+            <ListItem text="Twitter Accounts" Icon={TwitterIcon} to="/twitter-accounts" />
+          </>
         )}
       </List>
     </Drawer>

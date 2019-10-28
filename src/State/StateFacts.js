@@ -1,11 +1,10 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-
-import { useStateCode } from '../utilities/states'
+import useUSAState from '../utilities/useUSAState'
 import stateFacts from '../utilities/stateFacts'
 
 const FactLI = ({ fact, children }) => {
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
   const info = stateFacts(stateCode)
   if (!info[fact]) return null
 

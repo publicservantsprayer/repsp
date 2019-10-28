@@ -18,6 +18,7 @@ import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
+import Palette from './screens/Palette'
 
 const App = () => {
   return (
@@ -62,9 +63,13 @@ const App = () => {
       <Route exact path="/our-partners">
         <ContentItem docId="our-partners" />
       </Route>
+      <Route exact path="/privacy-policy">
+        <ContentItem docId="privacy-policy" />
+      </Route>
       <Route exact path="/give">
         <ContentItem docId="give" />
       </Route>
+      <Route exact path="/palette" component={Palette} />
       <Route exact path="/updates" component={Updates} />
       <Route exact path="/content/edit/:docId" component={ContentEdit} />
       <Route exact path="/content/new" component={ContentNew} />

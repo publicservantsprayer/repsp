@@ -6,14 +6,14 @@ import { Link as RouterLink } from 'react-router-dom'
 export default () => {
   return (
     <Box p={8} mt={18} bgcolor="common.black">
-      <Box display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="space-around">
         <Box p={2} mx={3}>
           <Link color="inherit" component={RouterLink} to="/about">
             About
           </Link>
         </Box>
         <Box p={2} mx={3}>
-          <Link color="inherit" component={RouterLink} to="/">
+          <Link color="inherit" component={RouterLink} to="/privacy-policy">
             Privacy Policy
           </Link>
         </Box>

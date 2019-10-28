@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import { H1, H2 } from '../utilities/formating'
-import { statesObj, stateCodes } from '../utilities/states'
+import useUSAState from '../utilities/useUSAState'
 import TwitterTimeline from '../TwitterTimeline'
 import { useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, useHttpsCallableFunction } from '../firebase'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
@@ -107,6 +107,7 @@ const TwitterAccount = ({ account }) => {
 const TwitterAccountHeader = ({ account }) => {
   const params = useParams()
   const history = useHistory()
+  const { stateNameFromStateCode } = useUSAState()
 
   const showAccount = params.accountName === account.accountName
 
@@ -123,7 +124,7 @@ const TwitterAccountHeader = ({ account }) => {
             <Button variant="outlined" onClick={handleToggleShowAccount}>{account.accountName}</Button>
           </Box>
           <Box p={1} flexGrow={1}>
-            {account.stateAccount && statesObj[account.stateCode]}
+            {account.stateAccount && stateNameFromStateCode(account.stateCode)}
           </Box>
           <Box p={0}>
             {account.credentials && <img src={account.credentials.profile_image_url_https} alt="Twitter profile" />}
@@ -151,6 +152,7 @@ const CheckForLocked = () => {
   const [currentlyChecking, setCurrentlyChecking] = React.useState()
   const [accountsLocked, setAccountsLocked] = React.useState([])
   const [complete, setComplete] = React.useState()
+  const { stateCodes } = useUSAState()
 
   React.useEffect(() => {
     const accounts = stateCodes.map(stateCode => `Praying4_${stateCode}`)

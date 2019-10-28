@@ -1,66 +1,12 @@
-import { useEffect } from 'react'
+import React from 'react'
+import statesObj from './statesObj'
 import { useCookies } from 'react-cookie'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
 const googleBrowserKey = 'AIzaSyBQkLQ1DJEtDczE179QNc7fF1UM6t0piqY'
 
-const statesObj = {
-  AL: 'Alabama',
-  AK: 'Alaska',
-  AZ: 'Arizona',
-  AR: 'Arkansas',
-  CA: 'California',
-  CO: 'Colorado',
-  CT: 'Connecticut',
-  DE: 'Delaware',
-  FL: 'Florida',
-  GA: 'Georgia',
-  HI: 'Hawaii',
-  ID: 'Idaho',
-  IL: 'Illinois',
-  IN: 'Indiana',
-  IA: 'Iowa',
-  KS: 'Kansas',
-  KY: 'Kentucky',
-  LA: 'Louisiana',
-  ME: 'Maine',
-  MD: 'Maryland',
-  MA: 'Massachusetts',
-  MI: 'Michigan',
-  MN: 'Minnesota',
-  MS: 'Mississippi',
-  MO: 'Missouri',
-  MT: 'Montana',
-  NE: 'Nebraska',
-  NV: 'Nevada',
-  NH: 'New Hampshire',
-  NJ: 'New Jersey',
-  NM: 'New Mexico',
-  NY: 'New York',
-  NC: 'North Carolina',
-  ND: 'North Dakota',
-  OH: 'Ohio',
-  OK: 'Oklahoma',
-  OR: 'Oregon',
-  PA: 'Pennsylvania',
-  RI: 'Rhode Island',
-  SC: 'South Carolina',
-  SD: 'South Dakota',
-  TN: 'Tennessee',
-  TX: 'Texas',
-  UT: 'Utah',
-  VT: 'Vermont',
-  VA: 'Virginia',
-  WA: 'Washington',
-  WV: 'West Virginia',
-  WI: 'Wisconsin',
-  WY: 'Wyoming',
-}
-
 const stateCodes = Object.keys(statesObj)
-
-const stateName = stateCode => statesObj[stateCode]
 
 const validStateCode = stateCode => stateCodes.includes(stateCode)
 
@@ -75,7 +21,7 @@ const useStateCode = (options = {}) => {
 
   const setStateCodeToCookie = stateCode => setCookie('stateCode', stateCode.toUpperCase(), { path: '/' })
 
-  useEffect(() => {
+  React.useEffect(() => {
     const getGeoCodeState = async () => {
       try {
         const geoLocation = await axios.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleBrowserKey}`)
@@ -105,10 +51,19 @@ const useStateCode = (options = {}) => {
   return cookieStateCode
 }
 
-const useHomePath = () => {
+export default () => {
   const stateCode = useStateCode()
-  if (stateCode) return `/states/${stateCode.toLowerCase()}`
-  else return '/'
-}
+  const lowerCaseStateCode = stateCode.toLowerCase()
+  const stateName = statesObj[stateCode]
 
-export { statesObj, stateName, stateCodes, useStateCode, validStateCode, useHomePath }
+  const stateNameFromStateCode = stateCode => statesObj[stateCode]
+
+  return ({
+    stateCode,
+    lowerCaseStateCode,
+    stateName,
+    stateNameFromStateCode,
+    stateCodes,
+    statesObj,
+  })
+}

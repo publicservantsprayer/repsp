@@ -8,7 +8,7 @@ export default ({ dateID }) => {
 
   return (
     <Box my={2} fontWeight="bold" textAlign="center">
-      <Typography variant="h5">
+      <Typography variant="h5" color="secondary">
         {today && <>Today we are praying for</>}
         {!today && <>This day we prayed for</>}
       </Typography>

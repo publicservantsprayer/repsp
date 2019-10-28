@@ -33,8 +33,8 @@ export default ({ docValues }) => {
   return (
     <>
       <Button
-        variant="contained"
-        color="secondary"
+        variant="outlined"
+        color="error"
         style={{ marginRight: theme.spacing(1) }}
         onClick={handleDelete}
       >

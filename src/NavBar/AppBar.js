@@ -3,18 +3,19 @@ import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import MuiAppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
-
-import { stateName, useStateCode } from '../utilities/states'
+import Divider from '@material-ui/core/Divider'
+import useUSAState from '../utilities/useUSAState'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   AppBar: {
     zIndex: theme.zIndex.drawer + 1000,
+    backgroundColor: theme.palette.background.default
   },
   header: {
     [theme.breakpoints.up('md')]: {
@@ -34,13 +35,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const StateName = () => {
-  const stateCode = useStateCode()
-  return stateCode ? <>{stateName(stateCode)}</> : null
-}
-
 const ButtonLeaders = () => {
-  const stateCode = useStateCode()
+  const { stateCode } = useUSAState()
   if (!stateCode) return null
   return (
     <Button
@@ -55,19 +51,26 @@ const ButtonLeaders = () => {
 
 const AppBar = ({ toggleDrawer }) => {
   const classes = useStyles()
+  const { stateName } = useUSAState()
 
   return (
-    <MuiAppBar position="fixed" className={classes.AppBar}>
-      <Toolbar>
+    <MuiAppBar color="inherit" position="fixed" className={classes.AppBar}>
+      <Toolbar variant="regular">
         <Box flexGrow={1}>
-          <Typography variant="h6">
-            PSP <StateName />
+          <Typography variant="h6" color="inherit">
+            PSP {stateName}
           </Typography>
         </Box>
-        <IconButton onClick={toggleDrawer()} edge="start" color="inherit">
-          <MenuIcon />
-        </IconButton>
+        <Hidden mdUp>
+          <IconButton onClick={toggleDrawer()} edge="start" color="inherit">
+            <MenuIcon />
+          </IconButton>
+        </Hidden>
         <Hidden smDown>
+          <Button color="inherit" component={RouterLink} to="/">
+            Home
+          </Button>
+          <Divider orientation="vertical" />
           <Button color="inherit" component={RouterLink} to="/articles">
             Articles
           </Button>

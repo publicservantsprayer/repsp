@@ -1,16 +1,32 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
+import useUSAState from '../utilities/useUSAState'
+import { makeStyles } from '@material-ui/core/styles'
 
-const StateCapitalPic = ({ stateCode }) => {
+
+const StateCapitalPic = () => {
+  const { lowerCaseStateCode } = useUSAState()
+  const url = `/images/capitols/${lowerCaseStateCode}-400.png`
+
+  const useStyles = makeStyles(theme => ({
+    root: {
+      background: `url("${url}") top center no-repeat`,
+      backgroundPositionY: '-0px',
+      height: '300px',
+    }
+  }))
+  const classes = useStyles()
+
   return (
-    <Box>
-      <p>
+    <Box className={classes.root}>
+      {/* <div style={{ height: '100px', overflow: 'hidden' }}>
         <img
-          src={`/images/capitols/${stateCode.toLowerCase()}-400.png`}
+          src={url}
           width="150"
           alt="whatevs"
+          className={classes.borderRadius}
         />
-      </p>
+      </div> */}
     </Box>
   )
 }

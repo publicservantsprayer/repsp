@@ -11,7 +11,7 @@ export default ({ leader }) => {
   return (
     <Box maxWidth="148" m={1}>
       <Link component={RouterLink} to={`/leader/${leader.permaLink}`}>
-        <img src={leaderPhoto(leader)} alt="Leader" className={classes.roundedCorners} style={{ width: '100%' }} />
+        <img src={leaderPhoto(leader)} alt="Leader" className={classes.borderRadius} style={{ width: '100%' }} />
       </Link>
     </Box>
   )

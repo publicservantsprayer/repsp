@@ -1,34 +1,14 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import { Redirect, useRouteMatch, useParams } from 'react-router'
-
+import { Redirect, useRouteMatch } from 'react-router'
 import DailyLeaders from '../DailyLeaders'
 import StateLeaders from '../State/StateLeaders'
-import { useStateCode, useHomePath } from '../utilities/states'
-import { useHistoricalPost, useLatestPost } from '../firebase'
-
-const HistoricalDailyLeaders = () => {
-  const { year, month, day } = useParams()
-  const [post] = useHistoricalPost(year, month, day)
-
-  return post ? <DailyLeaders post={post} /> : null
-}
-
-const LatestDailyLeaders = () => {
-  const [post] = useLatestPost()
-
-  return post ? <DailyLeaders post={post} /> : null
-}
+import useHomePath from '../utilities/useHomePath'
+import MobileOnly from '../MobileOnly'
 
 export default () => {
-  const stateCode = useStateCode()
   const match = useRouteMatch()
   const homePath = useHomePath()
-  const { year, month, day } = useParams()
-
-  if (!stateCode) return null
-
-  const ShowDailyLeaders = year && month && day ? HistoricalDailyLeaders : LatestDailyLeaders
 
   if (match.path === '/') {
     return <Redirect to={homePath} />
@@ -36,9 +16,12 @@ export default () => {
 
   return (
     <Box>
-      <Box bgcolor="primary.light" py={1}>
-        <ShowDailyLeaders />
-      </Box>
+      <MobileOnly>
+        <Box py={0}>
+          <DailyLeaders />
+        </Box>
+      </MobileOnly>
+
       <Box>
         <StateLeaders />
       </Box>

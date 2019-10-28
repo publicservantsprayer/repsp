@@ -1,8 +1,6 @@
 import React from 'react'
-
 import { Redirect } from 'react-router-dom'
-
-import { useHomePath } from '../utilities/states'
+import useHomePath from '../utilities/useHomePath'
 import { useFirebase, useUser } from '../firebase'
 import { H1 } from '../utilities/formating'
 import Box from '@material-ui/core/Box'
