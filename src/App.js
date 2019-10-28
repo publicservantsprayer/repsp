@@ -19,10 +19,17 @@ import PostBrowser from './PostBrowser'
 import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
 import Palette from './screens/Palette'
+import useUSAState from './utilities/useUSAState'
+
+const StateFinder = () => {
+  useUSAState({ useGeoCode: true })
+  return null
+}
 
 const App = () => {
   return (
     <Router>
+      <Route component={StateFinder} />
       <Route exact path="/" component={Home} />
       <Route exact path="/states/:stateCode" component={Home} />
       <Route exact path="/states/:stateCode/:year/:month/:day" component={Home} />

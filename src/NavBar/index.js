@@ -64,7 +64,7 @@ const NavBarDailyLeaders = () => {
 const NavBar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const classes = useStyles()
-  const { stateCode } = useUSAState({ useGeoCode: true })
+  const { stateCode } = useUSAState()
 
   const toggleDrawer = () => event => {
     if (

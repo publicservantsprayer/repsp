@@ -1,7 +1,7 @@
 import React from 'react'
 import statesObj from './statesObj'
 import { useCookies } from 'react-cookie'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import axios from 'axios'
 
 const googleBrowserKey = 'AIzaSyBQkLQ1DJEtDczE179QNc7fF1UM6t0piqY'
@@ -14,10 +14,16 @@ const stateCodes = Object.keys(statesObj)
 
 const validStateCode = stateCode => stateCodes.includes(stateCode)
 
-const useStateCode = (options = {}) => {
-  const { useGeoCode } = options
-  const [cookies, setCookie] = useCookies(['stateCode'])
+const removeCookiesAccidentallySetToWrongPath = (removeCookie, pathname) => {
+  if (pathname !== '/') removeCookie('stateCode', { path: pathname })
+}
+
+const useStateCode = ({ useGeoCode }) => {
+  const [cookies, setCookie, removeCookie] = useCookies(['stateCode'])
   const params = useParams()
+
+  const { pathname } = useLocation()
+  removeCookiesAccidentallySetToWrongPath(removeCookie, pathname)
 
   const fallBackStateCode = 'TX'
   const cookieStateCode = cookies.stateCode ? cookies.stateCode.toUpperCase() : null
@@ -56,8 +62,9 @@ const useStateCode = (options = {}) => {
   return cookieStateCode
 }
 
-export default () => {
-  const stateCode = useStateCode()
+export default (options = {}) => {
+  const stateCode = useStateCode(options)
+  if (!stateCode) return {}
   const lowerCaseStateCode = stateCode.toLowerCase()
   const stateName = statesObj[stateCode]
   const facebookPage = `PSP${stateName.split(' ').join('')}`
