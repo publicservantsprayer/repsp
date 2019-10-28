@@ -22,6 +22,7 @@ import useHomePath from '../utilities/useHomePath'
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
+import MobileOnly from '../MobileOnly'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -53,12 +54,14 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
     >
       <Toolbar />
       <List>
-        <ListItem text="Home" Icon={HomeIcon} to={homePath} />
-        <ListItem text="Find Your State" Icon={MapIcon} to="/find-your-state" />
-        <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
-        <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
+        <MobileOnly>
+          <ListItem text="Home" Icon={HomeIcon} to={homePath} />
+          <ListItem text="Find Your State" Icon={MapIcon} to="/find-your-state" />
+          <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
+          <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
 
-        <Divider />
+          <Divider />
+        </MobileOnly>
 
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />

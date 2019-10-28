@@ -6,11 +6,16 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import Hidden from '@material-ui/core/Hidden'
 import Box from '@material-ui/core/Box'
-import Divider from '@material-ui/core/Divider'
 import useUSAState from '../utilities/useUSAState'
 import { Typography } from '@material-ui/core'
+import MobileOnly from '../MobileOnly'
+import DesktopOnly from '../DesktopOnly'
+import HomeIcon from '@material-ui/icons/Home'
+import PeopleIcon from '@material-ui/icons/People'
+import MapIcon from '@material-ui/icons/Map'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import MoreIcon from '@material-ui/icons/MoreVert'
 
 const useStyles = makeStyles(theme => ({
   AppBar: {
@@ -33,18 +38,17 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  button: {
+    margin: theme.spacing(1),
+  },
 }))
 
-const ButtonLeaders = () => {
-  const { stateCode } = useUSAState()
-  if (!stateCode) return null
+const Item = ({ text, to, Icon }) => {
+  const classes = useStyles()
+
   return (
-    <Button
-      color="inherit"
-      component={RouterLink}
-      to={`/states/${stateCode.toLowerCase()}/leaders`}
-    >
-      State Leaders
+    <Button color="inherit" component={RouterLink} to={to} startIcon={<Icon />} className={classes.button}>
+      {text}
     </Button>
   )
 }
@@ -61,30 +65,23 @@ const AppBar = ({ toggleDrawer }) => {
             PSP {stateName}
           </Typography>
         </Box>
-        <Hidden mdUp>
+
+        <MobileOnly>
           <IconButton onClick={toggleDrawer()} edge="start" color="inherit">
             <MenuIcon />
           </IconButton>
-        </Hidden>
-        <Hidden smDown>
-          <Button color="inherit" component={RouterLink} to="/">
-            Home
-          </Button>
-          <Divider orientation="vertical" />
-          <Button color="inherit" component={RouterLink} to="/articles">
-            Articles
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/find-your-state">
-            Find your State
-          </Button>
-          <ButtonLeaders />
-          <Button color="inherit" component={RouterLink} to="/what-we-do">
-            What we do
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/why-we-pray">
-            Why we pray
-          </Button>
-        </Hidden>
+        </MobileOnly>
+
+        <DesktopOnly>
+          <Item text="Home" Icon={HomeIcon} to="/" />
+          <Item text="Find Your State" Icon={MapIcon} to="/find-your-state" />
+          <Item text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
+          <Item text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
+
+          <IconButton onClick={toggleDrawer()} edge="end" color="inherit">
+            <MoreIcon />
+          </IconButton>
+        </DesktopOnly>
       </Toolbar>
     </MuiAppBar>
   )

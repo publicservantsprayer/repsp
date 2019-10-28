@@ -80,13 +80,11 @@ const NavBar = () => {
       <AppBar stateCode={stateCode} toggleDrawer={toggleDrawer} />
       <Toolbar />
 
-      <MobileOnly>
-        <DrawerMenu
-          toggleDrawer={toggleDrawer}
-          drawerOpen={drawerOpen}
-          stateCode={stateCode}
-        />
-      </MobileOnly>
+      <DrawerMenu
+        toggleDrawer={toggleDrawer}
+        drawerOpen={drawerOpen}
+        stateCode={stateCode}
+      />
 
       <Box className={classes.header}>
         <Box mx={3} mt={3} mb={8}>
