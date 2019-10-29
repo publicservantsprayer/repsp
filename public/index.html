@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <style type="text/css">
-    /* debug class */
-    .outline {
-      outline: 1px solid red;
-    }
-  </style>
-  <script>window.twttr = (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {}
-      if (d.getElementById(id)) return t
-      js = d.createElement(s)
-      js.id = id
-      js.src = "https://platform.twitter.com/widgets.js"
-      fjs.parentNode.insertBefore(js, fjs)
-      t._e = []
-      t.ready = function (f) {
-        t._e.push(f)
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <style type="text/css">
+      /* debug class */
+      .outline {
+        outline: 1px solid red;
       }
-      return t
-    }(document, "script", "twitter-wjs"))</script>
+    </style>
+    <script>
+      window.twttr = (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0],
+          t = window.twttr || {}
+        if (d.getElementById(id)) return t
+        js = d.createElement(s)
+        js.id = id
+        js.src = 'https://platform.twitter.com/widgets.js'
+        fjs.parentNode.insertBefore(js, fjs)
+        t._e = []
+        t.ready = function(f) {
+          t._e.push(f)
+        }
+        return t
+      })(document, 'script', 'twitter-wjs')
+    </script>
 
-  <script async defer crossorigin="anonymous"
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=0&autoLogAppEvents=1&version=v4.0&appId=2421676531429086"></script>
-  <title>React App</title>
-</head>
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=0&autoLogAppEvents=1&version=v4.0&appId=2421676531429086"
+    ></script>
+    <title>Public Servants' Prayer</title>
+  </head>
 
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
 
-  <div id="root" style="overflow: hidden"></div>
-</body>
-
+    <div id="root" style="overflow: hidden"></div>
+  </body>
 </html>
