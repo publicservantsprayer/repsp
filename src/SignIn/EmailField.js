@@ -10,7 +10,7 @@ export default ({ onChange, disabled }) =>
     name="email"
     autoComplete="email"
     margin="normal"
-    variant="outlined"
+    variant="filled"
     onChange={onChange}
     disabled={disabled}
     fullWidth
