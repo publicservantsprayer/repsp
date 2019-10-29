@@ -29,7 +29,7 @@ export default ({ category }) => {
   return (
     <Screen>
       <Container maxWidth="lg">
-        <Box pt={4}>
+        <Box pt={4} px={4}>
           <Title>{capitalizeFirstLetter(category)}</Title>
         </Box>
         <Grid
@@ -37,7 +37,7 @@ export default ({ category }) => {
           direction="row"
           justify="space-evenly"
           alignItems="center"
-          spacing={10}
+          spacing={4}
         >
           {loading && '... loading'}
           {docs &&
