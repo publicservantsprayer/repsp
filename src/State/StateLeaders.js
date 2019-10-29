@@ -154,7 +154,7 @@ export default () => {
 
   return (
     <div className={classes.root}>
-      <Box
+      {/* <Box
         display="flex"
         flexGrow={1}
         justifyContent="center"
@@ -196,7 +196,7 @@ export default () => {
             <StateFacts stateCode={stateCode} />
           </div>
         </Box>
-        {/* <Box
+        <Box
           flexGrow={1}
           order={3}
           justifyContent="center"
@@ -213,7 +213,7 @@ export default () => {
             <h3>State Summary</h3>
             <StateBlurb stateCode={stateCode} />
           </div>
-        </Box> */}
+        </Box>
         <Box
           flexGrow={1}
           order={4}
@@ -230,8 +230,8 @@ export default () => {
         >
           <StateCapitalPic stateCode={stateCode} />
           <p>State Capitol</p>
-        </Box>
-      </Box>
+        </Box> 
+      </Box>*/}
 
       <AppBar position="static">
         <Tabs
