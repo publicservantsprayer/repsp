@@ -1,11 +1,13 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { useParams } from 'react-router-dom'
-
 import Markdown from '../Markdown'
 import { useContentItem, useAdmin } from '../firebase'
 import UpdateButtons from '../Content/UpdateButtons'
 import Screen from '../Screen'
+import ScreenContent from '../Screen/Content'
+import ScreenTitle from '../Screen/Title'
+import { Divider } from '@material-ui/core'
 
 export default ({ docId, children }) => {
   const params = useParams()
@@ -15,18 +17,20 @@ export default ({ docId, children }) => {
 
   return (
     <Screen>
-      <Box flexGrow={1}>
+      <ScreenContent>
         {loading && <p>Loading...</p>}
-        {doc && (
-          <Box p={1}>
-            <h2>{doc.title}</h2>
-            <hr />
+        {doc && (<>
+          <ScreenTitle>{doc.title}</ScreenTitle>
+          <Box mt={2} mb={4}>
+            <Divider />
+          </Box>
+          <Box>
             <Markdown>{doc.content}</Markdown>
             {admin && <UpdateButtons content={doc} />}
+            {children}
           </Box>
-        )}
-        {children}
-      </Box>
+        </>)}
+      </ScreenContent>
     </Screen>
   )
 }

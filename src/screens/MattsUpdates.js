@@ -4,13 +4,14 @@ import Paper from '@material-ui/core/Paper'
 import moment from 'moment'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 import Screen from '../Screen'
+import ScreenTitle from '../Screen/Title'
 
 import { useContentCollection, useFirebase, useAdmin } from '../firebase'
-import { H2, ScreenTitle } from '../utilities/formating'
-import ContentScreen from '../ContentScreen'
+import { H2 } from '../utilities/formating'
 import Markdown from '../Markdown'
 import useStyles from '../utilities/useStyles'
 import UpdateButtons from '../Content/UpdateButtons'
+import Container from '@material-ui/core/Container'
 
 const Post = ({ post }) => {
   const [admin] = useAdmin()
@@ -40,7 +41,6 @@ const Post = ({ post }) => {
           </Box>
 
           {admin && <Box my={2}><UpdateButtons content={post} /></Box>}
-          </Box>
         </Box>
       </Paper>
     </Box>
@@ -52,11 +52,13 @@ export default () => {
 
   return (
     <Screen>
-      <ContentScreen>
-        <ScreenTitle>Matt's Updates</ScreenTitle>
+      <Container maxWidth="sm">
+        <Box pt={4}>
+          <ScreenTitle centered>Matt's Updates</ScreenTitle>
+        </Box>
         {loading && <p>Loading...</p>}
         {posts && posts.map((post, i) => <Post post={post} key={i} />)}
-      </ContentScreen>
+      </Container>
     </Screen>
   )
 }

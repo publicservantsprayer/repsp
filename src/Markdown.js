@@ -3,6 +3,7 @@ import ReactMarkdown from 'markdown-to-jsx'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 
 const styles = theme => ({
@@ -14,41 +15,31 @@ const styles = theme => ({
 const Image = props => {
   return <img style={{ maxWidth: '100%', height: 'auto' }} alt="" {...props} />
 }
+const LinkButton = React.forwardRef(({ children, href, to, ...restOfProps }, ref) => {
+  const component = href ? Link : RouterLink
 
-const LinkButton = React.forwardRef(({ children, ...restOfProps }, ref) => {
   return (
-    <Button ref={ref} variant="contained" {...restOfProps}>
-      {children}
-    </Button>
+    <Link to={to} href={href} component={component}>
+      <Button ref={ref} variant="contained" {...restOfProps}>
+        {children}
+      </Button>
+    </Link>
   )
 })
 
 const options = {
   overrides: {
-    h1: {
-      component: Typography,
-      props: {
-        gutterBottom: true,
-        variant: 'h1',
-      },
-    },
-    h2: { component: Typography, props: { gutterBottom: true, variant: 'h2' } },
-    h3: {
-      component: Typography,
-      props: { gutterBottom: true, variant: 'h3' },
-    },
-    h4: {
-      component: Typography,
-      props: { gutterBottom: true, variant: 'h4', paragraph: true },
-    },
-    p: { component: Typography, props: { paragraph: true, component: 'div' } },
+    h1: { component: Typography, props: { variant: 'h1', gutterBottom: true, } },
+    h2: { component: Typography, props: { variant: 'h2', gutterBottom: true, } },
+    h3: { component: Typography, props: { variant: 'h3', gutterBottom: true, } },
+    h4: { component: Typography, props: { variant: 'h4', gutterBottom: true, }, },
+    h5: { component: Typography, props: { variant: 'subtitle1', gutterBottom: true } },
+    h6: { component: Typography, props: { variant: 'subtitle2', gutterBottom: true } },
 
-    a: {
-      component: Link
-    },
-    img: {
-      component: Image,
-    },
+    p: { component: Typography, props: { variant: 'body1', paragraph: true } },
+
+    a: { component: Link },
+    img: { component: Image },
     li: {
       component: withStyles(styles)(({ classes, ...props }) => (
         <li className={classes.listItem}>
@@ -56,6 +47,10 @@ const options = {
         </li>
       )),
     },
+    Button: {
+      component: LinkButton,
+      props: { variant: 'contained', color: 'primary' }
+    }
   },
 }
 

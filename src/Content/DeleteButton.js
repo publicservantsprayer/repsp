@@ -34,7 +34,6 @@ export default ({ docValues }) => {
     <>
       <Button
         variant="outlined"
-        color="error"
         style={{ marginRight: theme.spacing(1) }}
         onClick={handleDelete}
       >

@@ -41,13 +41,12 @@ const App = () => {
         {/* Content Collection */}
         <Route exact path="/articles"><ContentCollection category="articles" /></Route>
         <Route exact path="/events"><ContentCollection category="events" /></Route>
-        <Route exact path="/news"><ContentCollection category="news" /></Route>
+
         <Route exact path="/updates" component={MattsUpdates} />
 
         {/* Content Item */}
         <Route exact path="/articles/:docId" component={ContentItem} />
         <Route exact path="/events/:docId" component={ContentItem} />
-        <Route exact path="/news/:docId" component={ContentItem} />
 
         {/* Content Item */}
         <Route exact path="/what-we-do"><ContentItem docId="what-we-do"><PostBrowser /></ContentItem></Route>
