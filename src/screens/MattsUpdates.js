@@ -28,7 +28,7 @@ const Post = ({ post }) => {
   return (
     <Box my={4}>
       <Paper>
-        <Box p={2} bgcolor="common.white" color="common.black" border={12}>
+        <Box p={2} bgcolor="common.white" color="common.black" border={12} borderRadius="borderRadius">
           <H2>{moment(post.createdOn.toDate()).format('MMMM Do, YYYY')}</H2>
           <Box my={2}>
             {loading && <p>Loading...</p>}
