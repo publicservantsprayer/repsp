@@ -15,7 +15,7 @@ const DailyLeaders = ({ post }) => {
   const onChange = (event, newIndex) => setTabIndex(newIndex)
 
   return (
-    <Box bgcolor="common.black" maxWidth="900px" width="100%" borderRadius="borderRadius">
+    <Box bgcolor="common.black" maxWidth="900px" width="100%" borderRadius="borderRadius" mb={6}>
       <MobileOnly>
         <Tabs tabIndex={tabIndex} onChange={onChange} fullWidth />
 
