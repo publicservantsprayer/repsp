@@ -13,7 +13,7 @@ import useStyles from '../utilities/useStyles'
 import UpdateButtons from '../Content/UpdateButtons'
 
 const Post = ({ post }) => {
-  const admin = useAdmin()
+  const [admin] = useAdmin()
   const classes = useStyles()
   const { storageRef } = useFirebase()
   const image = post.cardImage ? post.cardImage : post.images[0]
@@ -38,8 +38,8 @@ const Post = ({ post }) => {
           <Box my={2}>
             <Markdown>{post.content}</Markdown>
           </Box>
-          <Box my={2}>
-            {admin && <UpdateButtons content={post} />}
+
+          {admin && <Box my={2}><UpdateButtons content={post} /></Box>}
           </Box>
         </Box>
       </Paper>
