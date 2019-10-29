@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles(theme => ({
   card: {
     maxWidth: 400,
-    height: 'auto',
     backgroundColor: theme.palette.secondary.dark,
   },
   media: {
@@ -22,7 +21,14 @@ export default function MediaCard(props) {
   const classes = useStyles()
 
   return (
-    <Box my={3} mx={1} boxShadow={9} border={10} borderColor="common.white">
+    <Box
+      height={525}
+      my={3}
+      mx={1}
+      boxShadow={9}
+      border={10}
+      borderColor="common.white"
+    >
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia
@@ -30,14 +36,20 @@ export default function MediaCard(props) {
             image={props.image}
             title="photo"
           ></CardMedia>
-          <CardContent backgroundcolor="secondary">
-            <Typography gutterBottom variant="h6">
-              {props.title}
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary" component="p">
-              {props.blurb}
-            </Typography>
-          </CardContent>
+          <Box height={155}>
+            <CardContent backgroundcolor="secondary">
+              <Typography gutterBottom variant="h6">
+                {props.title}
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                color="textSecondary"
+                component="p"
+              >
+                {props.blurb}
+              </Typography>
+            </CardContent>
+          </Box>
         </CardActionArea>
       </Card>
     </Box>
