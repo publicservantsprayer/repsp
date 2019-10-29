@@ -24,7 +24,7 @@ const useStateCode = ({ useGeoCode }) => {
   const params = useParams()
 
   const { pathname } = useLocation()
-  removeCookiesAccidentallySetToWrongPath(removeCookie, pathname)
+  //removeCookiesAccidentallySetToWrongPath(removeCookie, pathname)
 
   const fallBackStateCode = 'TX'
   const cookieStateCode = cookies.stateCode ? cookies.stateCode.toUpperCase() : null

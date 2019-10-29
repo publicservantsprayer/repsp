@@ -6,9 +6,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
-import Grid from '@material-ui/core/Grid'
 import { Link as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link'
+import Container from '@material-ui/core/Container'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import useUSAState from '../utilities/useUSAState'
@@ -17,9 +17,11 @@ import StateFlag from './StateFlag'
 import StateBlurb from './StateBlurb'
 import StateCapitalPic from './StateCapitalPic'
 import StateFacts from './StateFacts'
+import useDesktop from '../utilities/useDesktop'
+import { Paper } from '@material-ui/core'
 
 const useStyles = makeStyles({
-  root: {
+  xroot: {
     flexGrow: 1,
     textAlign: 'center',
   },
@@ -37,10 +39,10 @@ const useStyles = makeStyles({
   title: {
     backgroundColor: 'theme.palette.common.black',
   },
-  bigAvatar: {
+  avatar: {
     margin: 10,
-    width: 100,
-    height: 100,
+    width: 60,
+    height: 60,
   },
   scroll: {
     overflowY: 'scroll',
@@ -49,6 +51,12 @@ const useStyles = makeStyles({
     position: 'right',
   },
 })
+
+const Legislators = ({ children }) => {
+  const desktop = useDesktop()
+  if (desktop) return <Container maxWidth="lg">{children}</Container>
+  return children
+}
 
 export default () => {
   const { db } = useFirebase()
@@ -70,29 +78,25 @@ export default () => {
           role="tabpanel"
           hidden={currentTab !== index}
         >
-          <Box
-            mx={4}
-            my={4}
-            display="flex"
-            bgcolor="common.white"
-            border={15}
-            borderColor="primary.dark"
-            flexGrow={1}
-            justifyContent="center"
-            className={classes.contents}
-          >
+          <Box display="flex" flexWrap="wrap" justifyContent="center">
             {leaders.map(leader => (
-              <Box key={leader.PID} m={2}>
-                {leader.FirstName} {leader.LastName}
-                <Grid container justify="center" alignItems="center">
-                  <Link component={RouterLink} to={leaderUrl(leader)}>
-                    <Avatar
-                      alt={leader.PhotoFile}
-                      src={leaderPhoto(leader)}
-                      className={classes.bigAvatar}
-                    />
-                  </Link>
-                </Grid>
+              <Box key={leader.PID} m={1}>
+                <Link component={RouterLink} to={leaderUrl(leader)}>
+                  <Paper>
+                    <Box p={1}>
+                      <Box minWidth="145px" display="flex" justifyContent="center">
+                        <Avatar
+                          alt={leader.PhotoFile}
+                          src={leaderPhoto(leader)}
+                          className={classes.avatar}
+                        />
+                      </Box>
+                      <Typography variant="body2" component="div" align="center" noWrap>
+                        {leader.NickName} {leader.LastName}
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Link>
               </Box>
             ))}
           </Box>
@@ -103,37 +107,26 @@ export default () => {
 
   React.useEffect(() => {
     const getLeaders = async () => {
+      const leaderRef = db.collection('states').doc(stateCode).collection('leaders').where('hasPhoto', '==', true)
       const [
         fedSenateSnap,
         fedHouseSnap,
         stateSenateSnap,
         stateHouseSnap,
       ] = await Promise.all([
-        db
-          .collection('states')
-          .doc(stateCode)
-          .collection('leaders')
+        leaderRef
           .where('LegType', '==', 'FL')
           .where('Chamber', '==', 'S')
           .get(),
-        db
-          .collection('states')
-          .doc(stateCode)
-          .collection('leaders')
+        leaderRef
           .where('LegType', '==', 'FL')
           .where('Chamber', '==', 'H')
           .get(),
-        db
-          .collection('states')
-          .doc(stateCode)
-          .collection('leaders')
+        leaderRef
           .where('LegType', '==', 'SL')
           .where('Chamber', '==', 'S')
           .get(),
-        db
-          .collection('states')
-          .doc(stateCode)
-          .collection('leaders')
+        leaderRef
           .where('LegType', '==', 'SL')
           .where('Chamber', '==', 'H')
           .get(),
@@ -147,113 +140,37 @@ export default () => {
     getLeaders()
   }, [db, stateCode])
 
+  const desktop = useDesktop()
+  const tabsVariant = desktop ? 'standard' : 'fullWidth'
+
   if (!fedSenate) return null
   if (!fedHouse) return null
   if (!stateSenate) return null
   if (!stateHouse) return null
 
-  return (
-    <div className={classes.root}>
-      {/* <Box
-        display="flex"
-        flexGrow={1}
-        justifyContent="center"
-        bgcolor="common.white"
-        flexWrap="wrap"
+  return (<>
+    <AppBar position="static">
+      <Tabs
+        value={currentTab}
+        onChange={handleChange}
+        indicatorColor="secondary"
+        textColor="secondary"
+        variant={tabsVariant}
+        centered
       >
-        <Box
-          flexGrow={1}
-          order={1}
-          justifyContent="center"
-          bgcolor="common.white"
-          color="common.black"
-          border={8}
-          borderColor="primary.dark"
-          px={2}
-          py={2}
-          ml={2}
-          my={6}
-          mx={1}
-        >
-          <StateFlag stateCode={stateCode} />
-          <p>State Flag</p>
-        </Box>
-        <Box
-          flexGrow={1}
-          order={2}
-          justifyContent="center"
-          border={8}
-          borderColor="primary.dark"
-          bgcolor="common.white"
-          color="common.black"
-          px={2}
-          py={2}
-          my={6}
-          mx={1}
-        >
-          <div className={classes.scroll}>
-            <h3>State Facts</h3>
-            <StateFacts stateCode={stateCode} />
-          </div>
-        </Box>
-        <Box
-          flexGrow={1}
-          order={3}
-          justifyContent="center"
-          my={6}
-          px={2}
-          py={2}
-          mx={1}
-          border={8}
-          borderColor="primary.dark"
-          bgcolor="common.white"
-          color="common.black"
-        >
-          <div className={classes.scroll}>
-            <h3>State Summary</h3>
-            <StateBlurb stateCode={stateCode} />
-          </div>
-        </Box>
-        <Box
-          flexGrow={1}
-          order={4}
-          border={8}
-          justifyContent="center"
-          borderColor="primary.dark"
-          bgcolor="common.white"
-          color="common.black"
-          pt={2}
-          px={2}
-          my={6}
-          mr={2}
-          mx={1}
-        >
-          <StateCapitalPic stateCode={stateCode} />
-          <p>State Capitol</p>
-        </Box> 
-      </Box>*/}
-
-      <AppBar position="static">
-        <Tabs
-          value={currentTab}
-          onChange={handleChange}
-          indicatorColor="secondary"
-          textColor="secondary"
-          centered
-          variant="fullWidth"
-        >
-          <Tab label="Federal Senate" />
-          <Tab label="Federal House" />
-          <Tab label="State Senate" />
-          <Tab label="State House" />
-        </Tabs>
-      </AppBar>
-      <div>
+        <Tab label="Federal Senate" />
+        <Tab label="Federal House" />
+        <Tab label="State Senate" />
+        <Tab label="State House" />
+      </Tabs>
+    </AppBar>
+    <Legislators>
+      <Box mt={1} mb={12}>
         <TabPanel currentTab={currentTab} index={0} leaders={fedSenate} />
         <TabPanel currentTab={currentTab} index={1} leaders={fedHouse} />
         <TabPanel currentTab={currentTab} index={2} leaders={stateSenate} />
         <TabPanel currentTab={currentTab} index={3} leaders={stateHouse} />
-      </div>
-    </div>
-  )
+      </Box>
+    </Legislators>
+  </>)
 }

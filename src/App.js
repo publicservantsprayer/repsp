@@ -18,6 +18,7 @@ import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
 import Palette from './screens/Palette'
 import useUSAState from './utilities/useUSAState'
+import DesktopOnly from './DesktopOnly'
 
 const StateFinder = () => {
   useUSAState({ useGeoCode: true })
@@ -49,10 +50,15 @@ const App = () => {
         <Route exact path="/events/:docId" component={ContentItem} />
 
         {/* Content Item */}
-        <Route exact path="/what-we-do"><ContentItem docId="what-we-do"><PostBrowser /></ContentItem></Route>
+        <Route exact path="/what-we-do">
+          <ContentItem docId="what-we-do">
+            <DesktopOnly><PostBrowser /></DesktopOnly>
+          </ContentItem>
+        </Route>
         <Route exact path="/why-we-pray"><ContentItem docId="why-we-pray" /></Route>
         <Route exact path="/women"><ContentItem docId="womens-ministry" /></Route>
         <Route exact path="/give"><ContentItem docId="give" /></Route>
+        <Route exact path="/donate"><ContentItem docId="give" /></Route>
         <Route exact path="/our-partners"><ContentItem docId="our-partners" /></Route>
         <Route exact path="/privacy-policy"><ContentItem docId="privacy-policy" /></Route>
         <Route exact path="/about"><ContentItem docId="about" /></Route>

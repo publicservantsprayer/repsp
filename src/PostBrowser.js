@@ -59,7 +59,8 @@ export default () => {
       `${year}%2F${month}%2F${day}%2F${post.dateID}_psp_${stateCode}.png?alt=media`
   }
 
-  return (
+  return (<>
+    <h2>Posts from the past two weeks</h2>
     <div className={classes.root}>
       <Tabs
         orientation="vertical"
@@ -78,5 +79,5 @@ export default () => {
         )
       })}
     </div>
-  )
+  </>)
 }
