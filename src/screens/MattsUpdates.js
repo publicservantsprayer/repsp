@@ -28,19 +28,28 @@ const Post = ({ post }) => {
   return (
     <Box my={4}>
       <Paper>
-        <Box p={2}>
+        <Box p={2} bgcolor="common.white" color="common.black" border={12}>
           <H2>{moment(post.createdOn.toDate()).format('MMMM Do, YYYY')}</H2>
           <Box my={2}>
             {loading && <p>Loading...</p>}
             {image && src && (
-              <img style={{ width: '100%' }} src={src} alt="" className={classes.borderRadius} />
+              <img
+                style={{ width: '100%' }}
+                src={src}
+                alt=""
+                className={classes.borderRadius}
+              />
             )}
           </Box>
           <Box my={2}>
             <Markdown>{post.content}</Markdown>
           </Box>
 
-          {admin && <Box my={2}><UpdateButtons content={post} /></Box>}
+          {admin && (
+            <Box my={2}>
+              <UpdateButtons content={post} />
+            </Box>
+          )}
         </Box>
       </Paper>
     </Box>
