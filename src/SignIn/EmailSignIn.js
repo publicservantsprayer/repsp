@@ -6,7 +6,7 @@ import Button from './Button'
 import Box from '@material-ui/core/Box'
 
 export default ({ buttonText, sentMessage, errorMessage }) => {
-  const { auth } = useFirebase();
+  const { auth } = useFirebase()
   const [email, setEmail] = React.useState()
   const [messageSentOpen, setMessageSentOpen] = React.useState(false)
   const [messageEmailErrorOpen, setMessageEmailErrorOpen] = React.useState(false)

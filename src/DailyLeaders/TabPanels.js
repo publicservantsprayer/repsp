@@ -58,7 +58,7 @@ export default ({ tabIndex, post }) => {
           <Box p={1}>
             <Divider />
             <Box pt={3} pb={1}>
-              <P>We will send you one Email each morning with three legislators from {stateName} to pray for.</P>
+              <P>We will send you one email each morning with three legislators from {stateName} to pray for.</P>
             </Box>
           </Box>
           <EmailSignIn
@@ -66,7 +66,7 @@ export default ({ tabIndex, post }) => {
             sentMessage="We sent you a confirmation link.  Check your email now and click the link to confirm."
             errorMessage="Error sending you a confirmation link.  Please try again." />
           <Box px={1} py={3}>
-            <P2>(We won't spam you. You can however, use this your Email to sign into the website and change your Mailing List settings.)</P2>
+            <P2>(We won't spam you. You can, however, use your email to sign into the website and change your Mailing List settings.)</P2>
           </Box>
         </Box>
       </Paper>

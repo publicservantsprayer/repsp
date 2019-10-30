@@ -8,7 +8,7 @@ import EmailSignIn from './EmailSignIn'
 
 export default () => {
   const buttonText = "Send me an email link"
-  const sentMessage = "A message with a sign in link has been sent to {email}.  Check your email and sign in with that link now."
+  const sentMessage = "A message with a sign in link has been sent.  Check your email and sign in with that link now."
   const errorMessage = "There was an error sending you an email.  Please try again."
 
   return (
