@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { useUser, useAdmin } from '../firebase'
 import Box from '@material-ui/core/Box'
 import Toolbar from '@material-ui/core/Toolbar'
 import Drawer from '@material-ui/core/Drawer'
@@ -18,11 +17,13 @@ import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
-import useHomePath from '../utilities/useHomePath'
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
+
+import { useUser, useAdmin } from '../firebase'
 import MobileOnly from '../MobileOnly'
+import useHomePath from '../utilities/useHomePath'
 
 const ListItem = ({ Icon, text, to }) => {
   const location = useLocation()
@@ -56,7 +57,11 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
       <List>
         <MobileOnly>
           <ListItem text="Home" Icon={HomeIcon} to={homePath} />
-          <ListItem text="Find Your State" Icon={MapIcon} to="/find-your-state" />
+          <ListItem
+            text="Find Your State"
+            Icon={MapIcon}
+            to="/find-your-state"
+          />
           <ListItem text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
           <ListItem text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
 
@@ -66,12 +71,24 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         <ListItem text="Articles" Icon={DashboardIcon} to="/articles" />
         <ListItem text="Events" Icon={EventIcon} to="/events" />
         <ListItem text="Matt's Updates" Icon={PostAddIcon} to="/updates" />
-        <ListItem text="Women's Ministry" Icon={FilterVintageIcon} to="/women" />
+        <ListItem
+          text="Women's Ministry"
+          Icon={FilterVintageIcon}
+          to="/women"
+        />
 
         <Divider />
 
-        <ListItem text="Give/Volunteer" Icon={SupervisedUserCircleIcon} to="/give" />
-        <ListItem text="Our Partners" Icon={NaturePeopleIcon} to="/our-partners" />
+        <ListItem
+          text="Give/Volunteer"
+          Icon={SupervisedUserCircleIcon}
+          to="/give"
+        />
+        <ListItem
+          text="Our Partners"
+          Icon={NaturePeopleIcon}
+          to="/our-partners"
+        />
 
         <Divider />
 
@@ -85,7 +102,11 @@ export default ({ drawerOpen, toggleDrawer, stateCode }) => {
         {admin && (
           <>
             <ListItem text="Content" Icon={DashboardIcon} to="/content" />
-            <ListItem text="Twitter Accounts" Icon={TwitterIcon} to="/twitter-accounts" />
+            <ListItem
+              text="Twitter Accounts"
+              Icon={TwitterIcon}
+              to="/twitter-accounts"
+            />
           </>
         )}
       </List>

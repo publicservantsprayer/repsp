@@ -13,6 +13,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import moment from 'moment'
+
 import WikiPageSummary from './WikiPageSummary'
 import useSiteStyles from '../utilities/useStyles'
 import Container from '../Container'
@@ -52,7 +53,12 @@ const Button = ({ children, href, icon }) => {
   const StartIcon = icon
   return (
     <Box m={1}>
-      <MuiButton variant="contained" color="primary" href={href} startIcon={<StartIcon />}>
+      <MuiButton
+        variant="contained"
+        color="primary"
+        href={href}
+        startIcon={<StartIcon />}
+      >
         {children}
       </MuiButton>
     </Box>
@@ -72,19 +78,35 @@ const Leader = ({ leader }) => {
       <Container maxWidth="sm">
         <Box px={2} pt={paddingTop} pb={paddingBottom}>
           <Paper>
-            <Box py={1} mb={2} bgcolor="primary.dark" color="secondary.main" className={classes.topBorderRadius}>
-              <Typography variant="overline">
-                {leader.Title}
-              </Typography>
+            <Box
+              py={1}
+              mb={2}
+              bgcolor="primary.dark"
+              color="secondary.main"
+              className={classes.topBorderRadius}
+            >
+              <Typography variant="overline">{leader.Title}</Typography>
               <Typography variant="h3" component="h1" gutterBottom>
                 {leader.NickName} {leader.LastName}
               </Typography>
             </Box>
 
             <Box display="flex" justifyContent="center">
-              <Box m={2} py={2} px={3} border={0} bgcolor="text.primary" borderColor="text.secondary" borderRadius={2}>
+              <Box
+                m={2}
+                py={2}
+                px={3}
+                border={0}
+                bgcolor="text.primary"
+                borderColor="text.secondary"
+                borderRadius={2}
+              >
                 {leader.StateCode && (
-                  <img src={leaderPhoto(leader)} alt={name} className={classes.borderRadius} />
+                  <img
+                    src={leaderPhoto(leader)}
+                    alt={name}
+                    className={classes.borderRadius}
+                  />
                 )}
               </Box>
             </Box>
@@ -98,7 +120,7 @@ const Leader = ({ leader }) => {
 
           <Box>
             <Paper>
-              <Box p={2} >
+              <Box p={2}>
                 <Table size="small">
                   <TableBody>
                     <Row field="District:" value={leader.District} />
@@ -117,9 +139,15 @@ const Leader = ({ leader }) => {
           <Box m={2} />
 
           <Box pb={paddingBottom} display="flex" justifyContent="space-around">
-            <Button href={leader.Website} icon={WebIcon}>Website</Button>
-            <Button href={leader.Facebook} icon={FacebookIcon}>Facebook</Button>
-            <Button href={leader.Twitter} icon={TwitterIcon}>Twitter</Button>
+            <Button href={leader.Website} icon={WebIcon}>
+              Website
+            </Button>
+            <Button href={leader.Facebook} icon={FacebookIcon}>
+              Facebook
+            </Button>
+            <Button href={leader.Twitter} icon={TwitterIcon}>
+              Twitter
+            </Button>
           </Box>
         </Box>
       </Container>
