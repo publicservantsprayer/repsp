@@ -1,8 +1,7 @@
 import React from 'react'
-
 import TextField from '@material-ui/core/TextField'
 
-export default ({ onChange, disabled }) =>
+export default ({ onChange, disabled }) => (
   <TextField
     id="outlined-email-input"
     label="Email"
@@ -15,3 +14,4 @@ export default ({ onChange, disabled }) =>
     disabled={disabled}
     fullWidth
   />
+)

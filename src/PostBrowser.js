@@ -4,16 +4,15 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
+
 import { useFirebase } from './firebase'
 import useUSAState from './utilities/useUSAState'
 
-const TabPanel = ({ children, value, index }) =>
-  <Typography
-    component="div"
-    role="tabpanel"
-    hidden={value !== index}>
+const TabPanel = ({ children, value, index }) => (
+  <Typography component="div" role="tabpanel" hidden={value !== index}>
     <Box p={3}>{children}</Box>
   </Typography>
+)
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   postImage: {
     width: '100%',
-  }
+  },
 }))
 
 export default () => {
@@ -35,16 +34,20 @@ export default () => {
   const { stateCode } = useUSAState()
   const { db } = useFirebase()
   const classes = useStyles()
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(0)
 
-  function handleChange (event, newValue) {
-    setValue(newValue);
+  function handleChange(event, newValue) {
+    setValue(newValue)
   }
 
   useEffect(() => {
     if (stateCode) {
-      (async () => {
-        const snap = await db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(14).get()
+      ;(async () => {
+        const snap = await db
+          .collection(`/states/${stateCode}/posts/`)
+          .orderBy('dateID', 'desc')
+          .limit(14)
+          .get()
         console.log('getting leader data')
         setPosts(snap.docs.map(post => post.data()))
       })()
@@ -55,29 +58,34 @@ export default () => {
 
   const src = post => {
     const [year, month, day] = post.dateID.split('-')
-    return `https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/` +
+    return (
+      `https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/` +
       `${year}%2F${month}%2F${day}%2F${post.dateID}_psp_${stateCode}.png?alt=media`
+    )
   }
 
-  return (<>
-    <h2>Posts from the past two weeks</h2>
-    <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        className={classes.tabs}
-      >
-        {posts.map((post, i) => <Tab key={i} label={post.dateID} />)}
-      </Tabs>
-      {posts.map((post, i) => {
-        return (
-          <TabPanel value={value} index={i} key={i}>
-            <img className={classes.postImage} src={src(post)} alt="whatever" />
-          </TabPanel>
-        )
-      })}
-    </div>
-  </>)
+  return (
+    <>
+      <h2>Posts from the past two weeks</h2>
+      <div className={classes.root}>
+        <Tabs
+          orientation="vertical"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          className={classes.tabs}>
+          {posts.map((post, i) => (
+            <Tab key={i} label={post.dateID} />
+          ))}
+        </Tabs>
+        {posts.map((post, i) => {
+          return (
+            <TabPanel value={value} index={i} key={i}>
+              <img className={classes.postImage} src={src(post)} alt="whatever" />
+            </TabPanel>
+          )
+        })}
+      </div>
+    </>
+  )
 }

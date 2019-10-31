@@ -2,6 +2,7 @@ import React from 'react'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
+
 import { useFirebase } from '../firebase'
 
 const ImageCode = ({ image }) => {
@@ -26,8 +27,7 @@ const ImageCode = ({ image }) => {
         border={1}
         fontSize={10}
         fontFamily="Monospace"
-        overflow="hidden"
-      >
+        overflow="hidden">
         <code>
           <pre>{'![Alt text](' + src + ' "Optional Title")'}</pre>
         </code>

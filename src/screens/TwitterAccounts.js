@@ -2,13 +2,19 @@ import React from 'react'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
-import { H1, H2 } from '../utilities/formating'
-import useUSAState from '../utilities/useUSAState'
-import TwitterTimeline from '../TwitterTimeline'
-import { useHttpsCallable, useStateTwitterAccounts, useOtherTwitterAccounts, useHttpsCallableFunction } from '../firebase'
 import { useParams, useLocation, useHistory } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
 import 'array-foreach-async'
+
+import { H1, H2 } from '../utilities/formating'
+import useUSAState from '../utilities/useUSAState'
+import TwitterTimeline from '../TwitterTimeline'
+import {
+  useHttpsCallable,
+  useStateTwitterAccounts,
+  useOtherTwitterAccounts,
+  useHttpsCallableFunction,
+} from '../firebase'
 import Screen from '../Screen'
 
 const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {
@@ -22,7 +28,9 @@ const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {
   if (!result && !error) enqueueSnackbar('Finalizing authorization...', { variant: 'info' })
 
   if (result && result.data) {
-    enqueueSnackbar(`Authorized ${result.data.accountName}!`, { variant: 'success' })
+    enqueueSnackbar(`Authorized ${result.data.accountName}!`, {
+      variant: 'success',
+    })
     history.push(`/twitter-accounts/${result.data.accountName}`)
   }
 
@@ -35,7 +43,7 @@ const AuthorizeResult = ({ accountName }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [result, error] = useHttpsCallable('twitterAuthorize', {
     accountName: accountName,
-    callbackUrl: `${window.location.origin}/twitter-accounts`
+    callbackUrl: `${window.location.origin}/twitter-accounts`,
   })
 
   if (!result && !error) enqueueSnackbar('Starting authorization...', { variant: 'info' })
@@ -49,28 +57,26 @@ const AuthorizeResult = ({ accountName }) => {
     enqueueSnackbar(`Unable to start authorization!`, { variant: 'error' })
   }
 
-  return (
-    <Box>
-      {error && <p>Unable to complete authorization</p>}
-    </Box>
-  )
+  return <Box>{error && <p>Unable to complete authorization</p>}</Box>
 }
 
 const Retweets = ({ accountName }) => {
   const { enqueueSnackbar } = useSnackbar()
   const [result, error] = useHttpsCallable('twitterRetweets', {
-    accountName: accountName
+    accountName: accountName,
   })
 
   if (result && result.data) {
     return (
       <Box>
         Last 5 retweeted posts:
-        {result.data.map(tweet => <Box key={tweet.created_at}>
-          <hr />
-          <p>{tweet.created_at}</p>
-          <p>{tweet.text}</p>
-        </Box>)}
+        {result.data.map(tweet => (
+          <Box key={tweet.created_at}>
+            <hr />
+            <p>{tweet.created_at}</p>
+            <p>{tweet.text}</p>
+          </Box>
+        ))}
       </Box>
     )
   }
@@ -89,13 +95,19 @@ const TwitterAccount = ({ account }) => {
   return (
     <Box p={1}>
       <Box m={1}>
-        <Button variant="outlined" onClick={() => setShowTimeline(!showTimeline)}>Timeline</Button>
+        <Button variant="outlined" onClick={() => setShowTimeline(!showTimeline)}>
+          Timeline
+        </Button>
       </Box>
       <Box m={1}>
-        <Button variant="outlined" onClick={() => setShowRetweets(!showRetweets)}>Retweets</Button>
+        <Button variant="outlined" onClick={() => setShowRetweets(!showRetweets)}>
+          Retweets
+        </Button>
       </Box>
       <Box m={1}>
-        <Button variant="outlined" onClick={() => setAuthorize(true)}>Authorize</Button>
+        <Button variant="outlined" onClick={() => setAuthorize(true)}>
+          Authorize
+        </Button>
       </Box>
 
       {showRetweets && <Retweets accountName={account.accountName} />}
@@ -122,13 +134,17 @@ const TwitterAccountHeader = ({ account }) => {
       <Paper>
         <Box padding={1} display="flex" width="100%">
           <Box p={0}>
-            <Button variant="outlined" onClick={handleToggleShowAccount}>{account.accountName}</Button>
+            <Button variant="outlined" onClick={handleToggleShowAccount}>
+              {account.accountName}
+            </Button>
           </Box>
           <Box p={1} flexGrow={1}>
             {account.stateAccount && stateNameFromStateCode(account.stateCode)}
           </Box>
           <Box p={0}>
-            {account.credentials && <img src={account.credentials.profile_image_url_https} alt="Twitter profile" />}
+            {account.credentials && (
+              <img src={account.credentials.profile_image_url_https} alt="Twitter profile" />
+            )}
           </Box>
         </Box>
         {showAccount && <TwitterAccount account={account} />}
@@ -175,7 +191,14 @@ const CheckForLocked = () => {
   return (
     <Box>
       {currentlyChecking && <Box m={1}>Checking: {currentlyChecking}</Box>}
-      {accountsLocked.length > 0 && <Box m={1}>Currently locked: {accountsLocked.map(accountName => <Box key={accountName}>{accountName}</Box>)}</Box>}
+      {accountsLocked.length > 0 && (
+        <Box m={1}>
+          Currently locked:{' '}
+          {accountsLocked.map(accountName => (
+            <Box key={accountName}>{accountName}</Box>
+          ))}
+        </Box>
+      )}
       {complete && <Box m={1}>Checked all accounts.</Box>}
     </Box>
   )
@@ -195,20 +218,24 @@ export default () => {
         {tempOauthToken && <TwitterAccessToken {...tempOauthToken} />}
 
         <Box p={0}>
-          <Button variant="outlined" onClick={() => setShowCheckForLocked(!showCheckForLocked)}>Check for locked accounts</Button>
+          <Button variant="outlined" onClick={() => setShowCheckForLocked(!showCheckForLocked)}>
+            Check for locked accounts
+          </Button>
         </Box>
 
         {showCheckForLocked && <CheckForLocked />}
 
         <H2>Non-state Accounts</H2>
-        {otherTwitterAccounts && otherTwitterAccounts.map(account => {
-          return <TwitterAccountHeader account={account} key={account.accountName} />
-        })}
+        {otherTwitterAccounts &&
+          otherTwitterAccounts.map(account => {
+            return <TwitterAccountHeader account={account} key={account.accountName} />
+          })}
 
         <H2>State Accounts</H2>
-        {stateTwitterAccounts && stateTwitterAccounts.map(account => {
-          return <TwitterAccountHeader account={account} key={account.accountName} />
-        })}
+        {stateTwitterAccounts &&
+          stateTwitterAccounts.map(account => {
+            return <TwitterAccountHeader account={account} key={account.accountName} />
+          })}
       </Box>
     </Screen>
   )

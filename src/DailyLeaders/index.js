@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { useParams } from 'react-router-dom'
+
 import useUSAState from '../utilities/useUSAState'
 import { useHistoricalPost, useLatestPost } from '../firebase'
 import MobileOnly from '../MobileOnly'
@@ -39,7 +40,7 @@ const DailyLeaders = ({ post }) => {
           </Box>
         </Box>
       </DesktopOnly>
-    </Box >
+    </Box>
   )
 }
 

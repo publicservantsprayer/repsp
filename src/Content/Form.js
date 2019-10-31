@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
+
 import { H1 } from '../utilities/formating'
 import Markdown from '../Markdown'
 import { useFirebase } from '../firebase'
@@ -71,17 +72,8 @@ export default ({ docValues, isNew }) => {
         <Paper>
           <Container>
             <form noValidate autoComplete="off">
-              <TextField
-                field="docId"
-                label="Unique ID"
-                disabled={!isNew}
-                {...commonFieldProps}
-              />
-              <SelectField
-                field="category"
-                label="Category"
-                {...commonFieldProps}
-              >
+              <TextField field="docId" label="Unique ID" disabled={!isNew} {...commonFieldProps} />
+              <SelectField field="category" label="Category" {...commonFieldProps}>
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
@@ -93,20 +85,8 @@ export default ({ docValues, isNew }) => {
               <DatePicker value={selectedDate} onChange={handleDateChange} />
 
               <TextField field="title" label="Title" {...commonFieldProps} />
-              {!isNew && (
-                <TextField
-                  field="cardImage"
-                  label="Card Image"
-                  {...commonFieldProps}
-                />
-              )}
-              <TextField
-                field="blurb"
-                label="Blurb"
-                multiline
-                rows={2}
-                {...commonFieldProps}
-              />
+              {!isNew && <TextField field="cardImage" label="Card Image" {...commonFieldProps} />}
+              <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
               <TextField
                 field="content"
                 label="Content"
@@ -122,16 +102,14 @@ export default ({ docValues, isNew }) => {
                   variant="contained"
                   color="primary"
                   className={classes.button}
-                  onClick={handleCancel}
-                >
+                  onClick={handleCancel}>
                   Cancel
                 </Button>
                 <Button
                   variant="contained"
                   color="secondary"
                   className={classes.button}
-                  onClick={handleSave}
-                >
+                  onClick={handleSave}>
                   Save
                 </Button>
                 {!isNew && <DeleteButton docValues={docValues} />}

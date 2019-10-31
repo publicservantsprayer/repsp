@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
+
 import useDesktop from '../utilities/useDesktop'
 
 export default ({ children, centered }) => {
@@ -11,7 +12,11 @@ export default ({ children, centered }) => {
 
   return (
     <Box display="flex" justifyContent={justify}>
-      <Box><Typography variant={variant} component="h1">{children}</Typography></Box>
+      <Box>
+        <Typography variant={variant} component="h1">
+          {children}
+        </Typography>
+      </Box>
     </Box>
   )
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { useParams } from 'react-router-dom'
+
 import Screen from '../Screen'
 import Leader from '../Leader'
 import { useFirebase } from '../firebase'
-import { useParams } from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -20,7 +21,7 @@ export default () => {
   const classes = useStyles()
 
   React.useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       const snapshot = await db
         .collectionGroup('leaders')
         .where('permaLink', '==', params.id)

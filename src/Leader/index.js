@@ -1,8 +1,6 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import { leaderPhoto } from '../utilities/leader'
 import Typography from '@material-ui/core/Typography'
-import LeaderContainer from './Container'
 import MuiButton from '@material-ui/core/Button'
 import WebIcon from '@material-ui/icons/Web'
 import FacebookIcon from '@material-ui/icons/Facebook'
@@ -18,6 +16,8 @@ import WikiPageSummary from './WikiPageSummary'
 import useSiteStyles from '../utilities/useStyles'
 import Container from '../Container'
 import useMobile from '../utilities/useMobile'
+import { leaderPhoto } from '../utilities/leader'
+import LeaderContainer from './Container'
 
 const birthday = leader => {
   const month = leader.BirthDate
@@ -53,12 +53,7 @@ const Button = ({ children, href, icon }) => {
   const StartIcon = icon
   return (
     <Box m={1}>
-      <MuiButton
-        variant="contained"
-        color="primary"
-        href={href}
-        startIcon={<StartIcon />}
-      >
+      <MuiButton variant="contained" color="primary" href={href} startIcon={<StartIcon />}>
         {children}
       </MuiButton>
     </Box>
@@ -83,8 +78,7 @@ const Leader = ({ leader }) => {
               mb={2}
               bgcolor="primary.dark"
               color="secondary.main"
-              className={classes.topBorderRadius}
-            >
+              className={classes.topBorderRadius}>
               <Typography variant="overline">{leader.Title}</Typography>
               <Typography variant="h3" component="h1" gutterBottom>
                 {leader.NickName} {leader.LastName}
@@ -99,14 +93,9 @@ const Leader = ({ leader }) => {
                 border={0}
                 bgcolor="text.primary"
                 borderColor="text.secondary"
-                borderRadius={2}
-              >
+                borderRadius={2}>
                 {leader.StateCode && (
-                  <img
-                    src={leaderPhoto(leader)}
-                    alt={name}
-                    className={classes.borderRadius}
-                  />
+                  <img src={leaderPhoto(leader)} alt={name} className={classes.borderRadius} />
                 )}
               </Box>
             </Box>

@@ -9,6 +9,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
 import svgPanZoom from 'svg-pan-zoom'
+
 import statePaths from './statePaths'
 import theme from '../utilities/theme'
 import panZoomEventsHandler from './panZoomEventsHandler'
@@ -43,7 +44,7 @@ const useStyles = makeStyles({
     cursor: 'pointer',
     strokeWidth: 0,
     opacity: 1,
-  }
+  },
 })
 
 const addAllEvents = (stateCode, setStyle) => {
@@ -77,7 +78,10 @@ const springConfig = { mass: 1, tension: 170, friction: 26 }
 
 const SVGMapPath = withRouter(({ stateCode, history }) => {
   const classes = useStyles()
-  const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
+  const [style, setStyle] = useSpring(() => ({
+    fill: stateColor,
+    config: springConfig,
+  }))
   const className = `${classes.path} map-path-${stateCode}`
   const d = statePaths[stateCode].d
 
@@ -96,7 +100,10 @@ const SVGMapRect = withRouter(({ stateCode, history }) => {
   const x = statePaths[stateCode].rectX
   const y = statePaths[stateCode].rectY
   const transform = statePaths[stateCode].rectTransform
-  const [style, setStyle] = useSpring(() => ({ fill: stateColor, config: springConfig }))
+  const [style, setStyle] = useSpring(() => ({
+    fill: stateColor,
+    config: springConfig,
+  }))
 
   React.useEffect(() => {
     const mapRect = document.querySelector(`.map-rect-${stateCode}`)
@@ -106,9 +113,20 @@ const SVGMapRect = withRouter(({ stateCode, history }) => {
 
   if (!statePaths[stateCode].hasLabel) return null
 
-  return <animated.rect
-    width="45" height="28" r="6" rx="6" ry="6"
-    className={className} x={x} y={y} style={style} transform={transform} />
+  return (
+    <animated.rect
+      width="45"
+      height="28"
+      r="6"
+      rx="6"
+      ry="6"
+      className={className}
+      x={x}
+      y={y}
+      style={style}
+      transform={transform}
+    />
+  )
 })
 
 const SVGMapText = withRouter(({ stateCode, history }) => {
@@ -144,7 +162,7 @@ export default () => {
     })
   })
 
-  const moveMap = () => { }
+  const moveMap = () => {}
 
   return (
     <Container maxWidth="md">
@@ -159,13 +177,25 @@ export default () => {
         </ButtonGroup>
       </Box>
       <div style={{ height: '500px' }}>
-        <animated.svg version="1.1" xmlns="http://www.w3.org/2000/svg" height="100%" width="100%"
-          viewBox="-14 -7 700 431.2" preserveAspectRatio="xMinYMin" id="map">
-          {stateCodes.map(stateCode => <SVGMapPath stateCode={stateCode} key={stateCode} />)}
-          {stateCodes.map(stateCode => <SVGMapRect stateCode={stateCode} key={stateCode} />)}
-          {stateCodes.map(stateCode => <SVGMapText stateCode={stateCode} key={stateCode} />)}
+        <animated.svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          height="100%"
+          width="100%"
+          viewBox="-14 -7 700 431.2"
+          preserveAspectRatio="xMinYMin"
+          id="map">
+          {stateCodes.map(stateCode => (
+            <SVGMapPath stateCode={stateCode} key={stateCode} />
+          ))}
+          {stateCodes.map(stateCode => (
+            <SVGMapRect stateCode={stateCode} key={stateCode} />
+          ))}
+          {stateCodes.map(stateCode => (
+            <SVGMapText stateCode={stateCode} key={stateCode} />
+          ))}
         </animated.svg>
       </div>
-    </Container >
+    </Container>
   )
 }

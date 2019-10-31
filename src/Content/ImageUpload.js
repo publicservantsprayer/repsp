@@ -1,12 +1,11 @@
-import React from "react"
+import React from 'react'
 import shortid from 'shortid'
 import slugify from 'slugify'
-import { FilePond, registerPlugin } from "react-filepond"
-import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation"
-import FilePondPluginImagePreview from "filepond-plugin-image-preview"
-
-import "filepond/dist/filepond.min.css"
-import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+import { FilePond, registerPlugin } from 'react-filepond'
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
+import 'filepond/dist/filepond.min.css'
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 
 import { useFirebase } from '../firebase'
 
@@ -24,9 +23,11 @@ export default ({ content }) => {
 
   const saveContent = async images => {
     try {
-      await db.collection('content').doc(content.docId).set(content)
-    }
-    catch (error) {
+      await db
+        .collection('content')
+        .doc(content.docId)
+        .set(content)
+    } catch (error) {
       console.log('Error writing to db: ', error)
     }
   }
@@ -34,8 +35,7 @@ export default ({ content }) => {
   const deleteFile = async name => {
     try {
       await storageRef.child('content/' + name).delete()
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Error deleting file: ', name)
     }
   }
@@ -80,11 +80,13 @@ export default ({ content }) => {
 
   const loadImageIntoFilePond = (imageName, load, error, progress, abort) => {
     progress(true, 0, 1024)
-    storageRef.child('content/' + imageName).getDownloadURL()
+    storageRef
+      .child('content/' + imageName)
+      .getDownloadURL()
       .then(url => {
         let xhr = new XMLHttpRequest()
         xhr.responseType = 'blob'
-        xhr.onload = function (event) {
+        xhr.onload = function(event) {
           let blob = xhr.response
           load(blob)
         }
@@ -108,6 +110,7 @@ export default ({ content }) => {
       allowMultiple={true}
       maxFiles={144}
       onupdatefiles={onupdatefiles}
-      server={serverConfig} />
+      server={serverConfig}
+    />
   )
 }

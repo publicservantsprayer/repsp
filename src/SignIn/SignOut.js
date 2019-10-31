@@ -1,9 +1,10 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
+import Box from '@material-ui/core/Box'
+
 import useHomePath from '../utilities/useHomePath'
 import { useFirebase, useUser } from '../firebase'
 import { H1 } from '../utilities/formating'
-import Box from '@material-ui/core/Box'
 
 export default () => {
   const homePath = useHomePath()
@@ -15,7 +16,11 @@ export default () => {
   })
 
   if (user || initializing) {
-    return <Box m={3}><H1>Signing you out...</H1></Box>
+    return (
+      <Box m={3}>
+        <H1>Signing you out...</H1>
+      </Box>
+    )
   } else {
     return <Redirect to={homePath} />
   }

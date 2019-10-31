@@ -1,8 +1,9 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
+import Link from '@material-ui/core/Link'
+
 import useUSAState from '../utilities/useUSAState'
 import stateFacts from '../utilities/stateFacts'
-import Link from '@material-ui/core/Link'
 
 const FactLI = ({ fact, children }) => {
   const { stateCode } = useUSAState()

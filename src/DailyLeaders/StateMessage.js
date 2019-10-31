@@ -1,12 +1,13 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import useUSAState from '../utilities/useUSAState'
 import { Typography, Divider } from '@material-ui/core'
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom'
+
+import useUSAState from '../utilities/useUSAState'
 import MobileOnly from '../MobileOnly'
 import DesktopOnly from '../DesktopOnly'
-import { Link as RouterLink } from 'react-router-dom'
-import Link from '@material-ui/core/Link'
 
 const P = ({ children }) => (
   <Box mx={1} my={2}>
@@ -40,8 +41,7 @@ export default ({ setTabIndex }) => {
         <Divider />
       </Box>
       <P>
-        Every day we pray for three {stateName} legislators on both the state
-        and federal level.
+        Every day we pray for three {stateName} legislators on both the state and federal level.
       </P>
 
       <P>To help facilitate this movement, we send a post out each morning.</P>
@@ -61,8 +61,8 @@ export default ({ setTabIndex }) => {
       </P>
 
       <P>
-        You can join thousands in every state who are praying for their specific
-        state leaders each day.
+        You can join thousands in every state who are praying for their specific state leaders each
+        day.
       </P>
     </>
   )

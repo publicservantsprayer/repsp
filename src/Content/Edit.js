@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
+
 import { useContentItem } from '../firebase'
 import Form from './Form'
 import { H1 } from '../utilities/formating'

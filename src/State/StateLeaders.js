@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { Link as RouterLink } from 'react-router-dom'
 import Link from '@material-ui/core/Link'
 import Container from '@material-ui/core/Container'
+import { Paper } from '@material-ui/core'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import useUSAState from '../utilities/useUSAState'
@@ -18,7 +19,6 @@ import StateBlurb from './StateBlurb'
 import StateCapitalPic from './StateCapitalPic'
 import StateFacts from './StateFacts'
 import useDesktop from '../utilities/useDesktop'
-import { Paper } from '@material-ui/core'
 
 const useStyles = makeStyles({
   xroot: {
@@ -73,11 +73,7 @@ export default () => {
   const TabPanel = ({ leaders, currentTab, index }) => {
     return (
       <>
-        <Typography
-          component="div"
-          role="tabpanel"
-          hidden={currentTab !== index}
-        >
+        <Typography component="div" role="tabpanel" hidden={currentTab !== index}>
           <Box display="flex" flexWrap="wrap" justifyContent="center">
             {leaders.map(leader => (
               <Box key={leader.PID} m={1}>
@@ -107,13 +103,12 @@ export default () => {
 
   React.useEffect(() => {
     const getLeaders = async () => {
-      const leaderRef = db.collection('states').doc(stateCode).collection('leaders').where('hasPhoto', '==', true)
-      const [
-        fedSenateSnap,
-        fedHouseSnap,
-        stateSenateSnap,
-        stateHouseSnap,
-      ] = await Promise.all([
+      const leaderRef = db
+        .collection('states')
+        .doc(stateCode)
+        .collection('leaders')
+        .where('hasPhoto', '==', true)
+      const [fedSenateSnap, fedHouseSnap, stateSenateSnap, stateHouseSnap] = await Promise.all([
         leaderRef
           .where('LegType', '==', 'FL')
           .where('Chamber', '==', 'S')
@@ -148,29 +143,30 @@ export default () => {
   if (!stateSenate) return null
   if (!stateHouse) return null
 
-  return (<>
-    <AppBar position="static">
-      <Tabs
-        value={currentTab}
-        onChange={handleChange}
-        indicatorColor="secondary"
-        textColor="secondary"
-        variant={tabsVariant}
-        centered
-      >
-        <Tab label="Federal Senate" />
-        <Tab label="Federal House" />
-        <Tab label="State Senate" />
-        <Tab label="State House" />
-      </Tabs>
-    </AppBar>
-    <Legislators>
-      <Box mt={1} mb={12}>
-        <TabPanel currentTab={currentTab} index={0} leaders={fedSenate} />
-        <TabPanel currentTab={currentTab} index={1} leaders={fedHouse} />
-        <TabPanel currentTab={currentTab} index={2} leaders={stateSenate} />
-        <TabPanel currentTab={currentTab} index={3} leaders={stateHouse} />
-      </Box>
-    </Legislators>
-  </>)
+  return (
+    <>
+      <AppBar position="static">
+        <Tabs
+          value={currentTab}
+          onChange={handleChange}
+          indicatorColor="secondary"
+          textColor="secondary"
+          variant={tabsVariant}
+          centered>
+          <Tab label="Federal Senate" />
+          <Tab label="Federal House" />
+          <Tab label="State Senate" />
+          <Tab label="State House" />
+        </Tabs>
+      </AppBar>
+      <Legislators>
+        <Box mt={1} mb={12}>
+          <TabPanel currentTab={currentTab} index={0} leaders={fedSenate} />
+          <TabPanel currentTab={currentTab} index={1} leaders={fedHouse} />
+          <TabPanel currentTab={currentTab} index={2} leaders={stateSenate} />
+          <TabPanel currentTab={currentTab} index={3} leaders={stateHouse} />
+        </Box>
+      </Legislators>
+    </>
+  )
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Leader from './Leader'
 
 const Chamber = ({ title, leaders }) => {
@@ -7,12 +8,11 @@ const Chamber = ({ title, leaders }) => {
     <div>
       <h1>{title}</h1>
       <ul>
-        {leaders.map(leader =>
+        {leaders.map(leader => (
           <li key={leader.PID}>
-
             <Leader leader={leader} />
           </li>
-        )}
+        ))}
       </ul>
     </div>
   )

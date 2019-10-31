@@ -1,5 +1,6 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
+
 import useDesktop from './utilities/useDesktop'
 
 export default ({ children, maxWidth }) => {

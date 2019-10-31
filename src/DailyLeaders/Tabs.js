@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab'
 import EmailIcon from 'mdi-material-ui/Email'
 import FacebookIcon from 'mdi-material-ui/FacebookBox'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
+
 import useStyles from '../utilities/useStyles'
 import useMobile from '../utilities/useMobile'
 //import InstagramIcon from 'mdi-material-ui/Instagram'
@@ -18,7 +19,12 @@ export default ({ tabIndex, onChange, centered, fullWidth }) => {
 
   return (
     <AppBar position="static" color="primary" className={className}>
-      <Tabs value={tabIndex} onChange={onChange} variant={variant} centered={centered} textColor="secondary">
+      <Tabs
+        value={tabIndex}
+        onChange={onChange}
+        variant={variant}
+        centered={centered}
+        textColor="secondary">
         <Tab label="Today" />
         <Tab icon={<EmailIcon />} />
         <Tab icon={<FacebookIcon />} />

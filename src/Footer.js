@@ -13,16 +13,20 @@ export default () => {
           <Box p={2}>
             <Link color="inherit" component={RouterLink} to="/about">
               About
-          </Link>
+            </Link>
           </Box>
           <Box p={2}>
             <Link color="inherit" component={RouterLink} to="/privacy-policy">
-              <Typography variant="body2" noWrap>Privacy Policy</Typography>
+              <Typography variant="body2" noWrap>
+                Privacy Policy
+              </Typography>
             </Link>
           </Box>
           <Box p={2}>
             <Link color="inherit" component={RouterLink} to="/our-partners">
-              <Typography variant="body2" noWrap>Partners</Typography>
+              <Typography variant="body2" noWrap>
+                Partners
+              </Typography>
             </Link>
           </Box>
         </Box>

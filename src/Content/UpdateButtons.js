@@ -1,9 +1,10 @@
 import React from 'react'
 import EditIcon from '@material-ui/icons/Edit'
 import Button from '@material-ui/core/Button'
-import ImageUpload from './ImageUpload'
 import { useTheme } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
+
+import ImageUpload from './ImageUpload'
 
 export default ({ content }) => {
   const theme = useTheme()
@@ -31,8 +32,7 @@ export default ({ content }) => {
           style={{ marginRight: theme.spacing(1) }}
           variant="contained"
           color="primary"
-          onClick={handleEdit(content.docId)}
-        >
+          onClick={handleEdit(content.docId)}>
           <EditIcon />
           Edit
         </Button>
@@ -43,8 +43,7 @@ export default ({ content }) => {
           style={{ marginRight: theme.spacing(1) }}
           variant="contained"
           color="primary"
-          onClick={handleUpdateImages}
-        >
+          onClick={handleUpdateImages}>
           Update Images
         </Button>
       )}
@@ -54,8 +53,7 @@ export default ({ content }) => {
           style={{ marginRight: theme.spacing(1) }}
           variant="contained"
           color="secondary"
-          onClick={handleDoneUpdatingImages}
-        >
+          onClick={handleDoneUpdatingImages}>
           Done
         </Button>
       )}

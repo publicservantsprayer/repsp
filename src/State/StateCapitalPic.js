@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
-import useUSAState from '../utilities/useUSAState'
 import { makeStyles } from '@material-ui/core/styles'
 
+import useUSAState from '../utilities/useUSAState'
 
 const StateCapitalPic = () => {
   const { lowerCaseStateCode } = useUSAState()
@@ -13,7 +13,7 @@ const StateCapitalPic = () => {
       background: `url("${url}") top center no-repeat`,
       backgroundPositionY: '-0px',
       height: '300px',
-    }
+    },
   }))
   const classes = useStyles()
 

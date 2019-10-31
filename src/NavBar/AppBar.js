@@ -7,20 +7,21 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 import Box from '@material-ui/core/Box'
-import useUSAState from '../utilities/useUSAState'
 import { Typography } from '@material-ui/core'
-import MobileOnly from '../MobileOnly'
-import DesktopOnly from '../DesktopOnly'
 import HomeIcon from '@material-ui/icons/Home'
 import PeopleIcon from '@material-ui/icons/People'
 import MapIcon from '@material-ui/icons/Map'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import MoreIcon from '@material-ui/icons/MoreVert'
 
+import MobileOnly from '../MobileOnly'
+import DesktopOnly from '../DesktopOnly'
+import useUSAState from '../utilities/useUSAState'
+
 const useStyles = makeStyles(theme => ({
   AppBar: {
     zIndex: theme.zIndex.drawer + 1000,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
   },
   header: {
     [theme.breakpoints.up('md')]: {
@@ -28,8 +29,7 @@ const useStyles = makeStyles(theme => ({
       backgroundPositionY: '-400px',
     },
     [theme.breakpoints.down('sm')]: {
-      background:
-        'url("/images/capitol-color-night-700.jpg") top left no-repeat',
+      background: 'url("/images/capitol-color-night-700.jpg") top left no-repeat',
       backgroundPositionY: '-100px',
     },
     backgroundAttachment: 'fixed',
@@ -47,7 +47,12 @@ const Item = ({ text, to, Icon }) => {
   const classes = useStyles()
 
   return (
-    <Button color="inherit" component={RouterLink} to={to} startIcon={<Icon />} className={classes.button}>
+    <Button
+      color="inherit"
+      component={RouterLink}
+      to={to}
+      startIcon={<Icon />}
+      className={classes.button}>
       {text}
     </Button>
   )
