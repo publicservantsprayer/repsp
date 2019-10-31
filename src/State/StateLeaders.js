@@ -77,7 +77,7 @@ export default () => {
           <Box display="flex" flexWrap="wrap" justifyContent="center">
             {leaders.map(leader => (
               <Box key={leader.PID} m={1}>
-                <Link component={RouterLink} to={leaderUrl(leader)}>
+                <Link component={RouterLink} to={leaderUrl(leader)} underline="hover">
                   <Paper>
                     <Box p={1}>
                       <Box minWidth="145px" display="flex" justifyContent="center">
@@ -144,7 +144,7 @@ export default () => {
   if (!stateHouse) return null
 
   return (
-    <>
+    <div id="state-legislators">
       <AppBar position="static">
         <Tabs
           value={currentTab}
@@ -167,6 +167,6 @@ export default () => {
           <TabPanel currentTab={currentTab} index={3} leaders={stateHouse} />
         </Box>
       </Legislators>
-    </>
+    </div>
   )
 }

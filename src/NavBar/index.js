@@ -72,7 +72,7 @@ const NavBar = () => {
   }
 
   return (
-    <Box>
+    <Box boxShadow={12}>
       <AppBar stateCode={stateCode} toggleDrawer={toggleDrawer} />
       <Toolbar />
 

@@ -11,19 +11,19 @@ export default () => {
       <Container maxWidth="sm">
         <Box display="flex" justifyContent="space-around">
           <Box p={2}>
-            <Link color="inherit" component={RouterLink} to="/about">
+            <Link color="inherit" component={RouterLink} to="/about" underline="hover">
               About
             </Link>
           </Box>
           <Box p={2}>
-            <Link color="inherit" component={RouterLink} to="/privacy-policy">
+            <Link color="inherit" component={RouterLink} to="/privacy-policy" underline="hover">
               <Typography variant="body2" noWrap>
                 Privacy Policy
               </Typography>
             </Link>
           </Box>
           <Box p={2}>
-            <Link color="inherit" component={RouterLink} to="/our-partners">
+            <Link color="inherit" component={RouterLink} to="/our-partners" underline="hover">
               <Typography variant="body2" noWrap>
                 Partners
               </Typography>

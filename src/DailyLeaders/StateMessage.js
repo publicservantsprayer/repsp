@@ -20,6 +20,11 @@ const P = ({ children }) => (
 export default ({ setTabIndex }) => {
   const { stateName } = useUSAState()
 
+  const scrollIntoView = () => {
+    const element = document.getElementById('state-legislators')
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <>
       <MobileOnly>
@@ -41,7 +46,11 @@ export default ({ setTabIndex }) => {
         <Divider />
       </Box>
       <P>
-        Every day we pray for three {stateName} legislators on both the state and federal level.
+        Every day we pray for three {stateName}{' '}
+        <Link onClick={scrollIntoView} component="button" variant="body1">
+          legislators
+        </Link>{' '}
+        on both the state and federal level.
       </P>
 
       <P>To help facilitate this movement, we send a post out each morning.</P>

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
 
 const styles = theme => ({
   listItem: {
@@ -15,6 +16,7 @@ const styles = theme => ({
 const Image = props => {
   return <img style={{ maxWidth: '100%', height: 'auto' }} alt="" {...props} />
 }
+
 const LinkButton = React.forwardRef(({ children, href, to, ...restOfProps }, ref) => {
   const component = href ? Link : RouterLink
 
@@ -29,10 +31,10 @@ const LinkButton = React.forwardRef(({ children, href, to, ...restOfProps }, ref
 
 const options = {
   overrides: {
-    h1: { component: Typography, props: { variant: 'h1', gutterBottom: true, } },
-    h2: { component: Typography, props: { variant: 'h2', gutterBottom: true, } },
-    h3: { component: Typography, props: { variant: 'h3', gutterBottom: true, } },
-    h4: { component: Typography, props: { variant: 'h4', gutterBottom: true, }, },
+    h1: { component: Typography, props: { variant: 'h1', gutterBottom: true } },
+    h2: { component: Typography, props: { variant: 'h2', gutterBottom: true } },
+    h3: { component: Typography, props: { variant: 'h3', gutterBottom: true } },
+    h4: { component: Typography, props: { variant: 'h4', gutterBottom: true } },
     h5: { component: Typography, props: { variant: 'subtitle1', gutterBottom: true } },
     h6: { component: Typography, props: { variant: 'subtitle2', gutterBottom: true } },
 
@@ -49,8 +51,9 @@ const options = {
     },
     Button: {
       component: LinkButton,
-      props: { variant: 'contained', color: 'primary' }
-    }
+      props: { variant: 'contained', color: 'primary' },
+    },
+    hr: { component: Divider },
   },
 }
 

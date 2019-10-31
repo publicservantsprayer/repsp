@@ -16,7 +16,7 @@ import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
-import Palette from './screens/Palette'
+import StyleGuide from './StyleGuide'
 import useUSAState from './utilities/useUSAState'
 import DesktopOnly from './DesktopOnly'
 
@@ -40,31 +40,50 @@ const App = () => {
         <Route exact path="/find-your-state" component={FindYourState} />
 
         {/* Content Collection */}
-        <Route exact path="/articles"><ContentCollection category="articles" /></Route>
-        <Route exact path="/events"><ContentCollection category="events" /></Route>
-
+        <Route exact path="/articles">
+          <ContentCollection category="articles" />
+        </Route>
+        <Route exact path="/events">
+          <ContentCollection category="events" />
+        </Route>
         <Route exact path="/updates" component={MattsUpdates} />
 
-        {/* Content Item */}
+        {/* Dynamic Content Items */}
         <Route exact path="/articles/:docId" component={ContentItem} />
         <Route exact path="/events/:docId" component={ContentItem} />
 
-        {/* Content Item */}
+        {/* Static Content Items */}
         <Route exact path="/what-we-do">
           <ContentItem docId="what-we-do">
-            <DesktopOnly><PostBrowser /></DesktopOnly>
+            <DesktopOnly>
+              <PostBrowser />
+            </DesktopOnly>
           </ContentItem>
         </Route>
-        <Route exact path="/why-we-pray"><ContentItem docId="why-we-pray" /></Route>
-        <Route exact path="/women"><ContentItem docId="womens-ministry" /></Route>
-        <Route exact path="/give"><ContentItem docId="give" /></Route>
-        <Route exact path="/donate"><ContentItem docId="give" /></Route>
-        <Route exact path="/our-partners"><ContentItem docId="our-partners" /></Route>
-        <Route exact path="/privacy-policy"><ContentItem docId="privacy-policy" /></Route>
-        <Route exact path="/about"><ContentItem docId="about" /></Route>
+        <Route exact path="/why-we-pray">
+          <ContentItem docId="why-we-pray" />
+        </Route>
+        <Route exact path="/women">
+          <ContentItem docId="womens-ministry" />
+        </Route>
+        <Route exact path="/give">
+          <ContentItem docId="give" />
+        </Route>
+        <Route exact path="/donate">
+          <ContentItem docId="give" />
+        </Route>
+        <Route exact path="/our-partners">
+          <ContentItem docId="our-partners" />
+        </Route>
+        <Route exact path="/privacy-policy">
+          <ContentItem docId="privacy-policy" />
+        </Route>
+        <Route exact path="/about">
+          <ContentItem docId="about" />
+        </Route>
 
         {/* Admin */}
-        <Route exact path="/palette" component={Palette} />
+        <Route exact path="/style-guide" component={StyleGuide} />
         <Route exact path="/content/edit/:docId" component={ContentEdit} />
         <Route exact path="/content/new" component={ContentNew} />
         <Route exact path="/content" component={Content} />

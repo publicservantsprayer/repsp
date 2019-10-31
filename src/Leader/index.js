@@ -112,6 +112,7 @@ const Leader = ({ leader }) => {
               <Box p={2}>
                 <Table size="small">
                   <TableBody>
+                    <Row field="Title:" value={leader.Title} />
                     <Row field="District:" value={leader.District} />
                     <Row field="In Office Since:" value={leader.ElectDate} />
                     <Row field="Religon:" value={leader.Religon} />
