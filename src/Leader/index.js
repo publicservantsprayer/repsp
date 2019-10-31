@@ -14,10 +14,9 @@ import moment from 'moment'
 
 import WikiPageSummary from './WikiPageSummary'
 import useSiteStyles from '../utilities/useStyles'
-import Container from '../Container'
+import DesktopContainer from '../DesktopContainer'
 import useMobile from '../utilities/useMobile'
 import { leaderPhoto } from '../utilities/leader'
-import LeaderContainer from './Container'
 
 const birthday = leader => {
   const month = leader.BirthDate
@@ -69,9 +68,9 @@ const Leader = ({ leader }) => {
   const paddingBottom = mobile ? 2 : 6
 
   return (
-    <LeaderContainer>
-      <Container maxWidth="sm">
-        <Box px={2} pt={paddingTop} pb={paddingBottom}>
+    <DesktopContainer maxWidth="md">
+      <Box bgcolor="common.black" px={2} pt={paddingTop} pb={paddingBottom}>
+        <DesktopContainer maxWidth="sm">
           <Paper>
             <Box
               py={1}
@@ -139,9 +138,9 @@ const Leader = ({ leader }) => {
               Twitter
             </Button>
           </Box>
-        </Box>
-      </Container>
-    </LeaderContainer>
+        </DesktopContainer>
+      </Box>
+    </DesktopContainer>
   )
 }
 

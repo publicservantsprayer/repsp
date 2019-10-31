@@ -1,9 +1,9 @@
 import React from 'react'
+import { Typography, Divider } from '@material-ui/core'
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@material-ui/core/Link'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
-import { Typography, Divider } from '@material-ui/core'
-import Link from '@material-ui/core/Link'
-import { Link as RouterLink } from 'react-router-dom'
 
 import useUSAState from '../utilities/useUSAState'
 import MobileOnly from '../MobileOnly'
@@ -22,7 +22,7 @@ export default ({ setTabIndex }) => {
 
   const scrollIntoView = () => {
     const element = document.getElementById('state-legislators')
-    element.scrollIntoView({ behavior: 'smooth' })
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (

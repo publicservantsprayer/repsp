@@ -5,14 +5,12 @@ import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
 import { useLocation, useParams } from 'react-router-dom'
 
-import useUSAState from '../utilities/useUSAState'
 import AppBar from './AppBar'
 import DrawerMenu from './DrawerMenu'
 import DailyLeaders from '../DailyLeaders'
-import MobileOnly from '../MobileOnly'
-import DesktopOnly from '../DesktopOnly'
 import useDesktop from '../utilities/useDesktop'
 import useHomePath from '../utilities/useHomePath'
+import useUSAState from '../utilities/useUSAState'
 
 const useStyles = makeStyles(theme => ({
   header: {

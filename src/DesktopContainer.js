@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container'
 
 import useDesktop from './utilities/useDesktop'
 
-export default ({ children, maxWidth }) => {
+export default function DesktopContainer({ children, maxWidth }) {
   const desktop = useDesktop()
 
   if (!desktop) return children

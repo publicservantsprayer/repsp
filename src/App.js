@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Home from './screens/Home'
-import StateLeaders from './State/StateLeaders'
 import Leader from './screens/Leader'
 import ContentItem from './screens/ContentItem'
 import FindYourState from './screens/FindYourState'
@@ -35,7 +34,6 @@ const App = () => {
         {/* States */}
         <Route exact path="/states/:stateCode" component={Home} />
         <Route exact path="/states/:stateCode/:year/:month/:day" component={Home} />
-        <Route exact path="/states/:stateCode/leaders" component={StateLeaders} />
         <Route exact path="/leader/:id" component={Leader} />
         <Route exact path="/find-your-state" component={FindYourState} />
 
