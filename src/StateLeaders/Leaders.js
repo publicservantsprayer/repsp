@@ -8,6 +8,7 @@ import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
+import { useStateLeaders } from '../firebase'
 
 const useStyles = makeStyles({
   avatar: {
@@ -17,8 +18,12 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Leaders({ leaders }) {
+export default function Leaders({ legType, chamber }) {
   const classes = useStyles()
+  const [leaders, loading] = useStateLeaders({ legType, chamber })
+
+  if (loading) return null
+
   return (
     <>
       {leaders.map(leader => (

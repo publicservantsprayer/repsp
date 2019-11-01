@@ -16,7 +16,7 @@ export const useFirebase = () => {
     auth: firebase.auth(),
     storage: firebase.storage(),
     storageRef: firebase.storage().ref(),
-    functions: firebase.functions()
+    functions: firebase.functions(),
   }
 }
 
@@ -40,9 +40,7 @@ export const useContentCollection = category => {
 export const useOtherTwitterAccounts = category => {
   const { db } = useFirebase()
   const [docs, loading, error] = useCollectionData(
-    db
-      .collection('twitterAccounts')
-      .where('stateAccount', '==', false),
+    db.collection('twitterAccounts').where('stateAccount', '==', false),
     {
       idField: 'accountName',
     }
@@ -70,10 +68,9 @@ export const useStateTwitterAccounts = category => {
 
 export const useContentItem = docId => {
   const { db } = useFirebase()
-  const [doc, loading, error] = useDocumentData(
-    db.collection('content').doc(docId),
-    { idField: 'docId' }
-  )
+  const [doc, loading, error] = useDocumentData(db.collection('content').doc(docId), {
+    idField: 'docId',
+  })
   if (error) console.log('Error getting content item: ', docId, error)
 
   return [doc, loading, error]
@@ -109,6 +106,23 @@ export const useLatestPost = () => {
   else return [false, loading, error]
 }
 
+export const useStateLeaders = ({ legType, chamber }) => {
+  const { db } = useFirebase()
+  const { stateCode } = useUSAState()
+
+  const [leaders, loading, error] = useCollectionData(
+    db
+      .collection(`/states/${stateCode}/leaders/`)
+      .where('hasPhoto', '==', true)
+      .where('LegType', '==', legType)
+      .where('Chamber', '==', chamber)
+  )
+
+  if (error) console.log('Error loading lastest post: ', error)
+
+  return [leaders, loading, error]
+}
+
 export const useUser = () => {
   const { auth } = useFirebase()
   const [user, loading, error] = useAuthState(auth)
@@ -123,10 +137,13 @@ export const useAdmin = () => {
 
   React.useEffect(() => {
     if (user) {
-      return db.collection('adminUsers').doc(user.uid).onSnapshot(adminUser => {
-        if (adminUser.exists) setAdmin(user)
-        else setAdmin(false)
-      })
+      return db
+        .collection('adminUsers')
+        .doc(user.uid)
+        .onSnapshot(adminUser => {
+          if (adminUser.exists) setAdmin(user)
+          else setAdmin(false)
+        })
     } else {
       setAdmin(false)
     }
@@ -158,7 +175,7 @@ export const useHttpsCallable = (functionName, data) => {
   return [result, error]
 }
 
-export const useHttpsCallableFunction = (functionName) => {
+export const useHttpsCallableFunction = functionName => {
   const { functions } = useFirebase()
   return functions.httpsCallable(functionName)
 }
