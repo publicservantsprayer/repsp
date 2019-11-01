@@ -10,7 +10,7 @@ import Tabs from './Tabs'
 import TabPanels from './TabPanels'
 import StateMessage from './StateMessage'
 
-const ActualDailyLeaders = ({ post }) => {
+const ActualDailyLeaders = ({ post, loading }) => {
   const [tabIndex, setTabIndex] = React.useState(0)
 
   const onChange = (event, newIndex) => setTabIndex(newIndex)
@@ -44,17 +44,25 @@ const ActualDailyLeaders = ({ post }) => {
   )
 }
 
+const fakePost = {
+  leader1: {},
+  leader2: {},
+  leader3: {},
+}
+
 const HistoricalDailyLeaders = () => {
   const { year, month, day } = useParams()
-  const [post] = useHistoricalPost(year, month, day)
+  let [post, loading] = useHistoricalPost(year, month, day)
+  post = loading ? fakePost : post
 
-  return post ? <ActualDailyLeaders post={post} /> : null
+  return <ActualDailyLeaders post={post} />
 }
 
 const LatestDailyLeaders = () => {
-  const [post] = useLatestPost()
+  let [post, loading] = useLatestPost()
+  post = loading ? fakePost : post
 
-  return post ? <ActualDailyLeaders post={post} /> : null
+  return <ActualDailyLeaders post={post} />
 }
 
 export default function DailyLeadersx() {

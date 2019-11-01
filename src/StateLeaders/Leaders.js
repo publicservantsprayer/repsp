@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box'
 import Avatar from '@material-ui/core/Avatar'
 import Link from '@material-ui/core/Link'
 import Paper from '@material-ui/core/Paper'
+import Skeleton from '@material-ui/lab/Skeleton'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
 import { useStateLeaders } from '../firebase'
@@ -18,11 +19,8 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Leaders({ legType, chamber }) {
+const ActualLeaders = ({ leaders }) => {
   const classes = useStyles()
-  const [leaders, loading] = useStateLeaders({ legType, chamber })
-
-  if (loading) return null
 
   return (
     <>
@@ -47,5 +45,38 @@ export default function Leaders({ legType, chamber }) {
         </Box>
       ))}
     </>
+  )
+}
+const FakeLeaders = ({ leaders, legType, chamber }) => {
+  const classes = useStyles()
+
+  return (
+    <>
+      {leaders.map((_, i) => (
+        <Box key={i} m={1}>
+          <Paper>
+            <Box p={1}>
+              <Box minWidth="145px" display="flex" justifyContent="center">
+                <Skeleton variant="circle" className={classes.avatar} />
+              </Box>
+              <Box display="flex" justifyContent="center">
+                <Skeleton width={100} height={6} style={{ margin: 8 }} />
+              </Box>
+            </Box>
+          </Paper>
+        </Box>
+      ))}
+    </>
+  )
+}
+
+export default function Leaders(props) {
+  const [leaders, loading] = useStateLeaders(props)
+  const fakeLeaders = new Array(10).fill({})
+
+  return loading ? (
+    <FakeLeaders leaders={fakeLeaders} {...props} />
+  ) : (
+    <ActualLeaders leaders={leaders} {...props} />
   )
 }
