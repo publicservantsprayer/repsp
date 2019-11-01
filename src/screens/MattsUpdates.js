@@ -54,7 +54,7 @@ const Post = ({ post }) => {
   )
 }
 
-export default () => {
+export default function MattsUpdates() {
   const [posts, loading] = useContentCollection('updates')
 
   return (

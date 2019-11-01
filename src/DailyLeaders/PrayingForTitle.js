@@ -3,7 +3,7 @@ import moment from 'moment'
 import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 
-export default ({ dateID }) => {
+export default function PrayingForTitle({ dateID }) {
   const today = moment().isSame(moment(dateID), 'day')
 
   return (

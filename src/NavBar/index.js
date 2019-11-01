@@ -59,7 +59,7 @@ const NavBarDailyLeaders = () => {
   return null
 }
 
-const NavBar = () => {
+export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const classes = useStyles()
   const { stateCode } = useUSAState()
@@ -92,5 +92,3 @@ const NavBar = () => {
     </Box>
   )
 }
-
-export default NavBar

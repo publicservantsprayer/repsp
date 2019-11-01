@@ -6,7 +6,7 @@ import { H1 } from '../utilities/formating'
 import Content from '../Screen/Content'
 import EmailSignIn from './EmailSignIn'
 
-export default () => {
+export default function SignIn() {
   const buttonText = 'Send me an email link'
   const sentMessage =
     'A message with a sign in link has been sent.  Check your email and sign in with that link now.'

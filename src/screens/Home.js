@@ -8,7 +8,7 @@ import useHomePath from '../utilities/useHomePath'
 import MobileOnly from '../MobileOnly'
 import Screen from '../Screen'
 
-export default () => {
+export default function Home() {
   const match = useRouteMatch()
   const homePath = useHomePath()
 

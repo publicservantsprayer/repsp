@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useParams } from 'react-router-dom'
 
 import Screen from '../Screen'
-import Leader from '../Leader'
+import ActualLeader from '../Leader'
 import { useFirebase } from '../firebase'
 
 const useStyles = makeStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default () => {
+export default function Leader() {
   const params = useParams()
   const { db } = useFirebase()
   const [leader, setLeader] = React.useState()
@@ -27,7 +27,6 @@ export default () => {
         .where('permaLink', '==', params.id)
         .get()
       setLeader(snapshot.docs[0].data())
-      console.log('leader doc:', snapshot.docs[0].data())
     })()
   }, [db, params])
 
@@ -35,7 +34,7 @@ export default () => {
 
   return (
     <Screen>
-      <div className={classes.root}>{leader && <Leader leader={leader} />}</div>
+      <div className={classes.root}>{leader && <ActualLeader leader={leader} />}</div>
     </Screen>
   )
 }

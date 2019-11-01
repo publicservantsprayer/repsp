@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 import Link from '@material-ui/core/Link'
 
-export default () => {
+export default function Footer() {
   return (
     <Box p={3} pt={8} bgcolor="common.black">
       <Container maxWidth="sm">

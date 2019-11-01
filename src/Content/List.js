@@ -24,6 +24,8 @@ const ContentItem = ({ content }) => {
 }
 
 const ContentCategory = ({ docs }) => {
+  if (!docs) return null
+
   return (
     <>
       {docs.map((doc, i) => (
@@ -40,17 +42,14 @@ const TabPanel = ({ children, value, index }) => {
   )
 }
 
-export default () => {
-  const categories = ['', 'events', 'updates', 'articles']
+export default function List() {
   const [tabIndex, setTabIndex] = React.useState(0)
-  const categoryDocs = categories.map(category => {
-    const [docs] = useContentCollection(category)
-    return docs
-  })
+  const docs = useContentCollection('')
+  const events = useContentCollection('events')
+  const updates = useContentCollection('updates')
+  const articles = useContentCollection('articles')
 
   const handleChange = (event, newValue) => setTabIndex(newValue)
-
-  if (categoryDocs.some(docs => !docs)) return null
 
   return (
     <>
@@ -62,15 +61,18 @@ export default () => {
           <Tab label="Articles" />
         </Tabs>
       </AppBar>
-      {categoryDocs && (
-        <>
-          {categoryDocs.map((docs, i) => (
-            <TabPanel value={tabIndex} key={i} index={i}>
-              <ContentCategory docs={docs} />
-            </TabPanel>
-          ))}
-        </>
-      )}
+      <TabPanel value={tabIndex} index={0}>
+        <ContentCategory docs={docs} />
+      </TabPanel>
+      <TabPanel value={tabIndex} index={0}>
+        <ContentCategory docs={events} />
+      </TabPanel>
+      <TabPanel value={tabIndex} index={0}>
+        <ContentCategory docs={updates} />
+      </TabPanel>
+      <TabPanel value={tabIndex} index={0}>
+        <ContentCategory docs={articles} />
+      </TabPanel>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
@@ -20,7 +20,7 @@ function TableRow({ name, data }) {
   )
 }
 
-export default ({ leader }) => {
+export default function ExpansionPanel({ leader }) {
   const [expanded, setExpanded] = useState(false)
 
   const handleChange = panel => (event, isExpanded) => {
@@ -28,10 +28,7 @@ export default ({ leader }) => {
   }
 
   return (
-    <ExpansionPanel
-      expanded={expanded === 'panel'}
-      onChange={handleChange('panel')}
-    >
+    <MuiExpansionPanel expanded={expanded === 'panel'} onChange={handleChange('panel')}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>
           {leader.FirstName} {leader.LastName}
@@ -48,6 +45,6 @@ export default ({ leader }) => {
           </TableBody>
         </Table>
       </ExpansionPanelDetails>
-    </ExpansionPanel>
+    </MuiExpansionPanel>
   )
 }

@@ -5,7 +5,7 @@ import { useFirebase } from '../firebase'
 import { H1 } from '../utilities/formating'
 import Form from './Form'
 
-export default () => {
+export default function New() {
   const { firebase } = useFirebase()
   const defaultValues = {
     docId: '',

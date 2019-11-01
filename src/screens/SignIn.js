@@ -1,10 +1,12 @@
 import React from 'react'
 
 import Screen from '../Screen'
-import SignIn from '../SignIn'
+import ActualSignIn from '../SignIn'
 
-export default () => (
-  <Screen>
-    <SignIn />
-  </Screen>
-)
+export default function SignIn() {
+  return (
+    <Screen>
+      <ActualSignIn />
+    </Screen>
+  )
+}

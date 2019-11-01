@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 
 import ImageUpload from './ImageUpload'
 
-export default ({ content }) => {
+export default function UpdateButtons({ content }) {
   const theme = useTheme()
   const [showUpdateImages, setShowUpdateImages] = React.useState()
   const history = useHistory()

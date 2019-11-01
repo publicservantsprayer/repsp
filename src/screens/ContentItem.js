@@ -10,7 +10,7 @@ import Screen from '../Screen'
 import ScreenContent from '../Screen/Content'
 import ScreenTitle from '../Screen/Title'
 
-export default ({ docId, children }) => {
+export default function ContentItem({ docId, children }) {
   const params = useParams()
   if (!docId) docId = params.docId
   const [doc, loading] = useContentItem(docId)

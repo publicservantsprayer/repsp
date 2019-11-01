@@ -39,7 +39,7 @@ const ImageCode = ({ image }) => {
   )
 }
 
-export default ({ images }) => {
+export default function ImageCodes({ images }) {
   const [show, setShow] = React.useState(false)
   const toggleImageCode = () => {
     console.log('toggled, show = ', show)

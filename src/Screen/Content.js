@@ -21,14 +21,10 @@ const theme = createMuiTheme({
 })
 
 const LightThemeProvider = ({ children }) => {
-  return (
-    <ThemeProvider theme={theme}>
-      {children}
-    </ThemeProvider>
-  )
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
 
-const Content = ({ children }) => {
+const ScreenContent = ({ children }) => {
   const desktop = useDesktop()
   const paddingX = desktop ? 12 : 2
   const paddingTop = desktop ? 10 : 6
@@ -43,7 +39,11 @@ const Content = ({ children }) => {
   )
 }
 
-export default ({ children, light }) => {
-  if (!light) return <Content>{children}</Content>
-  return <LightThemeProvider><Content>{children}</Content></LightThemeProvider>
+export default function Content({ children, light }) {
+  if (!light) return <ScreenContent>{children}</ScreenContent>
+  return (
+    <LightThemeProvider>
+      <ScreenContent>{children}</ScreenContent>
+    </LightThemeProvider>
+  )
 }

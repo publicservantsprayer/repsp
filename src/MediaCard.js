@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function MediaCard (props) {
+export default function MediaCard(props) {
   const classes = useStyles()
 
   return (
@@ -28,25 +28,16 @@ export default function MediaCard (props) {
       boxShadow={9}
       border={8}
       borderColor="text.primary"
-      borderRadius="borderRadius"
-    >
+      borderRadius="borderRadius">
       <Card className={classes.card}>
         <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={props.image}
-            title="photo"
-          ></CardMedia>
+          <CardMedia className={classes.media} image={props.image} title="photo" />
           <Box height={155}>
             <CardContent backgroundcolor="secondary">
               <Typography gutterBottom variant="h6">
                 {props.title}
               </Typography>
-              <Typography
-                variant="subtitle2"
-                color="textSecondary"
-                component="p"
-              >
+              <Typography variant="subtitle2" color="textSecondary" component="p">
                 {props.blurb}
               </Typography>
             </CardContent>

@@ -30,13 +30,13 @@ const colors = [
   'secondary.contrastText',
 ]
 
-const ColorBox = ({ bgcolor, color }) => {
+function ColorBox({ bgcolor, color }) {
   if (bgcolor === color) return null
 
   return <Box color={color}>color="{color}"</Box>
 }
 
-const BackgroundBox = ({ bgcolor }) => {
+function BackgroundBox({ bgcolor }) {
   return (
     <>
       <Box my={2} p={2} clone>
@@ -56,7 +56,7 @@ const BackgroundBox = ({ bgcolor }) => {
   )
 }
 
-export default () => {
+export default function Palette() {
   return (
     <Typography variant="body1">
       {bgcolors.map(bgcolor => (

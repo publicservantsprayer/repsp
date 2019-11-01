@@ -2,7 +2,7 @@ import React from 'react'
 
 import Leader from './Leader'
 
-const Chamber = ({ title, leaders }) => {
+export default function Chamber({ title, leaders }) {
   leaders = leaders.map(doc => doc.data())
   return (
     <div>
@@ -17,5 +17,3 @@ const Chamber = ({ title, leaders }) => {
     </div>
   )
 }
-
-export default Chamber

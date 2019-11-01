@@ -23,7 +23,7 @@ export const TabPanel = ({ children, value, index }) => {
   )
 }
 
-export default ({ tabIndex, post }) => {
+export default function TabPanels({ tabIndex, post }) {
   const { stateCode, stateName } = useUSAState()
 
   return (

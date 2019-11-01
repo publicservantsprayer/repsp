@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default () => {
+export default function PostBrowser() {
   const [posts, setPosts] = useState()
   const { stateCode } = useUSAState()
   const { db } = useFirebase()

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { H1 } from '../utilities/formating'
 import List from './List'
 
-export default () => {
+export default function Content() {
   const history = useHistory()
 
   return (
@@ -28,4 +28,3 @@ export default () => {
     </Box>
   )
 }
-

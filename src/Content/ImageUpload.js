@@ -11,7 +11,7 @@ import { useFirebase } from '../firebase'
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
-export default ({ content }) => {
+export default function ImageUpload({ content }) {
   const { firebase, db, storageRef } = useFirebase()
 
   if (!Array.isArray(content.images)) content.images = []

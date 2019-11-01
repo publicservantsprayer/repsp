@@ -148,7 +148,7 @@ const SVGMapText = withRouter(({ stateCode, history }) => {
   )
 })
 
-export default () => {
+export default function Map() {
   const { stateCodes } = useUSAState()
 
   React.useEffect(() => {

@@ -13,16 +13,12 @@ import Title from '../Screen/Title'
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>
     <Link component={RouterLink} to={`/${article.category}/${article.docId}`}>
-      <MediaCard
-        title={article.title}
-        image={article.cardImage}
-        blurb={article.blurb}
-      />
+      <MediaCard title={article.title} image={article.cardImage} blurb={article.blurb} />
     </Link>
   </Grid>
 )
 
-export default ({ category }) => {
+export default function ContentCollection({ category }) {
   const [docs, loading] = useContentCollection(category)
   const capitalizeFirstLetter = word => word[0].toUpperCase() + word.slice(1).toLowerCase()
 
@@ -32,16 +28,9 @@ export default ({ category }) => {
         <Box pt={4} px={4}>
           <Title>{capitalizeFirstLetter(category)}</Title>
         </Box>
-        <Grid
-          container
-          direction="row"
-          justify="space-evenly"
-          alignItems="center"
-          spacing={4}
-        >
+        <Grid container direction="row" justify="space-evenly" alignItems="center" spacing={4}>
           {loading && '... loading'}
-          {docs &&
-            docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
+          {docs && docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
         </Grid>
       </Container>
     </Screen>

@@ -117,7 +117,7 @@ const TwitterAccount = ({ account }) => {
   )
 }
 
-const TwitterAccountHeader = ({ account }) => {
+function TwitterAccountHeader({ account }) {
   const params = useParams()
   const history = useHistory()
   const { stateNameFromStateCode } = useUSAState()

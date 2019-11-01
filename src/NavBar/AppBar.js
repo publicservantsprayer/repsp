@@ -58,7 +58,7 @@ const Item = ({ text, to, Icon }) => {
   )
 }
 
-const AppBar = ({ toggleDrawer }) => {
+export default function AppBar({ toggleDrawer }) {
   const classes = useStyles()
   const { stateName } = useUSAState()
 
@@ -91,5 +91,3 @@ const AppBar = ({ toggleDrawer }) => {
     </MuiAppBar>
   )
 }
-
-export default AppBar

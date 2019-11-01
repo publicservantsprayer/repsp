@@ -10,7 +10,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import moment from 'moment'
+// import moment from 'moment'
 
 import WikiPageSummary from './WikiPageSummary'
 import useSiteStyles from '../utilities/useStyles'
@@ -18,13 +18,13 @@ import DesktopContainer from '../DesktopContainer'
 import useMobile from '../utilities/useMobile'
 import { leaderPhoto } from '../utilities/leader'
 
-const birthday = leader => {
-  const month = leader.BirthDate
-  const day = leader.BirthMonth
-  if (!month || !day) return null
+// const birthday = leader => {
+//   const month = leader.BirthDate
+//   const day = leader.BirthMonth
+//   if (!month || !day) return null
 
-  return moment(`2020-${month}-${day}`).format('MMMM Do')
-}
+//   return moment(`2020-${month}-${day}`).format('MMMM Do')
+// }
 
 const Row = ({ field, value }) => {
   if (!value) return null
@@ -59,7 +59,7 @@ const Button = ({ children, href, icon }) => {
   )
 }
 
-const Leader = ({ leader }) => {
+export default function Leader({ leader }) {
   const classes = useSiteStyles()
   const name = `${leader.Title} ${leader.NickName} ${leader.LastName}`
   const mobile = useMobile()
@@ -143,5 +143,3 @@ const Leader = ({ leader }) => {
     </DesktopContainer>
   )
 }
-
-export default Leader

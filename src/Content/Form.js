@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default ({ docValues, isNew }) => {
+export default function Form({ docValues, isNew }) {
   const { firebase, db } = useFirebase()
   const classes = useStyles()
   const [values, setValues] = useState(docValues)

@@ -11,7 +11,7 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 
 import { useFirebase } from '../firebase'
 
-export default ({ docValues }) => {
+export default function DeleteButton({ docValues }) {
   const { db } = useFirebase()
   const theme = useTheme()
   const history = useHistory()
@@ -32,21 +32,11 @@ export default ({ docValues }) => {
 
   return (
     <>
-      <Button
-        variant="outlined"
-        style={{ marginRight: theme.spacing(1) }}
-        onClick={handleDelete}
-      >
-        Delete{' '}
-        <DeleteIcon style={{ marginRight: theme.spacing(1) }} onClick={handleDelete} />
+      <Button variant="outlined" style={{ marginRight: theme.spacing(1) }} onClick={handleDelete}>
+        Delete <DeleteIcon style={{ marginRight: theme.spacing(1) }} onClick={handleDelete} />
       </Button>
-      <Dialog
-        open={openConfirm}
-        onClose={handleCancelDelete}
-      >
-        <DialogTitle id="responsive-dialog-title">
-          {'Delete this content?'}
-        </DialogTitle>
+      <Dialog open={openConfirm} onClose={handleCancelDelete}>
+        <DialogTitle id="responsive-dialog-title">{'Delete this content?'}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             <strong>{docValues.title}</strong>

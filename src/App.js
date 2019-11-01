@@ -24,7 +24,7 @@ const StateFinder = () => {
   return null
 }
 
-const App = () => {
+export default function App() {
   return (
     <Router>
       <Route component={StateFinder} />
@@ -96,5 +96,3 @@ const App = () => {
     </Router>
   )
 }
-
-export default App

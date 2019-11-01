@@ -10,7 +10,7 @@ import Tabs from './Tabs'
 import TabPanels from './TabPanels'
 import StateMessage from './StateMessage'
 
-const DailyLeaders = ({ post }) => {
+const ActualDailyLeaders = ({ post }) => {
   const [tabIndex, setTabIndex] = React.useState(0)
 
   const onChange = (event, newIndex) => setTabIndex(newIndex)
@@ -48,20 +48,20 @@ const HistoricalDailyLeaders = () => {
   const { year, month, day } = useParams()
   const [post] = useHistoricalPost(year, month, day)
 
-  return post ? <DailyLeaders post={post} /> : null
+  return post ? <ActualDailyLeaders post={post} /> : null
 }
 
 const LatestDailyLeaders = () => {
   const [post] = useLatestPost()
 
-  return post ? <DailyLeaders post={post} /> : null
+  return post ? <ActualDailyLeaders post={post} /> : null
 }
 
-export default () => {
+export default function DailyLeadersx() {
   const { stateCode } = useUSAState()
-  if (!stateCode) return null
-
   const { year, month, day } = useParams()
+
+  if (!stateCode) return null
 
   if (year && month && day) {
     return <HistoricalDailyLeaders />

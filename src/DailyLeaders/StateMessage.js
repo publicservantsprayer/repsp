@@ -17,7 +17,7 @@ const P = ({ children }) => (
   </Box>
 )
 
-export default ({ setTabIndex }) => {
+export default function StateMessage({ setTabIndex }) {
   const { stateName } = useUSAState()
 
   const scrollIntoView = () => {

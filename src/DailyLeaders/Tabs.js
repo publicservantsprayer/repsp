@@ -1,6 +1,6 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
-import Tabs from '@material-ui/core/Tabs'
+import MuiTabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import EmailIcon from 'mdi-material-ui/Email'
 import FacebookIcon from 'mdi-material-ui/FacebookBox'
@@ -10,7 +10,7 @@ import useStyles from '../utilities/useStyles'
 import useMobile from '../utilities/useMobile'
 //import InstagramIcon from 'mdi-material-ui/Instagram'
 
-export default ({ tabIndex, onChange, centered, fullWidth }) => {
+export default function Tabs({ tabIndex, onChange, centered, fullWidth }) {
   const classes = useStyles()
   const mobile = useMobile()
 
@@ -19,7 +19,7 @@ export default ({ tabIndex, onChange, centered, fullWidth }) => {
 
   return (
     <AppBar position="static" color="primary" className={className}>
-      <Tabs
+      <MuiTabs
         value={tabIndex}
         onChange={onChange}
         variant={variant}
@@ -30,7 +30,7 @@ export default ({ tabIndex, onChange, centered, fullWidth }) => {
         <Tab icon={<FacebookIcon />} />
         <Tab icon={<TwitterIcon />} />
         {/* <Tab label={<InstagramIcon />} /> */}
-      </Tabs>
+      </MuiTabs>
     </AppBar>
   )
 }

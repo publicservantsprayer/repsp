@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box'
 import Inspector from 'react-inspector'
 import { useTheme } from '@material-ui/core/styles'
 
-export default () => {
+export default function ThemeExplorer() {
   const theme = useTheme()
 
   return (

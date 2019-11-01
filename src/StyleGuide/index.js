@@ -16,7 +16,7 @@ const Example = ({ children }) => {
   )
 }
 
-export default () => {
+export default function StyleGuide() {
   return (
     <>
       <H1>Style Guide</H1>

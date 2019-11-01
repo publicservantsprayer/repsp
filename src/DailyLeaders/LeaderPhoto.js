@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { leaderPhoto } from '../utilities/leader'
 import useStyles from '../utilities/useStyles'
 
-export default ({ leader }) => {
+export default function LeaderPhoto({ leader }) {
   const classes = useStyles()
 
   return (

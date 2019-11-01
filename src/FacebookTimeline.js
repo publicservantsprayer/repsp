@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box'
 
 import useUSAState from './utilities/useUSAState'
 
-export default ({ accountName }) => {
+export default function FacebookTimeline({ accountName }) {
   const { facebookPage } = useUSAState()
 
   useEffect(() => {

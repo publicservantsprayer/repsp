@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 
 import Box from '@material-ui/core/Box'
 
-export default ({ accountName }) => {
+export default function TwitterTimeline({ accountName }) {
   const elementId = `twitter-timeline-${accountName}`
 
   useEffect(() => {
     window.twttr.widgets.createTimeline(
       {
-        sourceType: "profile",
+        sourceType: 'profile',
         screenName: accountName,
       },
       document.getElementById(elementId),
@@ -16,12 +16,10 @@ export default ({ accountName }) => {
         theme: 'dark',
         height: '500',
         dnt: true,
-        chrome: 'transparent nofooter'
+        chrome: 'transparent nofooter',
       }
     )
   }, [accountName, elementId])
 
-  return (
-    <Box id={elementId} />
-  )
+  return <Box id={elementId} />
 }

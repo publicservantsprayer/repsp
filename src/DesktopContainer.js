@@ -1,11 +1,12 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
 
-import useDesktop from './utilities/useDesktop'
+import useMobile from './utilities/useMobile'
 
 export default function DesktopContainer({ children, maxWidth }) {
-  const desktop = useDesktop()
+  const mobile = useMobile()
 
-  if (!desktop) return children
+  if (mobile) return children
+
   return <Container maxWidth={maxWidth}>{children}</Container>
 }

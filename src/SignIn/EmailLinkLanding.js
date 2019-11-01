@@ -10,7 +10,7 @@ import SlideInMessage from '../SlideInMessage'
 import EmailField from './EmailField'
 import Button from './Button'
 
-export default () => {
+export default function EmailLinkLanding() {
   const { auth } = useFirebase()
   const [emailConfirmation, setEmailConfirmation] = React.useState()
   const [incorrectEmailOpen, setIncorrectEmailOpen] = React.useState()

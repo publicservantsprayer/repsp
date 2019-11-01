@@ -6,7 +6,7 @@ import useHomePath from '../utilities/useHomePath'
 import { useFirebase, useUser } from '../firebase'
 import { H1 } from '../utilities/formating'
 
-export default () => {
+export default function SignOut() {
   const homePath = useHomePath()
   const { auth } = useFirebase()
   const [user, initializing] = useUser()

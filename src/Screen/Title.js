@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 
 import useDesktop from '../utilities/useDesktop'
 
-export default ({ children, centered }) => {
+export default function Title({ children, centered }) {
   const desktop = useDesktop()
   const variant = desktop ? 'h2' : 'h4'
 

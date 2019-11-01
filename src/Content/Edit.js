@@ -6,7 +6,7 @@ import { useContentItem } from '../firebase'
 import Form from './Form'
 import { H1 } from '../utilities/formating'
 
-export default () => {
+export default function Edit() {
   const params = useParams()
   const [docValues, loading, error] = useContentItem(params.docId)
 
