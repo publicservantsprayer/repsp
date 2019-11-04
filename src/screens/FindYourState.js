@@ -1,12 +1,12 @@
 import React from 'react'
 
 import Map from '../Map'
-import Screen from '../Screen'
+import Layout from '../Layout'
 
 export default function FindYourState() {
   return (
-    <Screen>
+    <Layout>
       <Map />
-    </Screen>
+    </Layout>
   )
 }

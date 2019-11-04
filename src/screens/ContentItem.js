@@ -6,9 +6,9 @@ import { Divider } from '@material-ui/core'
 import Markdown from '../Markdown'
 import { useContentItem, useAdmin } from '../utilities/firebase'
 import UpdateButtons from '../Content/UpdateButtons'
-import Screen from '../Screen'
-import ScreenContent from '../Screen/Content'
-import ScreenTitle from '../Screen/Title'
+import Layout from '../Layout'
+import LayoutContent from '../Layout/Content'
+import Title from '../Layout/Title'
 
 export default function ContentItem({ docId, children }) {
   const params = useParams()
@@ -17,12 +17,12 @@ export default function ContentItem({ docId, children }) {
   const [admin] = useAdmin()
 
   return (
-    <Screen>
-      <ScreenContent>
+    <Layout>
+      <LayoutContent>
         {loading && <p>Loading...</p>}
         {doc && (
           <>
-            <ScreenTitle>{doc.title}</ScreenTitle>
+            <Title>{doc.title}</Title>
             <Box mt={2} mb={4}>
               <Divider />
             </Box>
@@ -33,7 +33,7 @@ export default function ContentItem({ docId, children }) {
             </Box>
           </>
         )}
-      </ScreenContent>
-    </Screen>
+      </LayoutContent>
+    </Layout>
   )
 }

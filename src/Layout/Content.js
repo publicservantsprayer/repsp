@@ -3,6 +3,7 @@ import Box from '@material-ui/core/Box'
 import { ThemeProvider } from '@material-ui/styles'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { Container } from '@material-ui/core'
+
 import useDesktop from '../utilities/useDesktop'
 
 const theme = createMuiTheme({

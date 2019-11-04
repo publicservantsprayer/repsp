@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useParams } from 'react-router-dom'
 
-import Screen from '../Screen'
+import Layout from '../Layout'
 import ActualLeader from '../Leader'
 import { useFirebase } from '../utilities/firebase'
 
@@ -33,8 +33,8 @@ export default function Leader() {
   if (!leader) return null
 
   return (
-    <Screen>
+    <Layout>
       <div className={classes.root}>{leader && <ActualLeader leader={leader} />}</div>
-    </Screen>
+    </Layout>
   )
 }

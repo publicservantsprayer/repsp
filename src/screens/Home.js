@@ -6,7 +6,7 @@ import DailyLeaders from '../DailyLeaders'
 import StateLeaders from '../StateLeaders'
 import useHomePath from '../utilities/useHomePath'
 import MobileOnly from '../MobileOnly'
-import Screen from '../Screen'
+import Layout from '../Layout'
 
 export default function Home() {
   const match = useRouteMatch()
@@ -17,7 +17,7 @@ export default function Home() {
   }
 
   return (
-    <Screen>
+    <Layout>
       <MobileOnly>
         <Box py={0}>
           <DailyLeaders />
@@ -27,6 +27,6 @@ export default function Home() {
       <Box>
         <StateLeaders />
       </Box>
-    </Screen>
+    </Layout>
   )
 }

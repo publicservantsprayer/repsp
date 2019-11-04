@@ -7,8 +7,8 @@ import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
 import { useContentCollection } from '../utilities/firebase'
-import Screen from '../Screen'
-import Title from '../Screen/Title'
+import Layout from '../Layout'
+import Title from '../Layout/Title'
 
 const ArticleGrid = ({ article }) => (
   <Grid item sm={4}>
@@ -23,7 +23,7 @@ export default function ContentCollection({ category }) {
   const capitalizeFirstLetter = word => word[0].toUpperCase() + word.slice(1).toLowerCase()
 
   return (
-    <Screen>
+    <Layout>
       <Container maxWidth="lg">
         <Box pt={4} px={4}>
           <Title>{capitalizeFirstLetter(category)}</Title>
@@ -33,6 +33,6 @@ export default function ContentCollection({ category }) {
           {docs && docs.map((article, i) => <ArticleGrid article={article} key={i} />)}
         </Grid>
       </Container>
-    </Screen>
+    </Layout>
   )
 }

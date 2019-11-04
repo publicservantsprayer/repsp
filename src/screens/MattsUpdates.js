@@ -5,8 +5,8 @@ import moment from 'moment'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 import Container from '@material-ui/core/Container'
 
-import Screen from '../Screen'
-import ScreenTitle from '../Screen/Title'
+import Layout from '../Layout'
+import LayoutTitle from '../Layout/Title'
 import { useContentCollection, useFirebase, useAdmin } from '../utilities/firebase'
 import { H2 } from '../utilities/formating'
 import Markdown from '../Markdown'
@@ -58,14 +58,14 @@ export default function MattsUpdates() {
   const [posts, loading] = useContentCollection('updates')
 
   return (
-    <Screen>
+    <Layout>
       <Container maxWidth="sm">
         <Box pt={4}>
-          <ScreenTitle centered>Matt's Updates</ScreenTitle>
+          <LayoutTitle centered>Matt's Updates</LayoutTitle>
         </Box>
         {loading && <p>Loading...</p>}
         {posts && posts.map((post, i) => <Post post={post} key={i} />)}
       </Container>
-    </Screen>
+    </Layout>
   )
 }

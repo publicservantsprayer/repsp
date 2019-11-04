@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 
 import { H1 } from '../utilities/formating'
-import Content from '../Screen/Content'
+import Content from '../Layout/Content'
 import EmailSignIn from './EmailSignIn'
 
 export default function SignIn() {

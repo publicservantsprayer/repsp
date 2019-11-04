@@ -15,7 +15,7 @@ import {
   useOtherTwitterAccounts,
   useHttpsCallableFunction,
 } from '../utilities/firebase'
-import Screen from '../Screen'
+import Layout from '../Layout'
 
 const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {
   const history = useHistory()
@@ -211,7 +211,7 @@ export default () => {
   const [showCheckForLocked, setShowCheckForLocked] = React.useState()
 
   return (
-    <Screen>
+    <Layout>
       <Box m={1}>
         <H1>Twitter Accounts</H1>
 
@@ -237,6 +237,6 @@ export default () => {
             return <TwitterAccountHeader account={account} key={account.accountName} />
           })}
       </Box>
-    </Screen>
+    </Layout>
   )
 }
