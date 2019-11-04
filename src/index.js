@@ -17,16 +17,17 @@ import { FirebaseProvider } from './firebase'
 import theme from './utilities/theme'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBQkLQ1DJEtDczE179QNc7fF1UM6t0piqY",
-  authDomain: "repsp123.firebaseapp.com",
-  databaseURL: "https://repsp123.firebaseio.com",
-  projectId: "repsp123",
-  storageBucket: "repsp123.appspot.com",
-  messagingSenderId: "1081890506539",
-  appId: "1:1081890506539:web:61606bc159584f95"
+  apiKey: 'AIzaSyBQkLQ1DJEtDczE179QNc7fF1UM6t0piqY',
+  authDomain: 'repsp123.firebaseapp.com',
+  databaseURL: 'https://repsp123.firebaseio.com',
+  projectId: 'repsp123',
+  storageBucket: 'repsp123.appspot.com',
+  messagingSenderId: '1081890506539',
+  appId: '1:1081890506539:web:61606bc159584f95',
 }
 
 firebase.initializeApp(firebaseConfig)
+firebase.firestore().enablePersistence()
 
 if (env.get('REACT_APP_FIREBASE_FUNCTIONS_EMULATOR').asBool()) {
   console.log('Using local functions emulator')
@@ -42,14 +43,15 @@ ReactDOM.render(
   <CookiesProvider>
     <FirebaseProvider value={firebase}>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider maxSnack={1} preventDuplicate ref={notistackRef}
-          action={(key) => (
-            <Button onClick={onClickDismiss(key)}>Dismiss</Button>
-          )}>
+        <SnackbarProvider
+          maxSnack={1}
+          preventDuplicate
+          ref={notistackRef}
+          action={key => <Button onClick={onClickDismiss(key)}>Dismiss</Button>}>
           <CssBaseline />
           <App />
         </SnackbarProvider>
-      </ThemeProvider >
+      </ThemeProvider>
     </FirebaseProvider>
   </CookiesProvider>,
   document.getElementById('root')
