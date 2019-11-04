@@ -65,12 +65,12 @@ export default function TabPanels({ tabIndex, post }) {
                   pray for.
                 </P>
               </Box>
+              <EmailSignIn
+                buttonText="Sign me up"
+                sentMessage="We sent you a confirmation link.  Check your email now and click the link to confirm."
+                errorMessage="Error sending you a confirmation link.  Please try again."
+              />
             </Box>
-            <EmailSignIn
-              buttonText="Sign me up"
-              sentMessage="We sent you a confirmation link.  Check your email now and click the link to confirm."
-              errorMessage="Error sending you a confirmation link.  Please try again."
-            />
             <Box px={1} py={3}>
               <P2>
                 (We won't spam you. You can, however, use your email to sign into the website and

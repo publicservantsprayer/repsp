@@ -1,6 +1,6 @@
 import React from 'react'
 import EmailField from './EmailField'
-import Button from './Button'
+import SignInButton from './Button'
 import Box from '@material-ui/core/Box'
 
 import { useFirebase } from '../utilities/firebase'
@@ -36,7 +36,7 @@ export default function EmailSignIn({ buttonText, sentMessage, errorMessage }) {
     <>
       <Box>
         <EmailField onChange={handleEmailChange} disabled={disabled} />
-        <Button onClick={handleSendLink} text={buttonText} disabled={disabled} />
+        <SignInButton onClick={handleSendLink} text={buttonText} disabled={disabled} />
       </Box>
 
       <SlideInMessage
