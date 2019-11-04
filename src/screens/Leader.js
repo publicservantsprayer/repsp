@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import Screen from '../Screen'
 import ActualLeader from '../Leader'
-import { useFirebase } from '../firebase'
+import { useFirebase } from '../utilities/firebase'
 
 const useStyles = makeStyles({
   root: {

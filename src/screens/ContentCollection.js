@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box'
 import { Link as RouterLink } from 'react-router-dom'
 
 import MediaCard from '../MediaCard'
-import { useContentCollection } from '../firebase'
+import { useContentCollection } from '../utilities/firebase'
 import Screen from '../Screen'
 import Title from '../Screen/Title'
 

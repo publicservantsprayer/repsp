@@ -21,7 +21,7 @@ import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
 
-import { useUser, useAdmin } from '../firebase'
+import { useUser, useAdmin } from '../utilities/firebase'
 import MobileOnly from '../MobileOnly'
 import useHomePath from '../utilities/useHomePath'
 

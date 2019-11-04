@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { Divider } from '@material-ui/core'
 
 import Markdown from '../Markdown'
-import { useContentItem, useAdmin } from '../firebase'
+import { useContentItem, useAdmin } from '../utilities/firebase'
 import UpdateButtons from '../Content/UpdateButtons'
 import Screen from '../Screen'
 import ScreenContent from '../Screen/Content'

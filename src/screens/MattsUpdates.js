@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container'
 
 import Screen from '../Screen'
 import ScreenTitle from '../Screen/Title'
-import { useContentCollection, useFirebase, useAdmin } from '../firebase'
+import { useContentCollection, useFirebase, useAdmin } from '../utilities/firebase'
 import { H2 } from '../utilities/formating'
 import Markdown from '../Markdown'
 import useStyles from '../utilities/useStyles'

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useCollectionData, useDocumentData } from 'react-firebase-hooks/firestore'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import useUSAState from './utilities/useUSAState'
+
+import useUSAState from './useUSAState'
 
 const FirebaseContext = React.createContext(null)
 

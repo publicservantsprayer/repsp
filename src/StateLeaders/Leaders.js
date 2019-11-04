@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import Skeleton from '@material-ui/lab/Skeleton'
 
 import { leaderPhoto, leaderUrl } from '../utilities/leader'
-import { useStateLeaders } from '../firebase'
+import { useStateLeaders } from '../utilities/firebase'
 
 const useStyles = makeStyles({
   avatar: {

@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
 import { useDownloadURL } from 'react-firebase-hooks/storage'
 
-import { useFirebase } from '../firebase'
+import { useFirebase } from '../utilities/firebase'
 
 const ImageCode = ({ image }) => {
   const { storageRef } = useFirebase()

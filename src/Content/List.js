@@ -6,7 +6,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Typography from '@material-ui/core/Typography'
 import Tab from '@material-ui/core/Tab'
 
-import { useContentCollection } from '../firebase'
+import { useContentCollection } from '../utilities/firebase'
 import UpdateButtons from './UpdateButtons'
 
 const ContentItem = ({ content }) => {

@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import { H1 } from '../utilities/formating'
 import Markdown from '../Markdown'
-import { useFirebase } from '../firebase'
+import { useFirebase } from '../utilities/firebase'
 import TextField from './TextField'
 import SelectField from './SelectField'
 import DeleteButton from './DeleteButton'

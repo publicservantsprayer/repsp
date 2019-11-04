@@ -5,7 +5,7 @@ import Tab from '@material-ui/core/Tab'
 import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 
-import { useFirebase } from './firebase'
+import { useFirebase } from './utilities/firebase'
 import useUSAState from './utilities/useUSAState'
 
 const TabPanel = ({ children, value, index }) => (

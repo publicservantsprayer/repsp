@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container'
 import Box from '@material-ui/core/Box'
 
 import { H1, P } from '../utilities/formating'
-import { useFirebase } from '../firebase'
+import { useFirebase } from '../utilities/firebase'
 import useHomePath from '../utilities/useHomePath'
 import SlideInMessage from '../SlideInMessage'
 import EmailField from './EmailField'

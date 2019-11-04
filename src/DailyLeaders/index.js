@@ -3,7 +3,7 @@ import Box from '@material-ui/core/Box'
 import { useParams } from 'react-router-dom'
 
 import useUSAState from '../utilities/useUSAState'
-import { useHistoricalPost, useLatestPost } from '../firebase'
+import { useHistoricalPost, useLatestPost } from '../utilities/firebase'
 import MobileOnly from '../MobileOnly'
 import DesktopOnly from '../DesktopOnly'
 import Tabs from './Tabs'

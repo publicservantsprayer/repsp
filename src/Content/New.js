@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 
-import { useFirebase } from '../firebase'
+import { useFirebase } from '../utilities/firebase'
 import { H1 } from '../utilities/formating'
 import Form from './Form'
 

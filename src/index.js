@@ -13,7 +13,7 @@ import { SnackbarProvider } from 'notistack'
 import * as env from 'env-var'
 
 import App from './App'
-import { FirebaseProvider } from './firebase'
+import { FirebaseProvider } from './utilities/firebase'
 import theme from './utilities/theme'
 
 const firebaseConfig = {

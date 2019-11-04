@@ -14,7 +14,7 @@ import {
   useStateTwitterAccounts,
   useOtherTwitterAccounts,
   useHttpsCallableFunction,
-} from '../firebase'
+} from '../utilities/firebase'
 import Screen from '../Screen'
 
 const TwitterAccessToken = ({ temp_oauth_token, oauth_verifier }) => {

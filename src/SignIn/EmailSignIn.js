@@ -1,9 +1,10 @@
 import React from 'react'
-import { useFirebase } from '../firebase'
-import SlideInMessage from '../SlideInMessage'
 import EmailField from './EmailField'
 import Button from './Button'
 import Box from '@material-ui/core/Box'
+
+import { useFirebase } from '../utilities/firebase'
+import SlideInMessage from '../SlideInMessage'
 
 export default function EmailSignIn({ buttonText, sentMessage, errorMessage }) {
   const { auth } = useFirebase()
