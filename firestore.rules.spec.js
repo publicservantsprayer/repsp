@@ -97,6 +97,65 @@ describe(' Database rules', () => {
     })
   })
 
+  describe('userProfiles collection', () => {
+    const data = {
+      'userProfiles/joe123': { 'email': 'joe123@test.com' },
+      'adminUsers/admin123': { 'uid': 'admin123' },
+    }
+    const collectionRef = db => db.collection('userProfiles')
+
+    test('get denied from non-authenticated user', async () => {
+      const ref = collectionRef(await setup(null, data))
+
+      await expect(ref.doc('joe123').get()).toDeny()
+    })
+
+    test('get allowed from authenticated user', async () => {
+      const ref = collectionRef(await setup({ uid: 'joe123' }, data))
+
+      await expect(ref.doc('joe123').get()).toAllow()
+    })
+
+    test('list denied to non-authenticated user', async () => {
+      const ref = collectionRef(await setup(null, data))
+
+      await expect(ref.get()).toDeny()
+    })
+
+    test('list denied to non-admins', async () => {
+      const ref = collectionRef(await setup({ uid: 'joe123' }, data))
+
+      await expect(ref.get()).toDeny()
+    })
+
+    test('list allowed to admins', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.get()).toAllow()
+    })
+
+    test('write denied from non-authenticated user', async () => {
+      const ref = collectionRef(await setup(null, data))
+
+      await expect(ref.doc('joe123').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('write allowed from authenticated user with same email', async () => {
+      const ref = collectionRef(await setup({ uid: 'joe123' }, data))
+
+      await expect(ref.doc('joe123').update({ foo: 'bar' })).toAllow()
+      await expect(ref.doc('joe123').update({ foo: 'bar', email: 'joe123@test.com' })).toAllow()
+      await expect(ref.doc('joe123').set({ foo: 'bar', email: 'joe123@test.com' })).toAllow()
+    })
+
+    test('write denied from authenticated user changing email', async () => {
+      const ref = collectionRef(await setup({ uid: 'joe123' }, data))
+
+      await expect(ref.doc('joe123').set({ foo: 'bar' })).toDeny()
+      await expect(ref.doc('joe123').set({ foo: 'bar', email: 'different123@test.com' })).toDeny()
+    })
+  })
+
   describe('twitterAccounts collection', () => {
     const data = {
       'adminUsers/admin123': { 'uid': 'admin123' }
