@@ -1,6 +1,6 @@
 const fs = require('fs')
 const util = require('util')
-const readline = require('readline')
+const readline = require('readline-promise').default
 const { google } = require('googleapis')
 
 // If modifying these scopes, delete token.json.
@@ -10,18 +10,16 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 // time.
 const TOKEN_PATH = 'token.json'
 
-async function authorize () {
-
+async function authorize() {
   // Load client secrets from a local file.
   try {
     const readFile = util.promisify(fs.readFile)
     const content = await readFile('credentials.json')
 
     // Authorize a client with credentials, then call the Google Sheets API.
-    const credentials = JSON.parse(content);
+    const credentials = JSON.parse(content)
     const { client_secret, client_id, redirect_uris } = credentials.installed
-    const oAuth2Client = new google.auth.OAuth2(
-      client_id, client_secret, redirect_uris[0]);
+    const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0])
 
     // Check if we have previously stored a token.
     try {
@@ -29,31 +27,35 @@ async function authorize () {
       oAuth2Client.setCredentials(JSON.parse(token))
       return oAuth2Client
     } catch (err) {
-      return getNewToken(oAuth2Client)
+      return await getNewToken(oAuth2Client)
     }
   } catch (err) {
     if (err) return console.log('Error loading client secret file:', err)
   }
+  return null
 }
 
-async function getNewToken (oAuth2Client) {
+async function getNewToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
-  });
-  console.log('Authorize this app by visiting this url:', authUrl);
+  })
+  console.log('Authorize this app by visiting this url:', authUrl)
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-  });
-  const code = await rl.question('Enter the code from that page here: ')
-  rl.close();
+    terminal: true,
+  })
+
+  const code = await rl.questionAsync('Enter the code from that page here: ')
+  rl.close()
   try {
-    const token = await oAuth2Client.getToken(code)
-    oAuth2Client.setCredentials(token)// Store the token to disk for later program executions
+    const result = await oAuth2Client.getToken(code)
+    oAuth2Client.setCredentials(result.tokens)
+    // Store the token to disk for later program executions
     try {
       const writeFile = util.promisify(fs.writeFile)
-      await writeFile(TOKEN_PATH, JSON.stringify(token))
+      await writeFile(TOKEN_PATH, JSON.stringify(result.tokens))
     } catch (err) {
       return console.error(err)
     }
@@ -62,6 +64,7 @@ async function getNewToken (oAuth2Client) {
   } catch (err) {
     if (err) return console.error('Error while trying to retrieve access token', err)
   }
+  return null
 }
 
 module.exports.authorize = authorize

@@ -45,26 +45,35 @@ module.exports.importSpreadsheet = async (db, url, auth) => {
       }
 
       leader.permaLink = `${leader.LastName}-${leader.FirstName}-${leader.PID}`
-        .replace(/[^a-z0-9_-]+/gi, "").toLowerCase()
+        .replace(/[^a-z0-9_-]+/gi, '')
+        .toLowerCase()
 
-      const doc = db.collection('states').doc(leader.StateCode).collection('leaders').doc(leader.permaLink)
+      const doc = db
+        .collection('states')
+        .doc(leader.StateCode)
+        .collection('leaders')
+        .doc(leader.permaLink)
       try {
         // eslint-disable-next-line no-await-in-loop
         await doc.set(leader)
-        console.log('Added: ', leader.permaLink)
+        //console.log('Added: ', leader.permaLink)
       } catch (error) {
         console.log('Error setting leader: ', leader.permaLink, error)
       }
     }
   }
+  return null
 }
 
 module.exports.addStateNameAndRegion = async db => {
   const writes = stateCodes.map(stateCode => {
-    return db.collection('states').doc(stateCode).set({
-      name: statesObj[stateCode],
-      region: regionForStateCode(stateCode)
-    })
+    return db
+      .collection('states')
+      .doc(stateCode)
+      .set({
+        name: statesObj[stateCode],
+        region: regionForStateCode(stateCode),
+      })
   })
   return Promise.all(writes)
 }

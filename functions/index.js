@@ -20,9 +20,10 @@ exports.createPostPhoto = functions.firestore
     return createPostPhoto(date, stateCode, post)
   })
 
-exports.createDailyPost = functions.pubsub.schedule('55 4 * * *')
+exports.createDailyPost = functions.pubsub
+  .schedule('55 4 * * *')
   .timeZone('America/New_York') // default is America/Los_Angeles
-  .onRun((context) => {
+  .onRun(context => {
     const dateID = moment().format('YYYY-MM-DD')
     const posts = stateCodes.map(async stateCode => {
       return createDailyPost(db, stateCode, dateID)
@@ -31,9 +32,10 @@ exports.createDailyPost = functions.pubsub.schedule('55 4 * * *')
     return Promise.all(posts)
   })
 
-exports.tweetDailyPosts = functions.pubsub.schedule('55 5 * * *')
+exports.tweetDailyPosts = functions.pubsub
+  .schedule('55 5 * * *')
   .timeZone('America/New_York') // default is America/Los_Angeles
-  .onRun((context) => {
+  .onRun(context => {
     const { tweetDailyPosts } = require('./twitter/tweetDailyPosts')
 
     return tweetDailyPosts()
@@ -74,3 +76,9 @@ exports.createFacebookPost = functions.firestore
 
     return createFacebookPost(db, dateID, stateCode, post)
   })
+
+exports.createUserProfile = functions.auth.user().onCreate(user => {
+  const { createUserProfile } = require('./userProfile/createUserProfile')
+
+  return createUserProfile(db, user)
+})
