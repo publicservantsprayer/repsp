@@ -5,7 +5,6 @@ import Box from '@material-ui/core/Box'
 
 import { H1, P } from '../utilities/formating'
 import { useFirebase } from '../utilities/firebase'
-import useHomePath from '../utilities/useHomePath'
 import SlideInMessage from '../SlideInMessage'
 import EmailField from './EmailField'
 import Button from './Button'
@@ -17,7 +16,6 @@ export default function EmailLinkLanding() {
   const [redirectTo, setRedirectTo] = React.useState()
   const [confirmEmail, setConfirmEmail] = React.useState()
   const [errorOpen, setErrorOpen] = React.useState()
-  const homePath = useHomePath()
 
   const handleIncorrectEmailClose = () => {
     setIncorrectEmailOpen(false)
@@ -41,7 +39,7 @@ export default function EmailLinkLanding() {
       try {
         await auth.signInWithEmailLink(email, window.location.href)
         window.localStorage.removeItem('emailForSignIn')
-        setRedirectTo(homePath)
+        setRedirectTo('/profile')
       } catch (error) {
         if (error.code === 'auth/invalid-email') {
           setIncorrectEmailOpen(true)
@@ -51,7 +49,7 @@ export default function EmailLinkLanding() {
         console.log('Error signing in', error)
       }
     },
-    [auth, homePath]
+    [auth]
   )
 
   React.useEffect(() => {

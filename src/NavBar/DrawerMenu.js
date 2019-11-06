@@ -15,7 +15,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import EventIcon from '@material-ui/icons/Event'
 import PostAddIcon from '@material-ui/icons/PostAdd'
+import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import TwitterIcon from 'mdi-material-ui/TwitterBox'
 import FilterVintageIcon from '@material-ui/icons/FilterVintage'
 import NaturePeopleIcon from '@material-ui/icons/NaturePeople'
@@ -76,9 +78,11 @@ export default function DrawerMenu({ drawerOpen, toggleDrawer, stateCode }) {
 
         <Divider />
 
-        {user && <Box m={2}>{user.email}</Box>}
         {!user && <ListItem text="Sign In" Icon={AccountCircleIcon} to="/sign-in" />}
-        {user && <ListItem text="Sign Out" Icon={AccountCircleIcon} to="/sign-out" />}
+
+        {user && <Box m={2}>{user.email}</Box>}
+        {user && <ListItem text="Profile" Icon={AccountBoxIcon} to="/profile" />}
+        {user && <ListItem text="Sign Out" Icon={ExitToAppIcon} to="/sign-out" />}
         {admin && (
           <>
             <ListItem text="Content" Icon={DashboardIcon} to="/content" />

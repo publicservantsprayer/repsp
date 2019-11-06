@@ -128,7 +128,43 @@ export const useUser = () => {
   const { auth } = useFirebase()
   const [user, loading, error] = useAuthState(auth)
 
+  if (error) console.log('Error loading user: ', error)
+
   return [user, loading, error]
+}
+
+export const useUserProfile = () => {
+  const [profile, setProfile] = React.useState()
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState()
+  const { db } = useFirebase()
+  const [user] = useUser()
+
+  React.useEffect(() => {
+    if (user) {
+      try {
+        return db
+          .collection('userProfiles')
+          .doc(user.uid)
+          .onSnapshot(userProfile => {
+            if (userProfile.exists) {
+              setProfile({ ...userProfile.data(), user: user })
+            } else {
+              setProfile(false)
+            }
+            setLoading(false)
+          })
+      } catch (error) {
+        setError(error)
+      }
+    } else {
+      setProfile(false)
+    }
+  }, [db, user])
+
+  if (error) console.log('Error loading userProfile: ', error)
+
+  return [profile, loading, error]
 }
 
 export const useAdmin = () => {

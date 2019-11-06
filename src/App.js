@@ -11,6 +11,7 @@ import ContentNew from './Content/New'
 import MattsUpdates from './screens/MattsUpdates'
 import SignIn from './screens/SignIn'
 import SignInEmailLinkLanding from './SignIn/EmailLinkLanding'
+import Profile from './screens/Profile'
 import SignOut from './SignIn/SignOut'
 import PostBrowser from './PostBrowser'
 import TwitterAccounts from './screens/TwitterAccounts'
@@ -91,6 +92,7 @@ export default function App() {
         {/* Account */}
         <Route exact path="/sign-in" component={SignIn} />
         <Route exact path="/sign-in/email-link-landing" component={SignInEmailLinkLanding} />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/sign-out" component={SignOut} />
       </Switch>
     </Router>
