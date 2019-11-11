@@ -50,7 +50,7 @@
     "deploy-hosting": "npm run build && firebase deploy --only hosting",
     "deploy-functions": "firebase deploy --only functions",
     "deploy-firestore-rules": "firebase deploy --only firestore:rules",
-    "test-firestore-rules": "firebase emulators:exec --only firestore 'node_modules/jest/bin/jest.js --watch firestore.rules firestore.rules.spec.js'",
+    "test-firestore-rules": "firebase emulators:exec --only firestore 'jest --watch firestore.rules firestore.rules.spec.js'",
     "copy-functions-config-for-local-emulator": "firebase functions:config:get > functions/.runtimeconfig.json",
     "start-with-functions-emulator": "REACT_APP_FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'npm start'",
     "functions-shell": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase functions:shell"
