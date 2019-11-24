@@ -33,7 +33,7 @@ export const useContentCollection = category => {
       idField: 'docId',
     }
   )
-  if (error) console.log('Error loading news: ', error)
+  if (error) console.log('Error loading content collection: ', error)
 
   return [docs, loading, error]
 }

@@ -4,20 +4,18 @@ import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
 import { useHistory } from 'react-router-dom'
 
-import { H1 } from '../utilities/formating'
+import Layout from '../Layout'
+import Title from '../Layout/Title'
 import List from './List'
 
 export default function Content() {
   const history = useHistory()
 
   return (
-    <Box bgcolor="secondary" py={1}>
-      <Box display="flex" width="100%">
-        <Box flexGrow={1}>
-          <H1>Content</H1>
-        </Box>
-
-        <Box mr={5} mt={5}>
+    <Layout>
+      <Box m={2} position="relative">
+        <Title>Content</Title>
+        <Box position="absolute" top={8} right={8}>
           <Fab color="primary" onClick={() => history.push(`/content/new`)}>
             <AddIcon />
           </Fab>
@@ -25,6 +23,6 @@ export default function Content() {
       </Box>
 
       <List />
-    </Box>
+    </Layout>
   )
 }

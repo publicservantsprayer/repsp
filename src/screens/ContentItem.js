@@ -1,7 +1,6 @@
 import React from 'react'
 import Box from '@material-ui/core/Box'
 import { useParams } from 'react-router-dom'
-import { Divider } from '@material-ui/core'
 
 import Markdown from '../Markdown'
 import { useContentItem, useAdmin } from '../utilities/firebase'
@@ -23,9 +22,6 @@ export default function ContentItem({ docId, children }) {
         {doc && (
           <>
             <Title>{doc.title}</Title>
-            <Box mt={2} mb={4}>
-              <Divider />
-            </Box>
             <Box>
               <Markdown>{doc.content}</Markdown>
               {admin && <UpdateButtons content={doc} />}

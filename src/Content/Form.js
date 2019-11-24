@@ -2,13 +2,11 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
-import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { H1 } from '../utilities/formating'
+import Title from '../Layout/Title'
 import Markdown from '../Markdown'
 import { useFirebase } from '../utilities/firebase'
 import TextField from './TextField'
@@ -68,69 +66,53 @@ export default function Form({ docValues, isNew }) {
 
   return (
     <>
-      <Box m={2}>
-        <Paper>
-          <Container>
-            <form noValidate autoComplete="off">
-              <TextField field="docId" label="Unique ID" disabled={!isNew} {...commonFieldProps} />
-              <SelectField field="category" label="Category" {...commonFieldProps}>
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="events">Events</MenuItem>
-                <MenuItem value="updates">Updates</MenuItem>
-                <MenuItem value="articles">Articles</MenuItem>
-              </SelectField>
+      <form noValidate autoComplete="off">
+        <TextField field="docId" label="Unique ID" disabled={!isNew} {...commonFieldProps} />
+        <SelectField field="category" label="Category" {...commonFieldProps}>
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value="events">Events</MenuItem>
+          <MenuItem value="updates">Updates</MenuItem>
+          <MenuItem value="articles">Articles</MenuItem>
+        </SelectField>
 
-              <DatePicker value={selectedDate} onChange={handleDateChange} />
+        <DatePicker value={selectedDate} onChange={handleDateChange} />
 
-              <TextField field="title" label="Title" {...commonFieldProps} />
-              {!isNew && <TextField field="cardImage" label="Card Image" {...commonFieldProps} />}
-              <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
-              <TextField
-                field="content"
-                label="Content"
-                multiline
-                rows={16}
-                {...commonFieldProps}
-              />
+        <TextField field="title" label="Title" {...commonFieldProps} />
+        {!isNew && <TextField field="cardImage" label="Card Image" {...commonFieldProps} />}
+        <TextField field="blurb" label="Blurb" multiline rows={2} {...commonFieldProps} />
+        <TextField field="content" label="Content" multiline rows={16} {...commonFieldProps} />
 
-              <ImageCodes images={values.images} />
+        <ImageCodes images={values.images} />
 
-              <Box py={2}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  onClick={handleCancel}>
-                  Cancel
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={handleSave}>
-                  Save
-                </Button>
-                {!isNew && <DeleteButton docValues={docValues} />}
-              </Box>
-            </form>
-          </Container>
-        </Paper>
-      </Box>
+        <Box py={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={handleSave}>
+            Save
+          </Button>
+          {!isNew && <DeleteButton docValues={docValues} />}
+        </Box>
+      </form>
 
-      <Box m={2}>
-        <Paper>
-          <AppBar position="static">
-            <Box p={1} mx={1}>
-              <em>PREVIEW</em>
-            </Box>
-          </AppBar>
-          <Box p={2}>
-            <H1>{values.title}</H1>
-            <Markdown>{values.content}</Markdown>
-          </Box>
-        </Paper>
+      <AppBar position="static">
+        <Box p={1} mx={0} fontStyle="oblique">
+          PREVIEW
+        </Box>
+      </AppBar>
+      <Box py={2}>
+        <Title>{values.title}</Title>
+        <Markdown>{values.content}</Markdown>
       </Box>
     </>
   )

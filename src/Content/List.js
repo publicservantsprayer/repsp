@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab'
 import { useContentCollection } from '../utilities/firebase'
 import UpdateButtons from './UpdateButtons'
 
-const ContentItem = ({ content }) => {
+function ContentItem({ content }) {
   return (
     <Box m={2} key={content.docId}>
       <Paper>
@@ -23,9 +23,11 @@ const ContentItem = ({ content }) => {
   )
 }
 
-const ContentCategory = ({ docs }) => {
-  if (!docs) return null
+function ContentCategory({ category }) {
+  const [docs] = useContentCollection(category)
 
+  if (!docs) return null
+  console.log(docs)
   return (
     <>
       {docs.map((doc, i) => (
@@ -34,44 +36,49 @@ const ContentCategory = ({ docs }) => {
     </>
   )
 }
-const TabPanel = ({ children, value, index }) => {
+
+function TabPanel({ children, value, index }) {
+  if (value !== index) return null
+
   return (
-    <Typography component="div" role="tabpanel" hidden={value !== index}>
-      <Box p={0}>{children}</Box>
+    <Typography component="div" role="tabpanel">
+      {children}
     </Typography>
   )
 }
 
 export default function List() {
   const [tabIndex, setTabIndex] = React.useState(0)
-  const docs = useContentCollection('')
-  const events = useContentCollection('events')
-  const updates = useContentCollection('updates')
-  const articles = useContentCollection('articles')
 
   const handleChange = (event, newValue) => setTabIndex(newValue)
 
   return (
     <>
-      <AppBar position="static">
-        <Tabs value={tabIndex} onChange={handleChange} textColor="secondary">
-          <Tab label="None" />
-          <Tab label="Events" />
-          <Tab label="Updates" />
-          <Tab label="Articles" />
-        </Tabs>
-      </AppBar>
+      <Box m={2}>
+        <AppBar position="static" style={{ borderRadius: '8px' }}>
+          <Tabs value={tabIndex} onChange={handleChange} textColor="secondary" centered>
+            <Tab label="None" />
+            <Tab label="Events" />
+            <Tab label="Updates" />
+            <Tab label="Articles" />
+          </Tabs>
+        </AppBar>
+      </Box>
+
       <TabPanel value={tabIndex} index={0}>
-        <ContentCategory docs={docs} />
+        <ContentCategory category="" />
       </TabPanel>
-      <TabPanel value={tabIndex} index={0}>
-        <ContentCategory docs={events} />
+
+      <TabPanel value={tabIndex} index={1}>
+        <ContentCategory category="events" />
       </TabPanel>
-      <TabPanel value={tabIndex} index={0}>
-        <ContentCategory docs={updates} />
+
+      <TabPanel value={tabIndex} index={2}>
+        <ContentCategory category="updates" />
       </TabPanel>
-      <TabPanel value={tabIndex} index={0}>
-        <ContentCategory docs={articles} />
+
+      <TabPanel value={tabIndex} index={3}>
+        <ContentCategory category="articles" />
       </TabPanel>
     </>
   )

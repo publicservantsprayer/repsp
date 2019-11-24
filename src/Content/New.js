@@ -1,8 +1,9 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
 
 import { useFirebase } from '../utilities/firebase'
-import { H1 } from '../utilities/formating'
+import Layout from '../Layout'
+import LayoutContent from '../Layout/Content'
+import Title from '../Layout/Title'
 import Form from './Form'
 
 export default function New() {
@@ -19,9 +20,11 @@ export default function New() {
   }
 
   return (
-    <Box>
-      <H1>New Content</H1>
-      <Form docValues={defaultValues} isNew />
-    </Box>
+    <Layout>
+      <LayoutContent>
+        <Title>New Content</Title>
+        <Form docValues={defaultValues} isNew />
+      </LayoutContent>
+    </Layout>
   )
 }
