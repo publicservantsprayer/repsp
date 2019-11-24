@@ -2,6 +2,7 @@ import React from 'react'
 import Box from '@material-ui/core/Box'
 import AddIcon from '@material-ui/icons/Add'
 import Fab from '@material-ui/core/Fab'
+import Container from '@material-ui/core/Container'
 import { useHistory } from 'react-router-dom'
 
 import Layout from '../Layout'
@@ -13,16 +14,18 @@ export default function Content() {
 
   return (
     <Layout>
-      <Box m={2} position="relative">
-        <Title>Content</Title>
-        <Box position="absolute" top={8} right={8}>
-          <Fab color="primary" onClick={() => history.push(`/content/new`)}>
-            <AddIcon />
-          </Fab>
+      <Container maxWidth="md">
+        <Box m={2} position="relative">
+          <Title>Content</Title>
+          <Box position="absolute" top={8} right={8}>
+            <Fab color="primary" onClick={() => history.push(`/content/new`)}>
+              <AddIcon />
+            </Fab>
+          </Box>
         </Box>
-      </Box>
 
-      <List />
+        <List />
+      </Container>
     </Layout>
   )
 }

@@ -24,24 +24,22 @@ function ContentItem({ content }) {
 }
 
 function ContentCategory({ category }) {
-  const [docs] = useContentCollection(category)
+  const [collection] = useContentCollection(category)
 
-  if (!docs) return null
-  console.log(docs)
+  if (!collection) return null
+
   return (
     <>
-      {docs.map((doc, i) => (
-        <ContentItem content={doc} key={i} />
+      {collection.map((content, i) => (
+        <ContentItem content={content} key={content.docId} />
       ))}
     </>
   )
 }
 
 function TabPanel({ children, value, index }) {
-  if (value !== index) return null
-
   return (
-    <Typography component="div" role="tabpanel">
+    <Typography component="div" role="tabpanel" hidden={value !== index}>
       {children}
     </Typography>
   )
@@ -55,8 +53,8 @@ export default function List() {
   return (
     <>
       <Box m={2}>
-        <AppBar position="static" style={{ borderRadius: '8px' }}>
-          <Tabs value={tabIndex} onChange={handleChange} textColor="secondary" centered>
+        <AppBar position="static">
+          <Tabs value={tabIndex} onChange={handleChange} textColor="secondary">
             <Tab label="None" />
             <Tab label="Events" />
             <Tab label="Updates" />
