@@ -36,12 +36,16 @@ const createStatusText = ({ post, dateID, stateCode }) => {
   if (statusText.length > statusLength) {
     statusText = `${leaderName1}, ${leaderName2} and ${leaderName3}`
   }
-  //return statusText + ' - ' + url
-  return statusText
+  return statusText + ' - ' + url
 }
 
 const getPost = async ({ dateID, stateCode }) => {
-  const post = await db.collection('states').doc(stateCode).collection('posts').doc(dateID).get()
+  const post = await db
+    .collection('states')
+    .doc(stateCode)
+    .collection('posts')
+    .doc(dateID)
+    .get()
   if (!post.exists) throw new Error('Post does not exist')
   return post.data()
 }
@@ -55,14 +59,12 @@ const downloadImage = async ({ dateID, stateCode }) => {
 
   const downloadOptions = { destination: imageDownloadPath }
 
-  await postsBucket
-    .file(imagePath)
-    .download(downloadOptions)
+  await postsBucket.file(imagePath).download(downloadOptions)
 
   return imageDownloadPath
 }
 
-const uploadImageToTwitter = async (downloadedImage) => {
+const uploadImageToTwitter = async downloadedImage => {
   const data = await fs.readFile(downloadedImage)
   const media = await twitter.post('media/upload', { media: data })
 
@@ -77,15 +79,19 @@ const postTweetWithImage = async ({ statusText, accountName, downloadedImage }) 
 
   return await twitter.post('statuses/update', {
     status: statusText,
-    media_ids: media.media_id_string
+    media_ids: media.media_id_string,
   })
 }
 
 const sendTweet = async ({ stateCode, accountName, dateID }) => {
-  const report = db.collection('tweetReports').doc(dateID).collection('states').doc(stateCode)
+  const report = db
+    .collection('tweetReports')
+    .doc(dateID)
+    .collection('states')
+    .doc(stateCode)
   await report.set({
     started: `Started tweet for ${accountName} of ${stateCode} for ${dateID}`,
-    startedAt: admin.firestore.FieldValue.serverTimestamp()
+    startedAt: admin.firestore.FieldValue.serverTimestamp(),
   })
 
   let statusText
@@ -129,7 +135,7 @@ module.exports.tweetDailyPosts = async () => {
     return {
       stateCode: stateCode,
       accountName: `Praying4_${stateCode}`,
-      dateID: dateID
+      dateID: dateID,
     }
   })
 
@@ -137,12 +143,12 @@ module.exports.tweetDailyPosts = async () => {
     {
       stateCode: 'IN',
       accountName: 'psptest4',
-      dateID: dateID
+      dateID: dateID,
     },
     {
       stateCode: 'MI',
       accountName: 'psptest5',
-      dateID: dateID
+      dateID: dateID,
     },
   ]
 

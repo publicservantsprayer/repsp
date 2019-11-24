@@ -1,11 +1,15 @@
 const leaderName = leader => `${leader.Prefix} ${leader.NickName} ${leader.LastName}`
 
-const description = post => {
+const description = (dateID, stateCode, post) => {
+  const [year, month, day] = dateID.split('-')
   let description
 
   description = 'Today we are praying for '
-  description += `${leaderName(post.leader1)}, ${leaderName(post.leader2)}, and ${leaderName(post.leader3)}.`
+  description +=
+    `${leaderName(post.leader1)}, ${leaderName(post.leader2)}, ` +
+    `and ${leaderName(post.leader3)}.`
   description += '\n#Pray4Leaders'
+  description += `\nhttps://thepsp.org/states/${stateCode.toLowerCase()}/${year}/${month}/${day}/`
   description += '\n'
   description += post.leader1.Facebook ? `\n${post.leader1.Facebook}` : ''
   description += post.leader2.Facebook ? `\n${post.leader2.Facebook}` : ''
@@ -24,11 +28,14 @@ const imageUrl = (dateID, stateCode) => {
 }
 
 module.exports.createFacebookPost = async (db, dateID, stateCode, post) => {
-  const facebookPostCollection = db.collection('states').doc(stateCode).collection('facebookPosts')
+  const facebookPostCollection = db
+    .collection('states')
+    .doc(stateCode)
+    .collection('facebookPosts')
 
   const facebookPost = {
     dateID: dateID,
-    description: description(post),
+    description: description(dateID, stateCode, post),
     image: imageUrl(dateID, stateCode),
   }
 
