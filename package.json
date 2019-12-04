@@ -58,6 +58,7 @@
     "test-firestore-rules": "firebase emulators:exec --only firestore 'jest firestore.rules firestore.rules.spec.js'",
     "copy-functions-config-for-local-emulator": "firebase functions:config:get > functions/.runtimeconfig.json",
     "start-with-functions-emulator": "REACT_APP_FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'yarn start'",
+    "serve-with-live-credentials": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase serve",
     "functions-shell": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase functions:shell"
   },
   "eslintConfig": {
