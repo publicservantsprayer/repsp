@@ -3,7 +3,7 @@ const handlebars = require('express-handlebars')
 const cors = require('cors')
 const moment = require('moment')
 
-const rss = (db, dateID) => {
+const rss = (db, realDateID) => {
   const app = express()
 
   app.use(cors())
@@ -17,16 +17,37 @@ const rss = (db, dateID) => {
 
     const stateCodeLower = request.params.stateCode.toLowerCase()
     const stateCodeUpper = request.params.stateCode.toUpperCase()
-    const [year, month, day] = dateID.split('-')
 
-    const snapshot = await db
+    let snapshot = await db
       .collection('states')
       .doc(stateCodeUpper)
       .collection('posts')
-      .doc(dateID)
+      .doc(realDateID)
       .get()
 
+    let dateID
+
+    const getYesterdaysPost = async () => {
+      dateID = moment(realDateID)
+        .subtract(1, 'days')
+        .format('YYYY-MM-DD')
+      return db
+        .collection('states')
+        .doc(stateCodeUpper)
+        .collection('posts')
+        .doc(dateID)
+        .get()
+    }
+
+    if (snapshot.exists) {
+      dateID = realDateID
+    } else {
+      snapshot = await getYesterdaysPost()
+    }
+
     const post = snapshot.data()
+
+    const [year, month, day] = dateID.split('-')
 
     const title = `Public Servants' Prayer - ${moment(dateID).format('dddd, MMMM Do')}`
     const imageUrl =

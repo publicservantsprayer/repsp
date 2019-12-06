@@ -31,7 +31,7 @@ describe('rss', () => {
   beforeAll(async () => (db = await setupAdmin(data)))
   afterAll(async () => await teardown())
 
-  test('basic test', async () => {
+  test('renders todays rss feed', async () => {
     const dateID = '2019-09-15'
     const app = rss(db, dateID)
     const result = await request(app).get('/rss/states/in')
@@ -39,7 +39,22 @@ describe('rss', () => {
     expect(result.status).toEqual(200)
     expect(result.header['access-control-allow-origin']).toEqual('*')
     expect(result.header['content-type']).toEqual('application/rss+xml; charset=utf-8')
-    expect(result.text).toEqual(`<?xml version="1.0" encoding="UTF-8" ?>
+    expect(result.text).toEqual(rssText)
+  })
+
+  test('renders yesterdays rss feed if todays does not exist', async () => {
+    const dateID = '2019-09-16'
+    const app = rss(db, dateID)
+    const result = await request(app).get('/rss/states/in')
+
+    expect(result.status).toEqual(200)
+    expect(result.header['access-control-allow-origin']).toEqual('*')
+    expect(result.header['content-type']).toEqual('application/rss+xml; charset=utf-8')
+    expect(result.text).toEqual(rssText)
+  })
+})
+
+var rssText = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"  xmlns:atom="http://www.w3.org/2005/Atom"  xmlns:media="http://search.yahoo.com/mrss/">
     <channel>
         <atom:link href="https://thepsp.org/rss/states/in" rel="self" type="application/rss+xml" />
@@ -66,6 +81,4 @@ describe('rss', () => {
             ]]></content:encoded>
         </item>
     </channel>
-</rss>`)
-  })
-})
+</rss>`
