@@ -11,16 +11,16 @@ const postsBucket = admin.storage().bucket('repsp123-posts')
 const createCompositeImage = require('./createCompositeImage')
 
 const dayOfTheWeekColor = [
-  'white',            // Sun white
-  '#6D3C73',          // Mon purple
-  'tomato',           // Tue red
-  '#ffff99',          // Wed yellow
-  'darkorange',       // Thu orange
-  '#009933',          // Fri green
-  'skyblue',          // Sat blue
+  'white', // Sun white
+  '#6D3C73', // Mon purple
+  'tomato', // Tue red
+  '#ffff99', // Wed yellow
+  'darkorange', // Thu orange
+  '#009933', // Fri green
+  'skyblue', // Sat blue
 ]
 
-const nameAndTitle = leader => `${leader.Title} ${leader.FirstName} ${leader.LastName}`
+const nameAndTitle = leader => `${leader.Title} ${leader.NickName} ${leader.LastName}`
 
 module.exports.createPostPhoto = async (dateID, stateCode, post) => {
   if (!post) throw Error(`No post for ${dateID} of ${stateCode}`)
@@ -52,7 +52,7 @@ module.exports.createPostPhoto = async (dateID, stateCode, post) => {
     leader1: nameAndTitle(post.leader1),
     leader2: nameAndTitle(post.leader2),
     leader3: nameAndTitle(post.leader3),
-    url: 'https://thepsp.org'
+    url: 'https://thepsp.org',
   }
 
   const color = dayOfTheWeekColor[new Date(dateID).getDay()]
@@ -61,7 +61,7 @@ module.exports.createPostPhoto = async (dateID, stateCode, post) => {
 
   const [year, month, day] = dateID.split('-')
   await postsBucket.upload(postPath, {
-    destination: `/${year}/${month}/${day}/${postImageName}`
+    destination: `/${year}/${month}/${day}/${postImageName}`,
   })
 
   fs.unlinkSync(photoPath1)

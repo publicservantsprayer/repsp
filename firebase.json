@@ -11,6 +11,10 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/rss/**",
+        "function": "rss"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

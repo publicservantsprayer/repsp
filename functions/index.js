@@ -10,6 +10,11 @@ const { stateCodes } = require('./utilities/states')
 const { createPostPhoto } = require('./createPostPhoto')
 const { createDailyPost } = require('./createDailyPost')
 
+const rss = require('./rss')
+
+const dateID = moment().format('YYYY-MM-DD')
+exports.rss = functions.https.onRequest(rss(db, dateID))
+
 exports.createPostPhoto = functions.firestore
   .document('states/{stateCode}/posts/{date}')
   .onCreate((snap, context) => {
