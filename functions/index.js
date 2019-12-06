@@ -4,7 +4,8 @@ const admin = require('firebase-admin')
 admin.initializeApp()
 const db = admin.firestore()
 
-const moment = require('moment')
+const moment = require('moment-timezone')
+const timezone = 'America/New_York'
 
 const { stateCodes } = require('./utilities/states')
 const { createPostPhoto } = require('./createPostPhoto')
@@ -12,7 +13,9 @@ const { createDailyPost } = require('./createDailyPost')
 
 const rss = require('./rss')
 
-const dateID = moment().format('YYYY-MM-DD')
+const dateID = moment()
+  .tz(timezone)
+  .format('YYYY-MM-DD')
 exports.rss = functions.https.onRequest(rss(db, dateID))
 
 exports.createPostPhoto = functions.firestore
@@ -27,7 +30,7 @@ exports.createPostPhoto = functions.firestore
 
 exports.createDailyPost = functions.pubsub
   .schedule('55 4 * * *')
-  .timeZone('America/New_York') // default is America/Los_Angeles
+  .timeZone(timezone) // default is America/Los_Angeles
   .onRun(context => {
     const dateID = moment().format('YYYY-MM-DD')
     const posts = stateCodes.map(async stateCode => {
@@ -39,7 +42,7 @@ exports.createDailyPost = functions.pubsub
 
 exports.tweetDailyPosts = functions.pubsub
   .schedule('55 5 * * *')
-  .timeZone('America/New_York') // default is America/Los_Angeles
+  .timeZone(timezone) // default is America/Los_Angeles
   .onRun(context => {
     const { tweetDailyPosts } = require('./twitter/tweetDailyPosts')
 
