@@ -1,7 +1,7 @@
 const express = require('express')
 const handlebars = require('express-handlebars')
 const cors = require('cors')
-const moment = require('moment')
+const moment = require('moment-timezone')
 
 const rss = (db, realDateID) => {
   const app = express()
@@ -11,6 +11,10 @@ const rss = (db, realDateID) => {
   app.engine('handlebars', handlebars.create().engine)
   app.set('view engine', 'handlebars')
   app.set('views', 'rss/views')
+
+  app.get('/rss/dateID', (request, response) => {
+    response.send(realDateID)
+  })
 
   app.get('/rss/states/:stateCode', async (request, response) => {
     response.set('Content-Type', 'application/rss+xml')
@@ -50,6 +54,7 @@ const rss = (db, realDateID) => {
     const [year, month, day] = dateID.split('-')
 
     const title = `Public Servants' Prayer - ${moment(dateID).format('dddd, MMMM Do')}`
+    const pubDate = moment(dateID).tz('America/New_York').format('ddd, DD MMM YYYY HH:mm:ss ZZ')
     const imageUrl =
       `https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/` +
       `${year}%2F${month}%2F${day}%2F${dateID}_psp_${stateCodeUpper}.png?alt=media`
@@ -62,6 +67,7 @@ const rss = (db, realDateID) => {
     response.render('post', {
       helpers: {
         title: () => title,
+        pubDate: () => pubDate,
         imageUrl: () => imageUrl,
         link: () => link,
         rssLink: () => rssLink,

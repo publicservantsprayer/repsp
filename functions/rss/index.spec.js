@@ -65,6 +65,7 @@ var rssText = `<?xml version="1.0" encoding="UTF-8" ?>
             <title>Public Servants' Prayer - Sunday, September 15th</title>
             <link>https://thepsp.org/states/in/2019/09/15</link>
             <guid>https://thepsp.org/states/in/2019/09/15</guid>
+            <pubDate>Sun, 15 Sep 2019 00:00:00 -0400</pubDate>
             <media:content url="https://firebasestorage.googleapis.com/v0/b/repsp123-posts/o/2019%2F09%2F15%2F2019-09-15_psp_IN.png?alt=media" type="image/png" width="100%" height="auto" />
             <description>
                 Today we are praying for:
