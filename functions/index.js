@@ -90,3 +90,9 @@ exports.createUserProfile = functions.auth.user().onCreate(user => {
 
   return createUserProfile(db, user)
 })
+
+exports.scheduledFirestoreExport = functions.pubsub.schedule('every 24 hours').onRun(context => {
+  const { exportFirestore } = require('./exportFirestore')
+
+  return exportFirestore()
+})
