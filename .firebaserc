@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "repsp123"
+    "production": "repsp123",
+    "staging": "thepsp-org-staging"
   }
 }

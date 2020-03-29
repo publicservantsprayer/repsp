@@ -19,6 +19,8 @@ import ContentCollection from './screens/ContentCollection'
 import StyleGuide from './StyleGuide'
 import useUSAState from './utilities/useUSAState'
 import DesktopOnly from './DesktopOnly'
+import { useSnackbar } from 'notistack'
+import { environment } from './utilities/environment'
 
 const StateFinder = () => {
   useUSAState({ useGeoCode: true })
@@ -26,6 +28,9 @@ const StateFinder = () => {
 }
 
 export default function App() {
+  const { enqueueSnackbar } = useSnackbar()
+  if (environment === 'staging') enqueueSnackbar('Staging Environment', { variant: 'info' })
+
   return (
     <Router>
       <Route component={StateFinder} />

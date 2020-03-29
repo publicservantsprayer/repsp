@@ -65,7 +65,7 @@ const LatestDailyLeaders = () => {
   return <ActualDailyLeaders post={post} />
 }
 
-export default function DailyLeadersx() {
+export default function DailyLeaders() {
   const { stateCode } = useUSAState()
   const { year, month, day } = useParams()
 
