@@ -29,5 +29,9 @@ service cloud.firestore {
     match /userProfiles/{document=**} {
       allow read: if isAdmin();
     }
+    match /userSecrets/{userUid} {
+      allow write: if isAdmin()
+                   && request.auth.uid == userUid;
+    }
   }
 }

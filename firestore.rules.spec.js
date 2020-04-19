@@ -17,7 +17,7 @@ describe(' Database rules', () => {
     const data = {
       'adminUsers/admin123': { uid: 'admin123' },
     }
-    const collectionRef = db => db.collection('content')
+    const collectionRef = (db) => db.collection('content')
 
     test('read-only from all', async () => {
       const ref = collectionRef(await setup(null, data))
@@ -61,7 +61,7 @@ describe(' Database rules', () => {
     const data = {
       'adminUsers/admin123': { uid: 'admin123' },
     }
-    const collectionRef = db => db.collection('adminUsers')
+    const collectionRef = (db) => db.collection('adminUsers')
 
     test('get denied from non-authenticated user', async () => {
       const ref = collectionRef(await setup(null, data))
@@ -93,7 +93,7 @@ describe(' Database rules', () => {
       'userProfiles/joe123': { email: 'joe123@test.com' },
       'adminUsers/admin123': { uid: 'admin123' },
     }
-    const collectionRef = db => db.collection('userProfiles')
+    const collectionRef = (db) => db.collection('userProfiles')
 
     test('get denied from non-authenticated user', async () => {
       const ref = collectionRef(await setup(null, data))
@@ -151,7 +151,7 @@ describe(' Database rules', () => {
     const data = {
       'adminUsers/admin123': { uid: 'admin123' },
     }
-    const collectionRef = db => db.collection('twitterAccounts')
+    const collectionRef = (db) => db.collection('twitterAccounts')
 
     test('access denied from non-authenticated user', async () => {
       const ref = collectionRef(await setup(null, data))
@@ -167,11 +167,58 @@ describe(' Database rules', () => {
       await expect(ref.doc('Praying4_IN').set({ foo: 'bar' })).toDeny()
     })
 
-    test('access denied from authenticated admin user', async () => {
+    test('access allowed from authenticated admin user', async () => {
       const ref = collectionRef(await setup({ uid: 'admin123' }, data))
 
       await expect(ref.doc('Praying4_IN').get()).toAllow()
       await expect(ref.doc('Praying4_IN').set({ foo: 'bar' })).toAllow()
+    })
+  })
+
+  describe('userSecrets collection', () => {
+    const data = {
+      'adminUsers/admin123': { uid: 'admin123' },
+      'adminUsers/admin456': { uid: 'admin456' },
+      'userSecrets/admin123': { uid: 'admin123' },
+    }
+    const collectionRef = (db) => db.collection('userSecrets')
+
+    test('access denied from non-authenticated user', async () => {
+      const ref = collectionRef(await setup(null, data))
+
+      await expect(ref.doc('admin123').get()).toDeny()
+      await expect(ref.doc('admin123').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('access denied from authenticated user', async () => {
+      const ref = collectionRef(await setup({ uid: 'joe123' }, data))
+
+      await expect(ref.doc('joe123').get()).toDeny()
+      await expect(ref.doc('joe123').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('read denied from authenticated admin user to their own', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.doc('admin123').get()).toDeny()
+    })
+
+    test('write allowed from authenticated admin user to their own', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.doc('admin123').set({ foo: 'bar' })).toAllow()
+    })
+
+    test('read denied from authenticated admin user to another', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.doc('admin456').get()).toDeny()
+    })
+
+    test('write denied from authenticated admin user to another', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.doc('admin456').set({ foo: 'bar' })).toDeny()
     })
   })
 })

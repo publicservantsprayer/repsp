@@ -41,8 +41,8 @@
   },
   "scripts": {
     "start": "REACT_APP_ENV=staging react-scripts start",
-    "build:staging": "REACT_APP_ENV=staging react-scripts build",
-    "build:production": "REACT_APP_ENV=production react-scripts build",
+    "build:staging": "firebase use staging && REACT_APP_ENV=staging react-scripts build",
+    "build:production": "firebase use production && REACT_APP_ENV=production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "spec": "jest spec functions --watch",
@@ -51,8 +51,10 @@
     "deploy-hosting:staging": "yarn build:staging && firebase deploy --only hosting",
     "deploy-hosting:production": "yarn build:production && firebase deploy --only hosting",
     "deploy-functions": "firebase deploy --only functions",
-    "deploy-firestore-rules": "firebase deploy --only firestore:rules",
-    "test-firestore-rules": "firebase emulators:exec --only firestore 'jest --watch firestore.rules firestore.rules.spec.js'",
+    "deploy-firestore-rules:staging": "firebase use staging && firebase deploy --only firestore:rules",
+    "deploy-firestore-rules:production": "firebase use production && firebase deploy --only firestore:rules",
+    "test-firestore-rules:watch": "firebase emulators:exec --only firestore 'jest --watch firestore.rules firestore.rules.spec.js'",
+    "test-firestore-rules": "firebase emulators:exec --only firestore 'jest firestore.rules firestore.rules.spec.js'",
     "copy-functions-config-for-local-emulator": "firebase functions:config:get > functions/.runtimeconfig.json",
     "start-with-functions-emulator": "REACT_APP_FIREBASE_FUNCTIONS_EMULATOR=1 GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase emulators:exec --only functions 'yarn start'",
     "functions-shell": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/serviceAccountKey.json firebase functions:shell"
