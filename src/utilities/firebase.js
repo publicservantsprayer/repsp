@@ -54,10 +54,7 @@ export const useOtherTwitterAccounts = category => {
 export const useStateTwitterAccounts = category => {
   const { db } = useFirebase()
   const [docs, loading, error] = useCollectionData(
-    db
-      .collection('twitterAccounts')
-      .where('stateAccount', '==', true)
-      .orderBy('stateCode'),
+    db.collection('twitterAccounts').where('stateAccount', '==', true).orderBy('stateCode'),
     {
       idField: 'accountName',
     }
@@ -95,13 +92,10 @@ export const useLatestPost = () => {
   const { stateCode } = useUSAState()
 
   const [posts, loading, error] = useCollectionData(
-    db
-      .collection(`/states/${stateCode}/posts/`)
-      .orderBy('dateID', 'desc')
-      .limit(1)
+    db.collection(`/states/${stateCode}/posts/`).orderBy('dateID', 'desc').limit(1)
   )
 
-  if (error) console.log('Error loading lastest post: ', error)
+  if (error) console.log('Error loading latest post: ', error)
 
   if (Array.isArray(posts)) return [posts[0], loading, error]
   else return [false, loading, error]
@@ -114,14 +108,26 @@ export const useStateLeaders = ({ legType, chamber }) => {
   const [leaders, loading, error] = useCollectionData(
     db
       .collection(`/states/${stateCode}/leaders/`)
+      .where('lastImportDate', '>', new Date('2020-08-15'))
       .where('hasPhoto', '==', true)
       .where('LegType', '==', legType)
       .where('Chamber', '==', chamber)
   )
 
-  if (error) console.log('Error loading lastest post: ', error)
+  if (error) console.log('Error loading latest post: ', error)
 
   return [leaders, loading, error]
+}
+
+export const useDataImports = () => {
+  const { db } = useFirebase()
+  let [dataImports, loading, error] = useCollectionData(db.collection(`/dataImports`))
+
+  if (error) console.log('Error loading dataImports: ', error)
+
+  console.log(dataImports)
+
+  return [dataImports, loading, error]
 }
 
 export const useUser = () => {

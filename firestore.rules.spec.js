@@ -179,7 +179,6 @@ describe(' Database rules', () => {
     const data = {
       'adminUsers/admin123': { uid: 'admin123' },
       'adminUsers/admin456': { uid: 'admin456' },
-      'userSecrets/admin123': { uid: 'admin123' },
     }
     const collectionRef = (db) => db.collection('userSecrets')
 
@@ -219,6 +218,27 @@ describe(' Database rules', () => {
       const ref = collectionRef(await setup({ uid: 'admin123' }, data))
 
       await expect(ref.doc('admin456').set({ foo: 'bar' })).toDeny()
+    })
+  })
+
+  describe('dataImports collection', () => {
+    const data = {
+      'adminUsers/admin123': { uid: 'admin123' },
+    }
+    const collectionRef = (db) => db.collection('dataImports')
+
+    test('read-write denied from non-admin', async () => {
+      const ref = collectionRef(await setup(null, data))
+
+      await expect(ref.get()).toDeny()
+      await expect(ref.doc('test').set({ foo: 'bar' })).toDeny()
+    })
+
+    test('read-write allowed from admin', async () => {
+      const ref = collectionRef(await setup({ uid: 'admin123' }, data))
+
+      await expect(ref.get()).toAllow()
+      await expect(ref.doc('test').set({ foo: 'bar' })).toAllow()
     })
   })
 })

@@ -41,6 +41,7 @@
   },
   "scripts": {
     "start": "REACT_APP_ENV=staging react-scripts start",
+    "start:production": "REACT_APP_ENV=production react-scripts start",
     "build:staging": "firebase use staging && REACT_APP_ENV=staging react-scripts build",
     "build:production": "firebase use production && REACT_APP_ENV=production react-scripts build",
     "test": "react-scripts test",

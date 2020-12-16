@@ -12,8 +12,15 @@ const createPost = async (dateID, docs, postsRef) => {
 }
 
 module.exports.createDailyPost = async (db, stateCode, dateID) => {
-  const leadersRef = db.collection('states').doc(stateCode).collection('leaders')
-    .where('hasPhoto', '==', true).orderBy('LastName').orderBy('PID')
+  const leadersRef = db
+    .collection('states')
+    .doc(stateCode)
+    .collection('leaders')
+    // .where('lastImportDate', '>', new Date('2020-08-15'))
+    .where('hasPhoto', '==', true)
+    // .orderBy('lastImportDate')
+    .orderBy('LastName')
+    .orderBy('PID')
   const postsRef = db.collection('states').doc(stateCode).collection('posts')
 
   const previousPost = await postsRef.doc(previousDayID(dateID)).get()
@@ -23,7 +30,10 @@ module.exports.createDailyPost = async (db, stateCode, dateID) => {
 
   if (previousPost.exists) {
     const lastLeader = previousPost.data().leader3
-    const nextThree = await leadersRef.startAfter(lastLeader.LastName, lastLeader.PID).limit(3).get()
+    const nextThree = await leadersRef
+      .startAfter(lastLeader.LastName, lastLeader.PID)
+      .limit(3)
+      .get()
     // Add on the first three in case we need to wrap
     docs = nextThree.docs.concat(docs)
   }

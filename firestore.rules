@@ -33,5 +33,9 @@ service cloud.firestore {
       allow write: if isAdmin()
                    && request.auth.uid == userUid;
     }
+    match /dataImports/{document=**} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
   }
 }

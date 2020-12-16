@@ -22,6 +22,8 @@ const useStyles = makeStyles({
 const ActualLeaders = ({ leaders }) => {
   const classes = useStyles()
 
+  if (!leaders) return null
+
   return (
     <>
       {leaders.map(leader => (

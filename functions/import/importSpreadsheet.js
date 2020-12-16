@@ -2,6 +2,8 @@ const { google } = require('googleapis')
 
 const { statesObj, stateCodes, regionForStateCode } = require('../utilities/states')
 const { requiredFields } = require('./requiredFields')
+const admin = require('firebase-admin')
+const timestamp = admin.firestore.Timestamp.fromDate(new Date())
 
 module.exports.importSpreadsheet = async (db, url, auth) => {
   const spreadsheetId = url.split('/')[5]
@@ -28,7 +30,7 @@ module.exports.importSpreadsheet = async (db, url, auth) => {
   }
 
   for (const row of dataResults.data.values) {
-    const leader = {}
+    const leader = { lastImportDate: timestamp }
     for (const field of requiredFields) {
       let index = columnHeaders[field]
       let value = row[index]
