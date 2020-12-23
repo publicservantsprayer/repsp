@@ -81,7 +81,7 @@ export default function PostBrowser() {
         {posts.map((post, i) => {
           return (
             <TabPanel value={value} index={i} key={i}>
-              <img className={classes.postImage} src={src(post)} alt="whatever" />
+              <img className={classes.postImage} src={src(post)} alt="daily post" />
             </TabPanel>
           )
         })}
