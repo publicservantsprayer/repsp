@@ -23,6 +23,8 @@ const dayOfTheWeekColor = [
 const nameAndTitle = leader => `${leader.Title} ${leader.NickName} ${leader.LastName}`
 
 module.exports.createPostPhoto = async (dateID, stateCode, post) => {
+  if (!dateID) throw Error(`No dateID`)
+  if (!stateCode) throw Error(`No stateCode`)
   if (!post) throw Error(`No post for ${dateID} of ${stateCode}`)
 
   const postImageName = `${dateID}_psp_${stateCode}.png`
@@ -61,7 +63,7 @@ module.exports.createPostPhoto = async (dateID, stateCode, post) => {
 
   const [year, month, day] = dateID.split('-')
   await postsBucket.upload(postPath, {
-    destination: `/${year}/${month}/${day}/${postImageName}`,
+    destination: `${year}/${month}/${day}/${postImageName}`,
   })
 
   fs.unlinkSync(photoPath1)
