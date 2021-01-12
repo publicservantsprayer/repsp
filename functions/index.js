@@ -13,9 +13,7 @@ const { createDailyPost } = require('./createDailyPost')
 
 const rss = require('./rss')
 
-const dateID = moment()
-  .tz(timezone)
-  .format('YYYY-MM-DD')
+const dateID = moment().tz(timezone).format('YYYY-MM-DD')
 exports.rss = functions.https.onRequest(rss(db, dateID))
 
 exports.createPostPhoto = functions.firestore

@@ -6,7 +6,7 @@ const text = {
   leader1: 'Alaska Representative Story Andi',
   leader2: 'Alaska Representative Benjamin Carpenter',
   leader3: 'Alaska Representative Gabrielle LeDoux',
-  url: 'https://thepsp.org'
+  url: 'https://thepsp.org',
 }
 
 createCompositeImage(
