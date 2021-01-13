@@ -87,6 +87,7 @@ export default function DrawerMenu({ drawerOpen, toggleDrawer, stateCode }) {
           <>
             <ListItem text="Content" Icon={DashboardIcon} to="/content" />
             <ListItem text="Twitter Accounts" Icon={TwitterIcon} to="/twitter-accounts" />
+            <ListItem text="Data Import" Icon={TwitterIcon} to="/data" />
           </>
         )}
       </List>
