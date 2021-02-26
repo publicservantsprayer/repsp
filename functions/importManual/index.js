@@ -7,8 +7,8 @@ let serviceAccount = require('../../serviceAccountKey-production.json')
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  // databaseURL: 'https://thepsp-org-staging.firebaseio.com',
-  databaseURL: 'https://repsp123.firebaseio.com',
+  databaseURL: 'https://thepsp-org-staging.firebaseio.com',
+  // databaseURL: 'https://repsp123.firebaseio.com',
 })
 
 let db = admin.firestore()
@@ -25,11 +25,12 @@ const stateMembers =
 const importLeaders = async () => {
   const auth = await authorize()
 
-  console.log('Importing federal...')
-  await importSpreadsheet(db, federalMembers, auth)
+  console.log(auth)
+  // console.log('Importing federal...')
+  // await importSpreadsheet(db, federalMembers, auth)
 
-  console.log('Importing state...')
-  await importSpreadsheet(db, stateMembers, auth)
+  // console.log('Importing state...')
+  // await importSpreadsheet(db, stateMembers, auth)
 
   // console.log('Adding state names and regions')
   // await addStateNameAndRegion(db)

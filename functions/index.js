@@ -1,5 +1,6 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
+const cors = require('cors')({ origin: true })
 
 admin.initializeApp()
 const db = admin.firestore()
@@ -10,6 +11,8 @@ const timezone = 'America/New_York'
 const { stateCodes } = require('./utilities/states')
 const { createPostPhoto } = require('./createPostPhoto')
 const { createDailyPost } = require('./createDailyPost')
+
+const { importSpreadsheet, importSpreadsheetStep } = require('./importSpreadsheet')
 
 const rss = require('./rss')
 
@@ -94,3 +97,23 @@ exports.scheduledFirestoreExport = functions.pubsub.schedule('every 24 hours').o
 
   return exportFirestore()
 })
+
+// const runtimeOpts = {
+//   timeoutSeconds: 540, // 9 minutes (max)
+//   memory: '4GB',
+// }
+// .runWith(runtimeOpts)
+
+exports.newDataImport = functions.firestore
+  .document('dataImports/{dataImportId}')
+
+  .onCreate((snap, context) => {
+    return importSpreadsheet(snap, context)
+  })
+
+exports.newDataImportStep = functions.firestore
+  .document('dataImports/{dataImportId}/importStep/{importStepId}')
+
+  .onCreate((snap, context) => {
+    return importSpreadsheetStep(snap, context)
+  })

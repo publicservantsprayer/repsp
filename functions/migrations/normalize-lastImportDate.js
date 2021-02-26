@@ -1,3 +1,4 @@
+console.log('normalizing last import date...')
 ;(async () => {
   const admin = require('firebase-admin')
   const moment = require('moment')
