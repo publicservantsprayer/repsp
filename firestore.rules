@@ -37,5 +37,9 @@ service cloud.firestore {
       allow read: if isAdmin();
       allow write: if isAdmin();
     }
+    match /siteConfig/{document=**} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
   }
 }
