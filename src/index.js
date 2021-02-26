@@ -42,7 +42,7 @@ const config = {
 }
 
 firebase.initializeApp(config[environment].firebase)
-firebase.firestore().enablePersistence()
+firebase.firestore().enablePersistence({ synchronizeTabs: true })
 
 if (firebaseFunctionsEmulator) {
   console.log('Using local functions emulator')
