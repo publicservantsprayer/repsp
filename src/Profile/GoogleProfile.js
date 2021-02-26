@@ -11,17 +11,20 @@ function ConnectButton() {
     if (!user) return
 
     const provider = new firebase.auth.GoogleAuthProvider()
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly')
+    provider.addScope('https://www.googleapis.com/auth/spreadsheets.readonly')
     try {
       const result = await firebase.auth().signInWithPopup(provider)
-      var token = result.credential.accessToken
-      console.log('Google API Access Token: ', token)
-      console.log('Google result: ', result)
+      const googleAccessToken = result.credential.accessToken
+      const googleIdToken = result.credential.idToken
       try {
         await db
           .collection('userSecrets')
           .doc(user.uid)
-          .set({ googleApiToken: token, googleUserInfo: { ...result.additionalUserInfo } })
+          .set({
+            googleAccessToken,
+            googleIdToken,
+            googleUserInfo: { ...result.additionalUserInfo },
+          })
         console.log('API Token saved')
       } catch (error) {
         console.log('error saving google api key', error)
@@ -45,7 +48,7 @@ const GoogleProfile = () => {
 
   React.useEffect(() => {
     if (user) {
-      user.providerData.forEach((profile) => {
+      user.providerData.forEach(profile => {
         console.log('Sign-in provider: ' + profile.providerId)
         console.log('  Provider-specific UID: ' + profile.uid)
         console.log('  Name: ' + profile.displayName)
@@ -62,7 +65,6 @@ const GoogleProfile = () => {
   }, [user])
 
   if (!signedInWithGoogle) return <ConnectButton />
-  if (signedInWithGoogle) return <ConnectButton />
 
   return (
     <Box>
@@ -75,6 +77,7 @@ const GoogleProfile = () => {
         />
         {googleProfile.displayName} - {googleProfile.email}
       </Box>
+      {signedInWithGoogle && <ConnectButton />}
     </Box>
   )
 }

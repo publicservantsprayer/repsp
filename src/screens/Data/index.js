@@ -4,6 +4,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import Box from '@material-ui/core/Box'
 
+import Layout from '../../Layout'
 import DataTable from './DataTable'
 import Imports from './Imports'
 
@@ -21,7 +22,7 @@ function Data() {
   }
 
   return (
-    <>
+    <Layout>
       <AppBar position="static">
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Data" />
@@ -34,7 +35,7 @@ function Data() {
       <TabPanel value={value} index={1}>
         <Imports />
       </TabPanel>
-    </>
+    </Layout>
   )
 }
 export default Data

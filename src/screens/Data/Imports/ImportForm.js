@@ -1,11 +1,12 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import Box from '@material-ui/core/Box'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 import Paper from '@material-ui/core/Paper'
-import { useFirebase } from '../utilities/firebase'
-import FormControl from '@material-ui/core/FormControl'
+import { useFirebase } from '../../../utilities/firebase'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,22 +17,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-// const useUpsert = async ({ collection }) => {
-//   try {
-//     if (values.docId) {
-//       await db.collection('dataImports').doc(values.docId).set(values)
-//     } else {
-//       await db.collection('dataImports').add({ date: timestamp, ...values })
-//     }
-//   } catch (error) {
-//     console.log('Error writing to db: ', error)
-//   }
-// }
-
-export function ImportForm({ handleCancel }) {
+export function ImportForm({ closeForm }) {
   const classes = useStyles()
   const { firebase, db } = useFirebase()
   const [values, setValues] = React.useState()
+  const history = useHistory()
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value })
@@ -39,12 +29,12 @@ export function ImportForm({ handleCancel }) {
 
   const handleSave = async () => {
     const timestamp = firebase.firestore.Timestamp.fromDate(new Date())
+    let results
     try {
-      if (values.docId) {
-        await db.collection('dataImports').doc(values.docId).set(values)
-      } else {
-        await db.collection('dataImports').add({ date: timestamp, ...values })
-      }
+      results = await db.collection('dataImports').add({ date: timestamp, ...values })
+      console.log({ results })
+      history.push(`/data/imports/${results.id}`)
+      closeForm()
     } catch (error) {
       console.log('Error writing to db: ', error)
     }
@@ -52,9 +42,8 @@ export function ImportForm({ handleCancel }) {
 
   return (
     <Paper>
-      <FormControl>
+      <Box display="flex" flexDirection="column" padding={2}>
         <TextField
-          // field="federalMembersUrl"
           label="Federal Members URL"
           helperText="Full Google Sheet URL for Federal Members"
           margin="normal"
@@ -63,7 +52,6 @@ export function ImportForm({ handleCancel }) {
           fullWidth
         />
         <TextField
-          // field="stateMembersUrl"
           label="State Members URL"
           helperText="Full Google Sheet URL for State Members"
           margin="normal"
@@ -71,21 +59,23 @@ export function ImportForm({ handleCancel }) {
           onChange={handleChange('stateMembersUrl')}
           fullWidth
         />
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          className={classes.button}
-          onClick={handleSave}>
-          Save
-        </Button>
-      </FormControl>
+        <ButtonGroup>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={handleSave}>
+            Save
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={closeForm}>
+            Cancel
+          </Button>
+        </ButtonGroup>
+      </Box>
     </Paper>
   )
 }

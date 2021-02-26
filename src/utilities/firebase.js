@@ -104,15 +104,33 @@ export const useLatestPost = () => {
 export const useStateLeaders = ({ legType, chamber }) => {
   const { db } = useFirebase()
   const { stateCode } = useUSAState()
+  const [siteConfig, loadingSiteConfig] = useSiteConfig()
+  const [leaders, setLeaders] = React.useState()
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState()
 
-  const [leaders, loading, error] = useCollectionData(
-    db
-      .collection(`/states/${stateCode}/leaders/`)
-      .where('lastImportDate', '>', new Date('2020-08-15'))
-      .where('hasPhoto', '==', true)
-      .where('LegType', '==', legType)
-      .where('Chamber', '==', chamber)
-  )
+  React.useEffect(() => {
+    if (loadingSiteConfig) return
+
+    const loadData = async () => {
+      try {
+        const results = await db
+          .collection(`/states/${stateCode}/leaders/`)
+          .where('lastImportDate', '>', siteConfig.lastImportDate)
+          .where('hasPhoto', '==', true)
+          .where('LegType', '==', legType)
+          .where('Chamber', '==', chamber)
+          .get()
+        console.log({ results })
+        setLeaders(results.docs.map(leader => leader.data()))
+        setLoading(false)
+      } catch (error) {
+        setError(error)
+        setLoading(false)
+      }
+    }
+    loadData()
+  }, [loadingSiteConfig])
 
   if (error) console.log('Error loading latest post: ', error)
 
@@ -121,13 +139,25 @@ export const useStateLeaders = ({ legType, chamber }) => {
 
 export const useDataImports = () => {
   const { db } = useFirebase()
-  let [dataImports, loading, error] = useCollectionData(db.collection(`/dataImports`))
+  let [dataImports, loading, error] = useCollectionData(db.collection(`/dataImports`), {
+    idField: 'docId',
+  })
 
   if (error) console.log('Error loading dataImports: ', error)
 
   console.log(dataImports)
 
   return [dataImports, loading, error]
+}
+
+export const useSiteConfig = () => {
+  const { db } = useFirebase()
+  const [doc, loading, error] = useDocumentData(db.collection('siteConfig').doc('current'), {
+    idField: 'docId',
+  })
+  if (error) console.log('Error getting site config: ', error)
+
+  return [doc, loading, error]
 }
 
 export const useUser = () => {

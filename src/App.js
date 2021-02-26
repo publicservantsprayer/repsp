@@ -17,6 +17,7 @@ import PostBrowser from './PostBrowser'
 import TwitterAccounts from './screens/TwitterAccounts'
 import ContentCollection from './screens/ContentCollection'
 import Data from './screens/Data'
+import DataImportDetails from './screens/Data/Imports/Details'
 import StyleGuide from './StyleGuide'
 import useUSAState from './utilities/useUSAState'
 import DesktopOnly from './DesktopOnly'
@@ -95,6 +96,8 @@ export default function App() {
         <Route exact path="/twitter-accounts" component={TwitterAccounts} />
         <Route exact path="/twitter-accounts/:accountName" component={TwitterAccounts} />
         <Route exact path="/data" component={Data} />
+        <Route exact path="/data/imports" component={Data} />
+        <Route exact path="/data/imports/:dataImportId" component={DataImportDetails} />
 
         {/* Account */}
         <Route exact path="/sign-in" component={SignIn} />
