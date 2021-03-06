@@ -8,7 +8,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/../serviceAccountKey.json firebase emulators:exec --only functions,firestore 'jest --watch functions'"
+    "test": "GOOGLE_APPLICATION_CREDENTIALS=`pwd`/../serviceAccountKey-staging.json firebase emulators:exec --only functions,firestore 'jest --watch functions'"
   },
   "engines": {
     "node": "10"

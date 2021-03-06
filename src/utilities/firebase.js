@@ -130,7 +130,7 @@ export const useStateLeaders = ({ legType, chamber }) => {
       }
     }
     loadData()
-  }, [loadingSiteConfig])
+  }, [chamber, db, legType, loadingSiteConfig, siteConfig, stateCode])
 
   if (error) console.log('Error loading latest post: ', error)
 

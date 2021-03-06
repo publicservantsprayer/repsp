@@ -123,13 +123,16 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
         .replace(/[^a-z0-9_-]+/gi, '')
         .toLowerCase()
 
-      const doc = db
+      const currentDoc = db
         .collection('states')
         .doc(leader.StateCode)
         .collection('leaders')
         .doc(leader.permaLink)
+
+      const rootDoc = db.collection('leaders').doc(leader.permaLink)
       try {
-        results.push(setLeader(doc, leader))
+        results.push(setLeader(currentDoc, leader))
+        results.push(setLeader(rootDoc, leader))
       } catch (error) {
         console.log('Error setting leader: ', leader.permaLink, error)
       }

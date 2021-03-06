@@ -2,13 +2,14 @@ const { setup, setupAdmin, teardown } = require('../../spec/helpers')
 const { importSpreadsheet } = require('./importSpreadsheet')
 const { authorize } = require('./authorize')
 
-describe('importSpreadsheet imports data', () => {
+describe.skip('importSpreadsheet imports data', () => {
   let db
 
   beforeAll(async () => {
     db = await setupAdmin()
     const auth = await authorize()
-    const url = 'https://docs.google.com/spreadsheets/d/1Lr5IsaQq9BojEXELIrwjX26uJfpsIkfggvSo6me-Se4/edit#gid=1144399491'
+    const url =
+      'https://docs.google.com/spreadsheets/d/1Lr5IsaQq9BojEXELIrwjX26uJfpsIkfggvSo6me-Se4/edit#gid=1144399491'
     await importSpreadsheet(db, url, auth)
   })
 
@@ -40,5 +41,3 @@ describe('importSpreadsheet imports data', () => {
     expect(doc.exists).toBe(false)
   })
 })
-
-
