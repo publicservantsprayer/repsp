@@ -1,4 +1,5 @@
 const { google } = require('googleapis')
+const functions = require('firebase-functions');
 
 const { stateCodes } = require('../utilities/states')
 const { requiredFields } = require('./requiredFields')
@@ -15,45 +16,7 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
       : dataImport.stateMembersUrl
   const spreadsheetId = url.split('/')[5]
 
-  const credentials = {
-    installed: {
-      client_id: '906637795345-v51cojk2mmc626arao7iq1mjkjghd65u.apps.googleusercontent.com',
-      project_id: 'quickstart-1611769086690',
-      auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-      token_uri: 'https://oauth2.googleapis.com/token',
-      auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-      client_secret: 'Sz3CM-xB6OACeJAFqHzg50Nc',
-      redirect_uris: ['urn:ietf:wg:oauth:2.0:oob', 'http://localhost'],
-    },
-  }
-  const { client_secret, client_id, redirect_uris } = credentials.installed
-  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0])
-
-  const token = {
-    // command line:
-    // access_token:
-    //   'ya29.a0AfH6SMDOwpThVvwOMd2I8xpT3ljVHqSldjFoAjFqgO9dXWBfojxsyZUjbFAAZt_SoivRFQgMfN6gSoefE7LkaJApvwDbsATZlLhQvDId0kvmvRUVSnwpWCstiGk67fFQ2MtxyPLZgsi9-rJqrcs_NZSRDbrBZv3fBEoPyJDfE_0',
-
-    // from web auth:
-    // access_token:
-    //   'ya29.a0AfH6SMBLpxPXDp_jPGdecOR9_lnXnCFEAj549KieLFAKMm53w4luDPa9gd30xhlhYZrqTnNjzD1xsUciKWXR5uZd3BQmOggM5qHd0HEfj6TO50ONu2vFgmN9zHeAVaMV0cS26nDA-V87gPoU_tiirgFQf7cyMBy6ngnTcAiSOTrA',
-    access_token:
-      'ya29.A0AfH6SMB5v2oI0Ocmdm6wx6Ohk5fuK8nXAMmTIXONB_90CP3QGRXRXML28DZeTJzWcAFQbcqCAf8A7XS_ujCyybaVd8mw9YRQGayp1tjKwHasj0vav_ccukWcgN55w3KOsGe4CANfQCntHE3CqcvbVy8CqSCEig',
-
-    // both work with same refresh token
-    refresh_token:
-      '1//043SYV95amJsmCgYIARAAGAQSNwF-L9IrS1erHGQVEsh6BxWzemgj0CUKlBP-P7Ogfc47oZXdEm8zHV-GnPEzh0w01WqgaXdrW64',
-    scope: 'https://www.googleapis.com/auth/spreadsheets.readonly',
-    token_type: 'Bearer',
-    expiry_date: 1611790477292,
-  }
-
-  oAuth2Client.setCredentials(token)
-
-  // google.options({ auth })
-
-  // const sheets = google.sheets({ version: 'v4' })
-  const sheets = google.sheets({ version: 'v4', auth: oAuth2Client })
+  const sheets = google.sheets({ version: 'v4', auth: functions.config().browser.apikey })
 
   const logMessage = async message => {
     await db.collection('dataImports').doc(dataImport.id).collection('importLog').doc().set({
