@@ -15,6 +15,64 @@
       ]
     },
     {
+      "collectionGroup": "content",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "category",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "createdOn",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "Chamber",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "LegType",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "hasPhoto",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "hasPhoto",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "LastName",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "PID",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "leaders",
       "queryScope": "COLLECTION",
       "fields": [
@@ -28,6 +86,34 @@
         },
         {
           "fieldPath": "PID",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "twitterAccounts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "stateAccount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "stateCode",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "importLog",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "legislatorType",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
           "order": "ASCENDING"
         }
       ]
