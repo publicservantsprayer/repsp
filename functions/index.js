@@ -104,14 +104,14 @@ exports.scheduledFirestoreExport = functions.pubsub.schedule('every 24 hours').o
 // }
 // .runWith(runtimeOpts)
 
-exports.newDataImport = functions.firestore
+exports.importSpreadsheet = functions.firestore
   .document('dataImports/{dataImportId}')
 
   .onCreate((snap, context) => {
     return importSpreadsheet(snap, context)
   })
 
-exports.newDataImportStep = functions.firestore
+exports.importSpreadsheetStep = functions.firestore
   .document('dataImports/{dataImportId}/importStep/{importStepId}')
 
   .onCreate((snap, context) => {
