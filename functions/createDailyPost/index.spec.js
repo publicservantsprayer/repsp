@@ -9,10 +9,10 @@ describe('createPostForState without previous posts', () => {
   let db
 
   const data = {
-    'states/IN/leaders/1': { PID: '1', LastName: 'a', hasPhoto: true, lastImportDate },
-    'states/IN/leaders/2': { PID: '2', LastName: 'b', hasPhoto: true, lastImportDate },
-    'states/IN/leaders/3': { PID: '3', LastName: 'c', hasPhoto: false, lastImportDate },
-    'states/IN/leaders/4': { PID: '4', LastName: 'd', hasPhoto: true, lastImportDate },
+    'states/IN/leaders/1': { PID: '1', LastName: 'a', lastImportDate },
+    'states/IN/leaders/2': { PID: '2', LastName: 'b', lastImportDate },
+    'states/IN/leaders/3': { PID: '3', LastName: 'c', lastImportDate },
+    'states/IN/leaders/4': { PID: '4', LastName: 'd', lastImportDate },
   }
 
   beforeAll(async () => (db = await setupAdmin(data)))
@@ -27,7 +27,7 @@ describe('createPostForState without previous posts', () => {
     expect(doc.data().dateID).toEqual('2019-01-01')
     expect(doc.data().leader1.PID).toBe('1')
     expect(doc.data().leader2.PID).toBe('2')
-    expect(doc.data().leader3.PID).toBe('4')
+    expect(doc.data().leader3.PID).toBe('3')
   })
 })
 

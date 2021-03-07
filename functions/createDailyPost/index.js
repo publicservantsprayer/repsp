@@ -16,9 +16,6 @@ module.exports.createDailyPost = async (db, stateCode, dateID) => {
     .collection('states')
     .doc(stateCode)
     .collection('leaders')
-    .where('lastImportDate', '>', new Date('2020-01-01'))
-    .where('hasPhoto', '==', true)
-    .orderBy('lastImportDate')
     .orderBy('LastName')
     .orderBy('PID')
   const postsRef = db.collection('states').doc(stateCode).collection('posts')
@@ -28,12 +25,9 @@ module.exports.createDailyPost = async (db, stateCode, dateID) => {
   const firstThree = await leadersRef.limit(3).get()
   let docs = firstThree.docs
 
-  console.log({ previousPost: previousPost.exists })
-
   if (previousPost.exists) {
     const lastLeader = previousPost.data().leader3
 
-    console.log({ lastLeader })
     // look up startAfter docs
     const nextThree = await leadersRef
       .startAfter(lastLeader.LastName, lastLeader.PID)
