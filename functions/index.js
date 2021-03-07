@@ -124,7 +124,7 @@ exports.handleCreateDataImportStep = functions.firestore
 exports.handleUpdateLastImport = functions.firestore
   .document('siteConfig/{siteConfigId}')
 
-  .onUpdate((change, context) => {
+  .onWrite((change, context) => {
     return handleUpdateLastImport(change, context)
   })
 
