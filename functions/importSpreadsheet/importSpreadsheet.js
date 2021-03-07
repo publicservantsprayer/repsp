@@ -37,12 +37,6 @@ module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
   }
   if (endRow > maxRowCount) endRow = maxRowCount
 
-  // Temporary!!!
-  if (startRow === 601 && endRow === 700) {
-    startRow = 7301
-    endRow = 7400
-  }
-
   // Get column headers
   let columnHeaders, headerResults
   const firstRowRange = { spreadsheetId, range: 'A1:CN1' }
