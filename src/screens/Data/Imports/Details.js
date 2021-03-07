@@ -76,10 +76,15 @@ const useImportLogs = dataImportId => {
 export default function DataImportDetails() {
   const [importStarted] = React.useState(false)
   const { dataImportId } = useParams()
-  const [dataImport, dataImportLoading] = useDataImport(dataImportId)
+  const [dataImport] = useDataImport(dataImportId)
   const { stateImportLogs, federalImportLogs } = useImportLogs(dataImportId)
 
-  if (dataImportLoading) return null
+  if (!dataImport)
+    return (
+      <Layout>
+        <h1>Waiting for data</h1>
+      </Layout>
+    )
 
   return (
     <Layout>
