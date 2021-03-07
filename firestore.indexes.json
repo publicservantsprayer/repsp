@@ -29,6 +29,20 @@
       ]
     },
     {
+      "collectionGroup": "importLog",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "legislatorType",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "timestamp",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "leaders",
       "queryScope": "COLLECTION",
       "fields": [
@@ -40,6 +54,20 @@
           "fieldPath": "LegType",
           "order": "ASCENDING"
         },
+        {
+          "fieldPath": "hasPhoto",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
         {
           "fieldPath": "hasPhoto",
           "order": "ASCENDING"
@@ -100,20 +128,6 @@
         },
         {
           "fieldPath": "stateCode",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "importLog",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "legislatorType",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "timestamp",
           "order": "ASCENDING"
         }
       ]
