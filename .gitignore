@@ -35,3 +35,5 @@ serviceAccountKey*.json
 # google sheets
 credentials.json
 token.json
+
+/tmp
