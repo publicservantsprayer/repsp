@@ -1,34 +1,51 @@
 const { google } = require('googleapis')
-const functions = require('firebase-functions');
+const functions = require('firebase-functions')
+const moment = require('moment-timezone')
+const timezone = 'America/New_York'
 
 const { stateCodes } = require('../utilities/states')
 const { requiredFields } = require('./requiredFields')
 const admin = require('firebase-admin')
-const FieldValue = admin.firestore.FieldValue
-const timestamp = admin.firestore.Timestamp.fromDate(new Date())
+const { FieldValue } = admin.firestore
+const lastImportDate = admin.firestore.Timestamp.fromDate(new Date())
+const auth = functions.config().browser.apikey
 
-// const { inspect } = require('util')
-
-module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
-  const url =
-    dataImportStep.legislatorType === 'federal'
-      ? dataImport.federalMembersUrl
-      : dataImport.stateMembersUrl
-  const spreadsheetId = url.split('/')[5]
-
-  const sheets = google.sheets({ version: 'v4', auth: functions.config().browser.apikey })
+module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
+  const { legislatorType, row: stepConfigRow, maxRowCount } = stepConfig
 
   const logMessage = async message => {
     await db.collection('dataImports').doc(dataImport.id).collection('importLog').doc().set({
-      legislatorType: dataImportStep.legislatorType,
+      legislatorType: stepConfig.legislatorType,
       message,
       timestamp: FieldValue.serverTimestamp(),
     })
   }
 
+  const url =
+    legislatorType === 'federal' ? dataImport.federalMembersUrl : dataImport.stateMembersUrl
+  const spreadsheetId = url.split('/')[5]
+
+  const sheets = google.sheets({ version: 'v4', auth })
+
+  let startRow, endRow
+  if (!stepConfigRow) {
+    startRow = 2
+    endRow = 100
+  } else {
+    startRow = stepConfigRow + 1
+    endRow = stepConfigRow + 100
+  }
+  if (endRow > maxRowCount) endRow = maxRowCount
+
+  // Temporary!!!
+  if (startRow === 601 && endRow === 700) {
+    startRow = 7301
+    endRow = 7400
+  }
+
   // Get column headers
   let columnHeaders, headerResults
-  const firstRowRange = { spreadsheetId: spreadsheetId, range: 'A1:CN1' }
+  const firstRowRange = { spreadsheetId, range: 'A1:CN1' }
   try {
     headerResults = await sheets.spreadsheets.values.get(firstRowRange)
   } catch (error) {
@@ -40,12 +57,9 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
     obj[value] = index
     return obj
   }, {})
-  // await logMessage(`Got columnHeaders: ${inspect(columnHeaders)}`)
 
   // get all the data
   let dataResults
-  const startRow = dataImportStep.row
-  const endRow = dataImportStep.row + 100
 
   const dataRange = { spreadsheetId: spreadsheetId, range: `A${startRow}:CN${endRow}` }
   try {
@@ -54,19 +68,33 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
     return console.log('The API returned an error getting data: ' + error)
   }
 
-  if (dataResults.data.values.length < 1) {
+  // Completion
+  if (!dataResults.data.values) {
+    const date = moment
+      .unix(lastImportDate.seconds)
+      .tz(timezone)
+      .format('YYYY - dddd, MMMM Do [at] h:mm:ss a')
+
+    if (legislatorType === 'federal') {
+      await logMessage(`Completed federal import for ${date}!!!`)
+    } else {
+      await db
+        .collection('siteConfig')
+        .doc('current')
+        .set({ lastImportDate, lastDataImportId: dataImport.id }, { merge: true })
+      await logMessage(`Completed state import for ${date}!!!`)
+    }
     return null
   }
 
   const results = []
 
   const setLeader = async (doc, leader) => {
-    await doc.set(leader)
-    return logMessage(leader.permaLink)
+    return doc.set(leader)
   }
 
   for (const row of dataResults.data.values) {
-    const leader = { lastImportDate: timestamp }
+    const leader = { lastImportDate }
     for (const field of requiredFields) {
       let index = columnHeaders[field]
       let value = row[index]
@@ -93,6 +121,7 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
         .doc(leader.permaLink)
 
       const rootDoc = db.collection('leaders').doc(leader.permaLink)
+
       try {
         results.push(setLeader(currentDoc, leader))
         results.push(setLeader(rootDoc, leader))
@@ -101,29 +130,14 @@ module.exports.importSpreadsheet = async (db, dataImport, dataImportStep) => {
       }
     }
   }
+
+  await logMessage(`Updating ${legislatorType} leader rows ${startRow}-${endRow}`)
   await Promise.all(results)
 
-  return db
-    .collection('dataImports')
-    .doc(dataImport.id)
-    .collection('importStep')
-    .doc()
-    .set({
-      legislatorType: dataImportStep.legislatorType,
-      row: endRow + 1,
-      timestamp: FieldValue.serverTimestamp(),
-    })
+  return db.collection('dataImports').doc(dataImport.id).collection('step').doc().set({
+    legislatorType,
+    row: endRow,
+    timestamp: FieldValue.serverTimestamp(),
+    maxRowCount,
+  })
 }
-
-// module.exports.addStateNameAndRegion = async db => {
-//   const writes = stateCodes.map(stateCode => {
-//     return db
-//       .collection('states')
-//       .doc(stateCode)
-//       .set({
-//         name: statesObj[stateCode],
-//         region: regionForStateCode(stateCode),
-//       })
-//   })
-//   return Promise.all(writes)
-// }

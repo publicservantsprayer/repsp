@@ -1,6 +1,5 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
-const cors = require('cors')({ origin: true })
 
 admin.initializeApp()
 const db = admin.firestore()
@@ -12,7 +11,11 @@ const { stateCodes } = require('./utilities/states')
 const { createPostPhoto } = require('./createPostPhoto')
 const { createDailyPost } = require('./createDailyPost')
 
-const { importSpreadsheet, importSpreadsheetStep } = require('./importSpreadsheet')
+const { handleCreateDataImport, handleCreateDataImportStep } = require('./importSpreadsheet')
+const { handleUpdateLastImport } = require('./importSpreadsheet/handleUpdateLastImport')
+const {
+  handleCreateDataImportRemoveStep,
+} = require('./importSpreadsheet/handleCreateDataImportRemoveStep')
 
 const rss = require('./rss')
 
@@ -104,16 +107,30 @@ exports.scheduledFirestoreExport = functions.pubsub.schedule('every 24 hours').o
 // }
 // .runWith(runtimeOpts)
 
-exports.importSpreadsheet = functions.firestore
+exports.handleCreateDataImport = functions.firestore
   .document('dataImports/{dataImportId}')
 
   .onCreate((snap, context) => {
-    return importSpreadsheet(snap, context)
+    return handleCreateDataImport(snap, context)
   })
 
-exports.importSpreadsheetStep = functions.firestore
-  .document('dataImports/{dataImportId}/importStep/{importStepId}')
+exports.handleCreateDataImportStep = functions.firestore
+  .document('dataImports/{dataImportId}/step/{stepId}')
 
   .onCreate((snap, context) => {
-    return importSpreadsheetStep(snap, context)
+    return handleCreateDataImportStep(snap, context)
+  })
+
+exports.handleUpdateLastImport = functions.firestore
+  .document('siteConfig/{siteConfigId}')
+
+  .onUpdate((change, context) => {
+    return handleUpdateLastImport(change, context)
+  })
+
+exports.handleCreateDataImportRemoveStep = functions.firestore
+  .document('dataImports/{dataImportId}/removeStep/{removeStepId}')
+
+  .onCreate((snap, context) => {
+    return handleCreateDataImportRemoveStep(snap, context)
   })
