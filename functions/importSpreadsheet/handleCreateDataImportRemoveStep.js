@@ -22,6 +22,7 @@ const deleteLeader = async (leader, stateCode, dataImportId) => {
     .unix(leaderData.lastImportDate.seconds)
     .tz(timezone)
     .format('YYYY - dddd, MMMM Do [at] h:mm:ss a')
+
   await importLog(dataImportId, {
     legislatorType: leaderData.LegType === 'SL' ? 'state' : 'federal',
     message: `Removed ${leaderData.permaLink}, last imported: ${date}`,

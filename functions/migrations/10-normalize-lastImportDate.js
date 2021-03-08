@@ -1,34 +1,32 @@
-console.log('normalizing last import date...')
+const admin = require('firebase-admin')
+let serviceAccount = require('../../serviceAccountKey-staging.json')
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount) })
+let db = admin.firestore()
+
+const moment = require('moment')
+const unix2000 = moment('2000-01-01').unix()
+const startDate = admin.firestore.Timestamp.fromMillis(unix2000 * 1000)
+
+const { stateCodes } = require('../utilities/states')
+
+let updatedLeaderCount = 0
+let totalLeaderCount = 0
+
 ;(async () => {
-  const admin = require('firebase-admin')
-  const moment = require('moment')
-
-  let serviceAccount = require('../../serviceAccountKey-staging.json')
-
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  })
-
-  let db = admin.firestore()
-
-  const { stateCodes } = require('../utilities/states')
-
-  const unix2000 = moment('2000-01-01').unix()
-  const startDate = admin.firestore.Timestamp.fromMillis(unix2000 * 1000)
+  console.log('normalizing last import date...')
 
   const posts = stateCodes.map(async stateCode => {
     const leadersRef = db.collection('states').doc(stateCode).collection('leaders')
     const leaders = (await leadersRef.get()).docs
+    totalLeaderCount = totalLeaderCount + leaders.length
+
     const noDateLeaders = leaders.filter(leader => leader.data().lastImportDate === undefined)
     console.log(
       `${stateCode} - found: ${noDateLeaders.length} / ${leaders.length} without lastImportDate`
     )
 
-    // Update the lastImportDate of each document
-    return Promise.all(
+    await Promise.all(
       noDateLeaders.map(async leader => {
-        console.log(`Updating ${leader.id}`)
-
         const leaderRef = db
           .collection('states')
           .doc(stateCode)
@@ -38,9 +36,11 @@ console.log('normalizing last import date...')
         return leaderRef.set({ lastImportDate: startDate }, { merge: true })
       })
     )
+    updatedLeaderCount = updatedLeaderCount + noDateLeaders.length
+    return null
   })
 
-  return Promise.all(posts)
-})().catch(error => {
-  console.log(error)
-})
+  await Promise.all(posts)
+  console.log(`Updated leader count: ${updatedLeaderCount}`)
+  console.log(`Total leader count: ${totalLeaderCount}`)
+})().catch(console.log)
