@@ -74,7 +74,7 @@ module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
     } else {
       await db
         .collection('siteConfig')
-        .doc('current')
+        .doc('dataImports')
         .set({ lastImportDate, lastDataImportId: dataImport.id }, { merge: true })
       await logMessage(`Completed state import for ${date}!!!`)
     }

@@ -5,6 +5,7 @@ const { stateCodes } = require('../utilities/states')
 
 module.exports.handleUpdateLastImport = async change => {
   const siteConfig = change.after.data()
+  if (!siteConfig) return console.error('No siteConfig/dataImports')
   const { lastImportDate, lastDataImportId } = siteConfig
 
   const importLog = async (message, legislatorType) => {
