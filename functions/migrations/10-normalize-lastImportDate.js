@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const admin = require('firebase-admin')
 let serviceAccount = require('../../serviceAccountKey-staging.json')
 admin.initializeApp({ credential: admin.credential.cert(serviceAccount) })
@@ -15,7 +16,7 @@ let totalLeaderCount = 0
 ;(async () => {
   console.log('normalizing last import date...')
 
-  const posts = stateCodes.map(async stateCode => {
+  for (const stateCode of stateCodes) {
     const leadersRef = db.collection('states').doc(stateCode).collection('leaders')
     const leaders = (await leadersRef.get()).docs
     totalLeaderCount = totalLeaderCount + leaders.length
@@ -37,10 +38,8 @@ let totalLeaderCount = 0
       })
     )
     updatedLeaderCount = updatedLeaderCount + noDateLeaders.length
-    return null
-  })
+  }
 
-  await Promise.all(posts)
   console.log(`Updated leader count: ${updatedLeaderCount}`)
   console.log(`Total leader count: ${totalLeaderCount}`)
 })().catch(console.log)
