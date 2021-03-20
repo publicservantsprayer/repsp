@@ -7,10 +7,10 @@ const { stateCodes } = require('../utilities/states')
 const { requiredFields } = require('./requiredFields')
 const admin = require('firebase-admin')
 const { FieldValue } = admin.firestore
-const lastImportDate = admin.firestore.Timestamp.fromDate(new Date())
 const auth = functions.config().browser.apikey
 
 module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
+  const lastImportDate = dataImport.date
   const { legislatorType, row: stepConfigRow, maxRowCount } = stepConfig
 
   const logMessage = async message => {
@@ -83,8 +83,35 @@ module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
 
   const results = []
 
-  const setLeader = async (doc, leader) => {
-    return doc.set(leader)
+  const upsertLeader = async leader => {
+    const existingLeader = await db.collection('leaders').doc(leader.PID).get()
+
+    // Only add the permaLink if it doesn't exist
+    if (!existingLeader.exists) {
+      leader.permaLink = `${leader.LastName}-${leader.FirstName}-${leader.PID}`
+        .replace(/[^a-z0-9_-]+/gi, '')
+        .toLowerCase()
+      await logMessage(`New leader: ${leader.permaLink}`)
+    } else {
+      if (!existingLeader.data().permaLink) {
+        await logMessage('Leader already exists but has no permaLink!!')
+        throw new Error('Leader already exists but has no permaLink!!')
+      }
+      leader.permaLink = existingLeader.data().permaLink
+    }
+
+    const currentDoc = db
+      .collection('states')
+      .doc(leader.StateCode)
+      .collection('leaders')
+      .doc(leader.PID)
+
+    const rootDoc = db.collection('leaders').doc(leader.PID)
+
+    return Promise.all([
+      currentDoc.set(leader, { merge: true }),
+      rootDoc.set(leader, { merge: true }),
+    ])
   }
 
   for (const row of dataResults.data.values) {
@@ -104,24 +131,7 @@ module.exports.importSpreadsheet = async (db, dataImport, stepConfig) => {
         leader.hasPhoto = false
       }
 
-      leader.permaLink = `${leader.LastName}-${leader.FirstName}-${leader.PID}`
-        .replace(/[^a-z0-9_-]+/gi, '')
-        .toLowerCase()
-
-      const currentDoc = db
-        .collection('states')
-        .doc(leader.StateCode)
-        .collection('leaders')
-        .doc(leader.permaLink)
-
-      const rootDoc = db.collection('leaders').doc(leader.permaLink)
-
-      try {
-        results.push(setLeader(currentDoc, leader))
-        results.push(setLeader(rootDoc, leader))
-      } catch (error) {
-        console.log('Error setting leader: ', leader.permaLink, error)
-      }
+      results.push(upsertLeader(leader))
     }
   }
 

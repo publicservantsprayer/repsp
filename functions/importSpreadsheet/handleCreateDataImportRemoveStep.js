@@ -38,14 +38,15 @@ module.exports.handleCreateDataImportRemoveStep = async snapshot => {
     .doc(stateCode)
     .collection('leaders')
     .where('lastImportDate', '<', lastImportDate)
-    .where('hasPhoto', '==', false)
 
   const results = await leadersRef.get()
-
+  const deleteCount = results.docs.length
   const deletes = results.docs.map(leader => {
     return deleteLeader(leader, stateCode, dataImportId)
   })
 
   await Promise.all(deletes)
-  return importLog(dataImportId, { message: `${stateCode} done!` })
+  return importLog(dataImportId, {
+    message: `${stateCode} - Removed ${deleteCount} from current legislators`,
+  })
 }

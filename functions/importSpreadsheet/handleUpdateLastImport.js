@@ -26,5 +26,5 @@ module.exports.handleUpdateLastImport = async change => {
 
   await Promise.all(writes)
 
-  return Promise.all([importLog('Almost done!', 'state'), importLog('Almost done!', 'federal')])
+  return importLog('Removing former legislators from current...')
 }
