@@ -1,6 +1,7 @@
 import React from 'react'
 import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
+import Button from '@material-ui/core/Button'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -22,66 +23,62 @@ const formatTimestamp = timestamp => {
 
 const useData = () => {
   const { db } = useFirebase()
-  const [rows, setRows] = React.useState([])
-  const [siteConfig, loadingSiteConfig] = useSiteConfig()
+  const [allRows, setAllRows] = React.useState([])
+  const [currentRows, setCurrentRows] = React.useState([])
 
   const handleGetData = React.useCallback(
     stateCode => async () => {
-      if (loadingSiteConfig) return
+      const leadersRef = db.collection('states').doc(stateCode).collection('leaders').orderBy('PID')
+      const currentLeaders = await leadersRef.get()
+      setCurrentRows(currentLeaders.docs.map(d => d.data()))
 
-      // const leadersRef = db
-      //   .collection('states')
-      //   .doc(stateCode)
-      //   .collection('leaders')
-      //   .orderBy('lastImportDate')
-
-      const leadersRef = db
-        .collection('states')
-        .doc(stateCode)
+      const allLeaderRef = db
         .collection('leaders')
-        //.where('lastImportDate', '>', siteConfig.lastImportDate)
-        .where('hasPhoto', '==', true)
-        .orderBy('lastImportDate')
-        .orderBy('LastName')
+        .where('StateCode', '==', stateCode)
+        .orderBy('lastImportDate', 'desc')
         .orderBy('PID')
-
-      console.log('getting leaders')
-      const leaders = await leadersRef.get()
-      // console.log(leaders)
-      setRows([])
-      setRows(leaders.docs.map(d => d.data()))
+      const allLeaders = await allLeaderRef.get()
+      setAllRows(allLeaders.docs.map(d => d.data()))
     },
-    [loadingSiteConfig, siteConfig]
+    [db]
   )
 
-  return { rows, handleGetData }
+  return { allRows, currentRows, handleGetData }
 }
 
 function DataTable() {
-  const [siteConfig] = useSiteConfig()
-  const siteLastImportDate = moment.unix(siteConfig?.lastImportDate.seconds)
-
-  const { rows, handleGetData } = useData()
-
-  const current = row => {
-    const leaderLastImportDate = moment.unix(row.lastImportDate.seconds)
-
-    return leaderLastImportDate.isAfter(siteLastImportDate)
-  }
+  const { allRows, currentRows, handleGetData } = useData()
 
   return (
-    <>
-      <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
-        {Object.keys(statesObj).map((stateCode, i) => (
-          <Box key={i}>
-            <StateButton
-              stateCode={stateCode}
-              stateName={statesObj[stateCode]}
-              handleGetData={handleGetData}
-            />
-          </Box>
-        ))}
+    <Box>
+      <StateNavigation handleGetData={handleGetData} />
+      <Box display="flex" flexDirection="row" justifyContent="space-around">
+        <HalfTable rows={allRows} />
+        <HalfTable rows={currentRows} />
       </Box>
+    </Box>
+  )
+}
+
+function StateNavigation({ handleGetData }) {
+  return (
+    <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="space-between">
+      {Object.keys(statesObj).map((stateCode, i) => (
+        <Box key={i}>
+          <StateButton
+            stateCode={stateCode}
+            stateName={statesObj[stateCode]}
+            handleGetData={handleGetData}
+          />
+        </Box>
+      ))}
+    </Box>
+  )
+}
+
+function HalfTable({ rows }) {
+  return (
+    <Box>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -96,9 +93,7 @@ function DataTable() {
             {rows.map((row, i) => (
               <TableRow key={i}>
                 <TableCell component="th" scope="row">
-                  <div style={current(row) ? {} : { textDecoration: 'line-through', color: 'red' }}>
-                    {formatTimestamp(row.lastImportDate)}
-                  </div>
+                  {formatTimestamp(row.lastImportDate)} - {row.lastImportDate.seconds}
                 </TableCell>
                 <TableCell align="right">
                   <Link component={RouterLink} to={`/leader/${row.permaLink}`}>
@@ -112,14 +107,14 @@ function DataTable() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Box>
   )
 }
 
 function StateButton({ stateCode, stateName, handleGetData }) {
   return (
     <Box margin={1} flex={1}>
-      <button onClick={handleGetData(stateCode)}>{stateName}</button>
+      <Button onClick={handleGetData(stateCode)}>{stateName}</Button>
     </Box>
   )
 }

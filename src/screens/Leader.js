@@ -20,12 +20,10 @@ export default function Leader() {
   const [leader, setLeader] = React.useState()
   const classes = useStyles()
 
+  // TODO: Change this to look up by doc id rather than permalink
   React.useEffect(() => {
     ;(async () => {
-      const snapshot = await db
-        .collectionGroup('leaders')
-        .where('permaLink', '==', params.id)
-        .get()
+      const snapshot = await db.collectionGroup('leaders').where('permaLink', '==', params.id).get()
       setLeader(snapshot.docs[0].data())
     })()
   }, [db, params])

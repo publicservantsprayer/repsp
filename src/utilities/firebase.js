@@ -104,20 +104,15 @@ export const useLatestPost = () => {
 export const useStateLeaders = ({ legType, chamber }) => {
   const { db } = useFirebase()
   const { stateCode } = useUSAState()
-  const [siteConfig, loadingSiteConfig] = useSiteConfig()
   const [leaders, setLeaders] = React.useState()
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState()
 
   React.useEffect(() => {
-    if (loadingSiteConfig) return
-
     const loadData = async () => {
       try {
         const results = await db
           .collection(`/states/${stateCode}/leaders/`)
-          .where('lastImportDate', '>', siteConfig.lastImportDate)
-          .where('hasPhoto', '==', true)
           .where('LegType', '==', legType)
           .where('Chamber', '==', chamber)
           .get()
@@ -130,7 +125,7 @@ export const useStateLeaders = ({ legType, chamber }) => {
       }
     }
     loadData()
-  }, [chamber, db, legType, loadingSiteConfig, siteConfig, stateCode])
+  }, [chamber, db, legType, stateCode])
 
   if (error) console.log('Error loading latest post: ', error)
 
@@ -152,7 +147,7 @@ export const useDataImports = () => {
 
 export const useSiteConfig = () => {
   const { db } = useFirebase()
-  const [doc, loading, error] = useDocumentData(db.collection('siteConfig').doc('current'), {
+  const [doc, loading, error] = useDocumentData(db.collection('siteConfig').doc('dataImports'), {
     idField: 'docId',
   })
   if (error) console.log('Error getting site config: ', error)
