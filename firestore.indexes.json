@@ -119,6 +119,70 @@
       ]
     },
     {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "StateCode",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "StateCode",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "StateCode",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "PID",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "StateCode",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "PID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastImportDate",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "twitterAccounts",
       "queryScope": "COLLECTION",
       "fields": [
