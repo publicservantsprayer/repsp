@@ -123,6 +123,20 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "LastName",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "PID",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "leaders",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
           "fieldPath": "StateCode",
           "order": "ASCENDING"
         },
