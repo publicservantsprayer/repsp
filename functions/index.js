@@ -44,39 +44,6 @@ exports.createDailyPost = functions.pubsub
     return Promise.all(posts)
   })
 
-exports.tweetDailyPosts = functions.pubsub
-  .schedule('55 5 * * *')
-  .timeZone(timezone) // default is America/Los_Angeles
-  .onRun(context => {
-    const { tweetDailyPosts } = require('./twitter/tweetDailyPosts')
-
-    return tweetDailyPosts()
-  })
-
-exports.twitterAuthorize = functions.https.onCall((data, context) => {
-  const { authorize } = require('./twitter/authorize')
-
-  return authorize(data)
-})
-
-exports.twitterAccessToken = functions.https.onCall((data, context) => {
-  const { accessToken } = require('./twitter/authorize')
-
-  return accessToken(data)
-})
-
-exports.twitterRetweets = functions.https.onCall((data, context) => {
-  const { retweets } = require('./twitter/retweets')
-
-  return retweets(data)
-})
-
-exports.twitterCheckForLocked = functions.https.onCall((data, context) => {
-  const { checkForLocked } = require('./twitter/checkForLocked')
-
-  return checkForLocked(data)
-})
-
 exports.createFacebookPost = functions.firestore
   .document('states/{stateCode}/posts/{dateID}')
   .onCreate((snapshot, context) => {
@@ -100,12 +67,6 @@ exports.scheduledFirestoreExport = functions.pubsub.schedule('every 24 hours').o
 
   return exportFirestore()
 })
-
-// const runtimeOpts = {
-//   timeoutSeconds: 540, // 9 minutes (max)
-//   memory: '4GB',
-// }
-// .runWith(runtimeOpts)
 
 exports.handleCreateDataImport = functions.firestore
   .document('dataImports/{dataImportId}')
