@@ -82,6 +82,7 @@ export default function AppBar({ toggleDrawer }) {
           <Item text="Find Your State" Icon={MapIcon} to="/find-your-state" />
           <Item text="What We Do" Icon={PeopleIcon} to="/what-we-do" />
           <Item text="Why We Pray" Icon={FavoriteIcon} to="/why-we-pray" />
+          <Item text="About" Icon={RouterLink} to="/about" />
 
           <IconButton onClick={toggleDrawer()} edge="end" color="inherit">
             <MoreIcon />

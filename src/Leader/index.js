@@ -10,7 +10,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-// import moment from 'moment'
+import moment from 'moment'
 
 import WikiPageSummary from './WikiPageSummary'
 import useSiteStyles from '../utilities/useStyles'
@@ -18,13 +18,12 @@ import DesktopContainer from '../DesktopContainer'
 import useMobile from '../utilities/useMobile'
 import { leaderPhoto } from '../utilities/leader'
 
-// const birthday = leader => {
-//   const month = leader.BirthDate
-//   const day = leader.BirthMonth
-//   if (!month || !day) return null
-
-//   return moment(`2020-${month}-${day}`).format('MMMM Do')
-// }
+const birthday = leader => {
+  const month = leader.BirthDate
+  const day = leader.BirthMonth
+  if (!month || !day) return null
+  return moment(`2020${month}-${day}`).format('MMMM Do')
+}
 
 const Row = ({ field, value }) => {
   if (!value) return null
@@ -114,11 +113,12 @@ export default function Leader({ leader }) {
                     <Row field="Title:" value={leader.Title} />
                     <Row field="District:" value={leader.District} />
                     <Row field="In Office Since:" value={leader.ElectDate} />
-                    <Row field="Religon:" value={leader.Religon} />
+                    <Row field="Religion:" value={leader.Religion} />
                     <Row field="Spouse:" value={leader.Spouse} />
                     <Row field="Family:" value={leader.Family} />
-                    {/* <Row field="Birthday" value={birthday(leader)} /> */}
+                    <Row field="Birthday" value={birthday(leader)} />
                     <Row field="Address:" value={<Address leader={leader} />} />
+                    <Row field="Email:" value={leader.Email} />
                   </TableBody>
                 </Table>
               </Box>

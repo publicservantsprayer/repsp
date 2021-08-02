@@ -58,7 +58,7 @@ export default function StateMessage({ setTabIndex }) {
       <DesktopOnly>
         <Button onClick={() => setTabIndex(1)}>mailing list</Button>
         <Button onClick={() => setTabIndex(2)}>Facebook</Button>
-        <Button onClick={() => setTabIndex(3)}>Twitter</Button>
+        {/* <Button onClick={() => setTabIndex(3)}>Twitter</Button> */}
       </DesktopOnly>
 
       <P>
@@ -66,7 +66,7 @@ export default function StateMessage({ setTabIndex }) {
         <Link variant="inherit" component={RouterLink} to="/find-your-state">
           find your state
         </Link>{' '}
-        and then follow on Twitter or Facebook, or get on the mailing list.
+        and then follow on Facebook, or get on the mailing list.
       </P>
 
       <P>

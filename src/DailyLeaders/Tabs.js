@@ -28,7 +28,7 @@ export default function Tabs({ tabIndex, onChange, centered, fullWidth }) {
         <Tab label="Today" />
         <Tab icon={<EmailIcon />} />
         <Tab icon={<FacebookIcon />} />
-        <Tab icon={<TwitterIcon />} />
+        {/* <Tab icon={<TwitterIcon />} /> */}
         {/* <Tab label={<InstagramIcon />} /> */}
       </MuiTabs>
     </AppBar>
