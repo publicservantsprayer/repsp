@@ -58,7 +58,6 @@ export default function StateMessage({ setTabIndex }) {
       <DesktopOnly>
         <Button onClick={() => setTabIndex(1)}>mailing list</Button>
         <Button onClick={() => setTabIndex(2)}>Facebook</Button>
-        {/* <Button onClick={() => setTabIndex(3)}>Twitter</Button> */}
       </DesktopOnly>
 
       <P>
