@@ -22,7 +22,7 @@ const birthday = leader => {
   const month = leader.BirthDate
   const day = leader.BirthMonth
   if (!month || !day) return null
-  return moment(`2020${month}-${day}`).format('MMMM Do')
+  return moment(`2020-${month}-${day}`).format('MMMM Do')
 }
 
 const Row = ({ field, value }) => {
