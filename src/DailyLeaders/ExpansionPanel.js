@@ -9,6 +9,25 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import MuiTableRow from '@material-ui/core/TableRow'
 import Skeleton from '@material-ui/lab/Skeleton'
+import moment from 'moment'
+
+const birthday = leader => {
+  const month = leader.BirthDate
+  const day = leader.BirthMonth
+  if (!month || !day) return null
+  return moment(`2020${month}-${day}`).format('MMMM Do')
+}
+
+const Address = ({ leader }) => {
+  return (
+    <>
+      {leader.MailAddr1 && <div>{leader.MailAddr1}</div>}
+      {leader.MailAddr2 && <div>{leader.MailAddr2}</div>}
+      {leader.MailAddr3 && <div>{leader.MailAddr3}</div>}
+      {leader.MailAddr5 && <div>{leader.MailAddr5}</div>}
+    </>
+  )
+}
 
 function TableRow({ name, data }) {
   if (!data) return null
@@ -47,10 +66,14 @@ export default function ExpansionPanel({ leader }) {
         <Table size="small">
           <TableBody>
             <TableRow name="Title" data={leader.Title} />
-            <TableRow name="Spouse" data={leader.Spouse} />
-            <TableRow name="Family" data={leader.Family} />
-            <TableRow name="Religon" data={leader.Religon} />
-            <TableRow name="Time in Office" data={leader.ElectDate} />
+            <TableRow name="District:" data={leader.District} />
+            <TableRow name="In Office Since:" value={leader.ElectDate} />
+            <TableRow name="Religion:" data={leader.Religion} />
+            <TableRow name="Spouse:" data={leader.Spouse} />
+            <TableRow name="Family:" data={leader.Family} />
+            <TableRow name="Birthday" data={birthday(leader)} />
+            <TableRow name="Address:" data={<Address leader={leader} />} />
+            <TableRow name="Email:" data={leader.Email} />
           </TableBody>
         </Table>
       </ExpansionPanelDetails>

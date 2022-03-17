@@ -25,9 +25,11 @@ Now you have two Google spreadsheets with Federal and State data.
 
 ## Extract Photos
 
-We need to unzip both the federal and state photos from their zip archives into a single directory.
+We need to unzip both the federal and state photos from their zip archives into a single KnowWho directory.
 
-Unzip all of the images in the `.zip` file ignoring file structure (`-j`) and put them in a directory called `photos` with (`-d`).
+Using the terminal, change to the directory (`cd`) where photos were downloaded.
+
+Unzip all of the images in the `.zip` file ignoring file structure (`-j`) and put them in a directory called `photos` with (`-d`). This is the command:
 
 ```
 unzip -j fedleg_photos_*.zip -d photos && unzip -j stateleg_photos_*.zip -d photos
@@ -38,6 +40,7 @@ unzip -j fedleg_photos_*.zip -d photos && unzip -j stateleg_photos_*.zip -d phot
 ## Upload Photos
 
 Upload any new images using rsync from the `photos` directory to the google storage bucket.
+~``
 
 ```
 gsutil -m rsync photos gs://repsp123-leaders
