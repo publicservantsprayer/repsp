@@ -27,7 +27,7 @@
     "fs": "0.0.1-security",
     "googleapis": "^67.0.0",
     "grpc": "^1.24.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.27",
     "os": "^0.1.1",
     "path": "^0.12.7",
