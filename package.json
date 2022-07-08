@@ -18,7 +18,7 @@
     "hammerjs": "^2.0.8",
     "markdown-to-jsx": "^6.10.3",
     "mdi-material-ui": "^6.7.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "notistack": "^0.9.4",
     "raw-loader": "^3.1.0",
     "react": "^16.8.6",
