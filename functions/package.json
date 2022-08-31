@@ -28,7 +28,7 @@
     "googleapis": "^67.0.0",
     "grpc": "^1.24.2",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
+    "moment-timezone": "^0.5.35",
     "os": "^0.1.1",
     "path": "^0.12.7",
     "querystring": "^0.2.0",
