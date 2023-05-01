@@ -24,6 +24,18 @@ const ActualLeaders = ({ leaders }) => {
 
   if (!leaders) return null
 
+  function compare(leaderA, leaderB) {
+    if (leaderA.LastName < leaderB.LastName) {
+      return -1
+    }
+    if (leaderA.LastName > leaderB.LastName) {
+      return 1
+    }
+    return 0
+  }
+
+  leaders.sort(compare)
+
   return (
     <>
       {leaders.map(leader => (
