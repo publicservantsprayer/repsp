@@ -24,7 +24,11 @@ export const useFirebase = () => {
 export const useContentCollection = category => {
   const { db } = useFirebase()
   const [docs, loading, error] = useCollectionData(
-    db.collection('content').where('category', '==', category).orderBy('createdOn', 'desc'),
+    db
+      .collection('content')
+      .where('category', '==', category)
+      .orderBy('createdOn', 'desc')
+      .limit(150),
     {
       idField: 'docId',
     }
